@@ -8,7 +8,7 @@ import Footer from "../components/Footer.jsx";
 export default function Home() {
   return (
     <Fragment>
-      <Header />
+      <Header active="/" />
       <div class={tw`p-4 mx-auto max-w-screen-md`}>
         <img
           src="/logo.svg"

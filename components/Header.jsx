@@ -1,9 +1,10 @@
 import { h, Fragment } from "preact";
 import { tw } from "@twind";
 import { asset } from "$fresh/runtime.ts";
+import NavigationBar from "../components/NavigationBar.tsx";
 
 /** @jsx h */
-export default function Header() {
+export default function Header({ active }) {
   return (
     <Fragment>
       <div class={tw`bg-purple-400`}>
@@ -28,20 +29,7 @@ export default function Header() {
           </div>
         </header>
       </div>
-      <div class={tw`bg-purple-300 py-2`}>
-        <ul class={tw`flex justify-center gap-8 mx-4`}>
-          <li>
-            <a href="/" class="text-gray-600 hover:underline">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="/docs" class="text-gray-600 hover:underline font-bold">
-              Docs
-            </a>
-          </li>
-        </ul>
-      </div>
+      <NavigationBar active={active} />
     </Fragment>
   );
 }
