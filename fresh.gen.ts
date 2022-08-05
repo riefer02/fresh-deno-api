@@ -22,7 +22,7 @@ const manifest = {
     "./routes/about.tsx": $2,
     "./routes/api/joke.ts": $3,
     "./routes/api/uuid.ts": $4,
-    "./routes/blog/[...slug].tsx": $5,
+    "./routes/blog/[slug].tsx": $5,
     "./routes/countdown.tsx": $6,
     "./routes/github/[username].tsx": $7,
     "./routes/index.tsx": $8,
