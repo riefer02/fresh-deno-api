@@ -13,7 +13,7 @@ export default function Header({ active }) {
             <a href="/" class={tw`flex mr-3 items-center`}>
               <img
                 src={asset("/jerry-the-ghost-200w.png")}
-                alt="Gerry the Ghost"
+                alt="Jerry the Ghost"
                 class={tw`h-20`}
               />
             </a>
