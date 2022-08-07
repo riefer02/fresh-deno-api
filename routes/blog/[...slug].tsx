@@ -62,7 +62,7 @@ export default function DocsPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>{props.data.page?.title ?? "Not Found"} | fresh docs</title>
+        <title>{props.data.page?.title ?? "Not Found"} | graveyardjs docs</title>
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
         {description && <meta name="description" content={description} />}
       </Head>
@@ -86,7 +86,7 @@ function Title() {
           preserveAspectRatio="xMinYMin"
           viewBox="0 0 250 75"
           fill="none"
-          alt="Fresh logo"
+          alt="GraveyardJS logo"
           xmlns="http://www.w3.org/2000/svg"
           class={tw`h-5 inline-block py-[1px]`}
         >

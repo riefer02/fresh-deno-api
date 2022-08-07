@@ -13,7 +13,7 @@ export default function Home() {
         <img
           src="/logo.svg"
           height="100px"
-          alt="the fresh logo: a sliced lemon dripping with juice"
+          alt="the graveyardjs logo: a sliced lemon dripping with juice"
         />
         <p class={tw`my-6`}>
           Welcome to Riefer's Little Big Secret API - The key to an unknown
