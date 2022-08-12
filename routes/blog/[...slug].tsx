@@ -52,7 +52,7 @@ export const handler: Handlers<Data> = {
   },
 };
 
-export default function DocsPage(props: PageProps<Data>) {
+export default function BlogPage(props: PageProps<Data>) {
   let description;
 
   if (props.data.page.data.description) {
@@ -62,7 +62,7 @@ export default function DocsPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>{props.data.page?.title ?? "Not Found"} | graveyardjs docs</title>
+        <title>{props.data.page?.title ?? "Not Found"} | graveyardjs blog</title>
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
         {description && <meta name="description" content={description} />}
       </Head>
