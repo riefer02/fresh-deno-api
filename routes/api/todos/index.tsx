@@ -1,26 +1,19 @@
 /** @jsx h */
 import { h } from "preact";
-
 import { Handlers } from "$fresh/server.ts";
-import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import * as postgres from "https://deno.land/x/postgres@v0.16.1/mod.ts";
-
-// Get the connection string from the environment variable "DATABASE_URL"
-const databaseUrl = config().DATABASE_URL;
-
-// Create a database pool with three connections that are lazily established
-const pool = new postgres.Pool(databaseUrl, 3, true);
-
-// Connect to the database
-const connection = await pool.connect();
+import dbConn from "../../../utils/database-connection.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     try {
-      const results = await connection.queryObject`
+      const results = await dbConn.queryObject`
         SELECT * FROM public.todos
       `;
       const todos = results.rows;
+
+      BigInt.prototype.toJSON = function () {
+        return this.toString();
+      };
 
       return new Response(JSON.stringify({ todos }), {
         status: 200,
@@ -30,7 +23,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 404 });
     } finally {
-      connection.release();
+      dbConn.release();
     }
   },
 
@@ -48,7 +41,7 @@ export const handler: Handlers = {
           }
         );
 
-      await connection.queryObject`
+      await dbConn.queryObject`
       INSERT INTO todos (title) VALUES (${title})
     `;
 
@@ -59,7 +52,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 500 });
     } finally {
-      connection.release();
+      dbConn.release();
     }
   },
 };
