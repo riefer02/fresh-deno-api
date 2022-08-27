@@ -2,7 +2,7 @@
 import { h } from "preact";
 import { tw } from "@twind";
 
-export default function NavigationBar(props: { active: string }) {
+export default function NavigationBar() {
   const items = [
     {
       name: "Home",

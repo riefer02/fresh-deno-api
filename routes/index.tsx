@@ -4,7 +4,7 @@ import { ComponentChildren, Fragment, h } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import Layout from "../components/Layout.jsx";
+import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import VERSIONS from "../versions.json" assert { type: "json" };
 
