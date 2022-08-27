@@ -35,7 +35,6 @@ export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href; // TODO: Create/Update ogImage
   const origin = `${props.url.protocol}//${props.url.host}`;
-  console.log(`origin: ${origin}`);
 
   return (
     <>

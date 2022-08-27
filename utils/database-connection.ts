@@ -1,4 +1,4 @@
-import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+import { config } from "https://deno.land/x/dotenv/mod.ts";
 import * as postgres from "https://deno.land/x/postgres@v0.16.1/mod.ts";
 
 // Get the connection string from the environment variable "DATABASE_URL"
