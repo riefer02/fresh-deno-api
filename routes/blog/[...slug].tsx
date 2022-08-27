@@ -6,7 +6,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { apply, tw } from "@twind";
 import { frontMatter, gfm } from "../../utils/markdown.ts";
 
-import BlogSidebar from "../../components/BlogSideBar.tsx";
+import BlogSideBar from "../../components/BlogSideBar.tsx";
 import Layout from "../../components/Layout.tsx";
 
 import {
@@ -136,7 +136,7 @@ function MobileSidebar(props: { path: string }) {
             <Title />
           </div>
           <nav class={items}>
-            <BlogSidebar path={props.path} />
+            <BlogSideBar path={props.path} />
           </nav>
         </div>
       </div>
@@ -149,7 +149,7 @@ function DesktopSidebar(props: { path: string }) {
     <nav
       class={tw`w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)`}
     >
-      <BlogSidebar path={props.path} />
+      <BlogSideBar path={props.path} />
     </nav>
   );
 }
