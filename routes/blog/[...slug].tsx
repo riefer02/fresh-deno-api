@@ -7,8 +7,7 @@ import { apply, tw } from "@twind";
 import { frontMatter, gfm } from "../../utils/markdown.ts";
 
 import BlogSidebar from "../../components/BlogSideBar.tsx";
-import Header from '../../components/Header.jsx';
-import Footer from "../../components/Footer.jsx";
+import Layout from "../../components/Layout.tsx";
 
 import {
   SLUGS,
@@ -62,15 +61,15 @@ export default function BlogPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>{props.data.page?.title ?? "Not Found"} | graveyardjs blog</title>
+        <title>
+          {props.data.page?.title ?? "Not Found"} | graveyardjs blog
+        </title>
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
         {description && <meta name="description" content={description} />}
       </Head>
-      <div class={tw`flex flex-col min-h-screen`}>
-        <Header active="/blog" />
+      <Layout>
         <Main path={props.url.pathname} page={props.data.page} />
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }
@@ -79,6 +78,7 @@ function Title() {
   const title = tw`text(2xl gray-900) tracking-tight font-extrabold flex items-center gap-1`;
   const pageName = tw`font-light block pb-[1px]`;
   const subtitle = tw`text(sm gray-700)`;
+
   return (
     <>
       <a href="/" class={title}>

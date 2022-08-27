@@ -3,6 +3,7 @@ import { h } from "preact";
 import { tw } from "@twind";
 
 export default function NavigationBar() {
+  const active = Math.random() > 0 ? "Home" : "Blog";
   const items = [
     {
       name: "Home",
@@ -22,7 +23,7 @@ export default function NavigationBar() {
             <a
               href={item.href}
               class={tw`text-gray-600 hover:underline ${
-                props.active == item.href ? "font-bold" : ""
+                active === item.href ? "font-bold" : ""
               }`}
             >
               {item.name}
