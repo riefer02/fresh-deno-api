@@ -4,8 +4,7 @@ import { ComponentChildren, Fragment, h } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Layout from "../components/Layout.jsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import VERSIONS from "../versions.json" assert { type: "json" };
 
@@ -49,13 +48,9 @@ export default function MainPage(props: PageProps) {
         <meta property="og:url" content={props.url.href} />
         <meta property="og:image" content={ogImageUrl} />
       </Head>
-      <div class={tw`flex flex-col min-h-screen`}>
-        <div class={tw`flex-1`}>
-          <Header active="/" />
-          <Intro />
-        </div>
-        <Footer />
-      </div>
+      <Layout>
+        <Intro />
+      </Layout>
     </>
   );
 }

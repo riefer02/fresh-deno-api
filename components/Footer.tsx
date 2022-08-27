@@ -22,6 +22,7 @@ export default function Footer() {
   const inner = tw`mx-auto max-w-screen-lg flex items-center justify-center gap-8`;
   const linkStyle = tw`text-gray-600 hover:underline`;
   const copyright = tw`text(gray-600 center)`;
+  
   return (
     <footer class={footer}>
       <div class={inner}>
