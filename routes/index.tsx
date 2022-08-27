@@ -4,7 +4,6 @@ import { ComponentChildren, Fragment, h } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-// import LemonDrop from "../islands/LemonDrop.tsx"; // Learn the magic behind this animation
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import { HeartIcon } from "../components/Icons.tsx";
@@ -31,12 +30,13 @@ export const handler: Handlers = {
 
 const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
-  "Welcome to the graveyardjs, next-generation API tool for the legendary heroes of our day.";
+  "Welcome to GraveyardJS, next-generation API tool for the legendary heroes of our day.";
 
 export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href; // TODO: Create/Update ogImage
   const origin = `${props.url.protocol}//${props.url.host}`;
+  console.log(`origin: ${origin}`);
 
   return (
     <>
@@ -90,7 +90,7 @@ function Intro() {
         />
       </picture>
 
-      <h2 class={title}>The next-gen API.</h2>
+      <h2 class={title}>The Next-Gen API.</h2>
 
       <p class={tw`text-gray-600`}>
         GraveyardJS is a next generation web API, built for speed, reliability,
@@ -120,8 +120,8 @@ function Intro() {
       </div>
 
       <p class={tw`text-gray-600`}>
-        Fresh embraces the tried and true design of server side rendering and
-        progressive enhancement on the client side.
+        GraveyardJS embraces the tried and true design of server side rendering
+        and progressive enhancement on the client side.
       </p>
     </section>
   );
