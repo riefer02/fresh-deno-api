@@ -1,6 +1,6 @@
-# Little Big Secret API
+# GraveyardJS
 
-# fresh project
+Deno API for todos and taking over the world.
 
 ### Usage
 
