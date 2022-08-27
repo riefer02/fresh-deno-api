@@ -8,7 +8,7 @@ import {
   TableOfContentsCategoryEntry,
 } from "../content/blog/blog.ts";
 
-export default function BlogSideBar(props: { path: string }) {
+export default function BlogSidebar(props: { path: string }) {
   return (
     <ol class={tw`list-decimal list-inside font-semibold` + " nested"}>
       {CATEGORIES.map((category) => (
