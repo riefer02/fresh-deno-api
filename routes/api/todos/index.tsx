@@ -11,9 +11,9 @@ export const handler: Handlers = {
       `;
       const todos = results.rows;
 
-      BigInt.prototype.toJSON = function () {
-        return this.toString();
-      };
+      // BigInt.prototype.toJSON = function () {
+      //   return this.toString();
+      // };
 
       return new Response(JSON.stringify({ todos }), {
         status: 200,
