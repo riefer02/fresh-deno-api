@@ -7,7 +7,4 @@ const databaseUrl = Deno.env.get("DATABASE_URL")! || config().DATABASE_URL;
 // Create a database pool with three connections that are lazily established
 const dbPool = new postgres.Pool(databaseUrl, 3, true);
 
-// Connect to the database
-// const dbConn = await dbPool.connect();
-
 export default dbPool;

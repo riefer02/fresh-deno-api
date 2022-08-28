@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
-import dbPool from "../../../utils/database-connection.ts";
+import dbPool from "../../../utils/database-pool.ts";
 
 // Connect to the database
 const dbConn = await dbPool.connect();
@@ -19,7 +19,6 @@ export const handler: Handlers = {
       };
 
       return new Response(JSON.stringify({ todos }), {
-        // return new Response(JSON.stringify("hello world"), {
         status: 200,
         statusText: "OK",
         headers: { "Content-Type": "application/json" },
@@ -45,9 +44,9 @@ export const handler: Handlers = {
           }
         );
 
-      //   await dbConn.queryObject`
-      //   INSERT INTO todos (title) VALUES (${title})
-      // `;
+      await dbConn.queryObject`
+        INSERT INTO todos (title) VALUES (${title})
+      `;
 
       return new Response(
         JSON.stringify({ message: "New todo added to database" }),
@@ -56,7 +55,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 500 });
     } finally {
-      // dbConn.release();
+      dbConn.release();
     }
   },
 };
