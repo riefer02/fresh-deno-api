@@ -138,7 +138,7 @@ export default function Home() {
         Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
         file, and refresh.
       </p>
-      <Counter start={3} />
+      {/* <Counter start={3} /> */}
     </div>
   );
 }
