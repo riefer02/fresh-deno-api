@@ -8,6 +8,6 @@ const databaseUrl = Deno.env.get("DATABASE_URL")! || config().DATABASE_URL;
 const dbPool = new postgres.Pool(databaseUrl, 3, true);
 
 // Connect to the database
-const dbConn = await dbPool.connect();
+// const dbConn = await dbPool.connect();
 
-export default dbConn;
+export default dbPool;
