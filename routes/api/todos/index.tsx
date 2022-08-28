@@ -6,6 +6,10 @@ import dbPool from "../../../utils/database-pool.ts";
 // Connect to the database
 const dbConn = await dbPool.connect();
 
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
+
 export const handler: Handlers = {
   async GET(req, ctx) {
     try {
@@ -13,10 +17,6 @@ export const handler: Handlers = {
         SELECT * FROM public.todos
       `;
       const todos = results.rows;
-
-      BigInt.prototype.toJSON = function () {
-        return this.toString();
-      };
 
       return new Response(JSON.stringify({ todos }), {
         status: 200,
