@@ -3,12 +3,14 @@ import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
 import dbConn from "../../../utils/database-connection.ts";
 
+console.log(dbConn);
+
 export const handler: Handlers = {
-  async GET(req, ctx) {
+  GET(req, ctx) {
     try {
-      const results = await dbConn.queryObject`
-        SELECT * FROM public.todos
-      `;
+      // const results = await dbConn.queryObject`
+      //   SELECT * FROM public.todos
+      // `;
       // const todos = results.rows;
 
       // BigInt.prototype.toJSON = function () {
