@@ -4,18 +4,18 @@ import { Handlers } from "$fresh/server.ts";
 import dbConn from "../../../utils/database-connection.ts";
 
 export const handler: Handlers = {
-  async GET(req, ctx) {
+  GET(req, ctx) {
     try {
-      const results = await dbConn.queryObject`
-        SELECT * FROM public.todos
-      `;
-      const todos = results.rows;
+      // const results = await dbConn.queryObject`
+      //   SELECT * FROM public.todos
+      // `;
+      // const todos = results.rows;
 
       // BigInt.prototype.toJSON = function () {
       //   return this.toString();
       // };
 
-      return new Response(JSON.stringify({ todos }), {
+      return new Response(JSON.stringify("hello"), {
         status: 200,
         statusText: "OK",
         headers: { "Content-Type": "application/json" },
@@ -23,7 +23,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 404 });
     } finally {
-      dbConn.release();
+      // dbConn.release();
     }
   },
 
@@ -41,9 +41,9 @@ export const handler: Handlers = {
           }
         );
 
-      await dbConn.queryObject`
-      INSERT INTO todos (title) VALUES (${title})
-    `;
+      //   await dbConn.queryObject`
+      //   INSERT INTO todos (title) VALUES (${title})
+      // `;
 
       return new Response(
         JSON.stringify({ message: "New todo added to database" }),
@@ -52,7 +52,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 500 });
     } finally {
-      dbConn.release();
+      // dbConn.release();
     }
   },
 };
