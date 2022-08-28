@@ -4,11 +4,11 @@ import { Handlers } from "$fresh/server.ts";
 import dbConn from "../../../utils/database-connection.ts";
 
 export const handler: Handlers = {
-  GET(req, ctx) {
+  async GET(req, ctx) {
     try {
-      // const results = await dbConn.queryObject`
-      //   SELECT * FROM public.todos
-      // `;
+      const results = await dbConn.queryObject`
+        SELECT * FROM public.todos
+      `;
       // const todos = results.rows;
 
       // BigInt.prototype.toJSON = function () {
