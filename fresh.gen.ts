@@ -3,28 +3,32 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $0 from "./routes/_app.tsx";
-import * as $1 from "./routes/api/healthcheck.tsx";
-import * as $2 from "./routes/api/todos/[id].tsx";
-import * as $3 from "./routes/api/todos/index.tsx";
-import * as $4 from "./routes/blog/[...slug].tsx";
-import * as $5 from "./routes/countdown.tsx";
-import * as $6 from "./routes/gfm.css.tsx";
-import * as $7 from "./routes/index.tsx";
-import * as $8 from "./routes/search.tsx";
+import * as $1 from "./routes/api/auth/login.tsx";
+import * as $2 from "./routes/api/auth/register.tsx";
+import * as $3 from "./routes/api/healthcheck.tsx";
+import * as $4 from "./routes/api/todos/[id].tsx";
+import * as $5 from "./routes/api/todos/index.tsx";
+import * as $6 from "./routes/blog/[...slug].tsx";
+import * as $7 from "./routes/countdown.tsx";
+import * as $8 from "./routes/gfm.css.tsx";
+import * as $9 from "./routes/index.tsx";
+import * as $10 from "./routes/search.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
 
 const manifest = {
   routes: {
     "./routes/_app.tsx": $0,
-    "./routes/api/healthcheck.tsx": $1,
-    "./routes/api/todos/[id].tsx": $2,
-    "./routes/api/todos/index.tsx": $3,
-    "./routes/blog/[...slug].tsx": $4,
-    "./routes/countdown.tsx": $5,
-    "./routes/gfm.css.tsx": $6,
-    "./routes/index.tsx": $7,
-    "./routes/search.tsx": $8,
+    "./routes/api/auth/login.tsx": $1,
+    "./routes/api/auth/register.tsx": $2,
+    "./routes/api/healthcheck.tsx": $3,
+    "./routes/api/todos/[id].tsx": $4,
+    "./routes/api/todos/index.tsx": $5,
+    "./routes/blog/[...slug].tsx": $6,
+    "./routes/countdown.tsx": $7,
+    "./routes/gfm.css.tsx": $8,
+    "./routes/index.tsx": $9,
+    "./routes/search.tsx": $10,
   },
   islands: {
     "./islands/Countdown.tsx": $$0,
