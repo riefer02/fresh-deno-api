@@ -3,8 +3,6 @@ import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
 import dbConn from "../../../utils/database-connection.ts";
 
-console.log(Deno.env.get("DATABASE_URL"));
-
 export const handler: Handlers = {
   GET(req, ctx) {
     try {
@@ -13,11 +11,12 @@ export const handler: Handlers = {
       // `;
       // const todos = results.rows;
 
-      // BigInt.prototype.toJSON = function () {
-      //   return this.toString();
-      // };
+      BigInt.prototype.toJSON = function () {
+        return this.toString();
+      };
 
-      return new Response(JSON.stringify(Deno.env.get("DATABASE_URL")), {
+      // return new Response(JSON.stringify({ todos }), {
+      return new Response(JSON.stringify("hello world"), {
         status: 200,
         statusText: "OK",
         headers: { "Content-Type": "application/json" },
@@ -25,7 +24,7 @@ export const handler: Handlers = {
     } catch (err) {
       return new Response(`${err.message}`, { status: 404 });
     } finally {
-      // dbConn.release();
+      dbConn.release();
     }
   },
 
