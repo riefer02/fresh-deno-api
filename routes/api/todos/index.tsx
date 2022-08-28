@@ -3,7 +3,7 @@ import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
 import dbConn from "../../../utils/database-connection.ts";
 
-console.log(dbConn);
+// console.log(dbConn);
 
 export const handler: Handlers = {
   GET(req, ctx) {
