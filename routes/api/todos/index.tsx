@@ -1,22 +1,34 @@
 /** @jsx h */
 import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
-import dbConn from "../../../utils/database-connection.ts";
+// import dbConn from "../../../utils/database-connection.ts";
+
+import { config } from "https://deno.land/x/dotenv/mod.ts";
+import * as postgres from "https://deno.land/x/postgres@v0.16.1/mod.ts";
+
+// Get the connection string from the environment variable "DATABASE_URL"
+const databaseUrl = Deno.env.get("DATABASE_URL")! || config().DATABASE_URL;
+
+// Create a database pool with three connections that are lazily established
+const dbPool = new postgres.Pool(databaseUrl, 3, true);
+
+// Connect to the database
+const dbConn = await dbPool.connect();
 
 export const handler: Handlers = {
-  GET(req, ctx) {
+  async GET(req, ctx) {
     try {
-      // const results = await dbConn.queryObject`
-      //   SELECT * FROM public.todos
-      // `;
-      // const todos = results.rows;
+      const results = await dbConn.queryObject`
+        SELECT * FROM public.todos
+      `;
+      const todos = results.rows;
 
       BigInt.prototype.toJSON = function () {
         return this.toString();
       };
 
-      // return new Response(JSON.stringify({ todos }), {
-      return new Response(JSON.stringify("hello world"), {
+      return new Response(JSON.stringify({ todos }), {
+        // return new Response(JSON.stringify("hello world"), {
         status: 200,
         statusText: "OK",
         headers: { "Content-Type": "application/json" },
