@@ -5,6 +5,6 @@ import * as postgres from "https://deno.land/x/postgres@v0.16.1/mod.ts";
 const databaseUrl = Deno.env.get("DATABASE_URL")! || config().DATABASE_URL;
 
 // Create a database pool with three connections that are lazily established
-const dbPool = new postgres.Pool(databaseUrl, 4, true);
+const dbPool = new postgres.Pool(databaseUrl, 5, true);
 
 export default dbPool;
