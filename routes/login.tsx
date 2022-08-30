@@ -10,15 +10,28 @@ import { getTomorrow } from "../utils/dates.ts";
 
 const dbConn = await dbPool.connect();
 
+interface LoginCredentials {
+  [key: string]: string;
+  email: string;
+  password: string;
+}
+
 export const handler: Handlers = {
   async POST(req, ctx) {
     try {
       let user;
+
       // Read Form Data TBD
-      const { email, password } = await req.formData();
+      const { email, password } = await req.formData().then((formData) => {
+        const loginCredentials: LoginCredentials = { email: "", password: "" };
+        for (const [key, value] of formData.entries()) {
+          loginCredentials[key] = value;
+        }
+        return loginCredentials;
+      });
 
       const results = await dbConn.queryObject`
-              SELECT * FROM users WHERE email=${email}
+              SELECT * FROM public.users WHERE email=${email}
             `;
 
       if (results.rows) {
