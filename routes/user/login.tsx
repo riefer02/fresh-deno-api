@@ -5,9 +5,9 @@ import { tw } from "@twind";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 
-import dbPool from "../utils/database-pool.ts";
-import cryptoKey from "../utils/crypto-key.ts";
-import { getTomorrow, jwtExpirationTime } from "../utils/date-time.ts";
+import dbPool from "../../utils/database-pool.ts";
+import cryptoKey from "../../utils/crypto-key.ts";
+import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
 
 const dbConn = await dbPool.connect();
 
@@ -63,7 +63,6 @@ export const handler: Handlers = {
         status: 303,
         statusText: "Successful login redirecting",
         headers: {
-          Authorization: `Bearer ${jwt}`,
           ["set-cookie"]: `graveyardjs-jwt=${jwt}; Expires=${new Date(
             getTomorrow()
           )};`,
