@@ -3,7 +3,7 @@ import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import dbPool from "../../../utils/database-pool.ts";
 import cryptoKey from "../../../utils/crypto-key.ts";
-import { getTomorrow } from "../../../utils/dates.ts";
+import { getTomorrow } from "../../../utils/date-time.ts";
 
 const dbConn = await dbPool.connect();
 
@@ -11,6 +11,7 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     try {
       let user;
+
       const { email, password } = await req.json();
 
       const results = await dbConn.queryObject`
@@ -39,7 +40,7 @@ export const handler: Handlers = {
         headers: {
           ["set-cookie"]: `graveyardjs-jwt=${jwt}; Expires=${new Date(
             getTomorrow()
-          )};`,
+          )}; SameSite=Lax`,
         },
       });
     } catch (err) {
