@@ -63,9 +63,9 @@ export const handler: Handlers = {
         status: 303,
         statusText: "Successful login redirecting",
         headers: {
-          ["set-cookie"]: `graveyardjs-jwt=${jwt}; Expires=${new Date(
+          ["set-cookie"]: `graveyardjs-jwt=${jwt}; SameSite=Lax; Expires=${new Date(
             getTomorrow()
-          )} SameSite=Lax;`,
+          )}; Path=/`,
           Location: "/user/profile",
         },
       });

@@ -13,6 +13,10 @@ export default function NavigationBar() {
       name: "Blog",
       href: "/blog",
     },
+    {
+      name: "Login",
+      href: "/user/login",
+    },
   ];
 
   return (
