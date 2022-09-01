@@ -9,7 +9,10 @@ export default function App(props: AppProps) {
     <>
       <Head>
         <title>GraveyardJS</title>
-        <meta name="description" content="A next-gen API for undead purposes and a library for long forgotten web components and utilities." />
+        <meta
+          name="description"
+          content="A next-gen API for undead purposes and a library for long forgotten web components and utilities."
+        />
       </Head>
       <props.Component />
     </>

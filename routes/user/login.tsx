@@ -65,7 +65,7 @@ export const handler: Handlers = {
         headers: {
           ["set-cookie"]: `graveyardjs-jwt=${jwt}; Expires=${new Date(
             getTomorrow()
-          )};`,
+          )} SameSite=Lax;`,
           Location: "/user/profile",
         },
       });
