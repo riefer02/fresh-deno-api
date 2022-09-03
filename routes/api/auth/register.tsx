@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
+import { genSalt, hash } from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import dbPool from "../../../utils/database-pool.ts";
 
 const dbConn = await dbPool.connect();
@@ -8,8 +8,8 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     try {
       const { email, password } = await req.json();
-      const salt = await bcrypt.genSalt(8);
-      const hashPassword = await bcrypt.hash(password, salt);
+      const salt = await genSalt(8);
+      const hashPassword = await hash(password, salt);
 
       await dbConn.queryObject`
             INSERT INTO users(email,password,salt) VALUES (${email}, ${hashPassword}, ${salt})
