@@ -35,7 +35,9 @@ export const handler: Handlers = {
         user = results.rows[0];
       }
 
-      if (await bcrypt.compare(password, user.password)) {
+      const validPassword = await bcrypt.compare(password, user.password);
+
+      if (validPassword) {
         return new Response(
           JSON.stringify({
             message: "Passwords match",
