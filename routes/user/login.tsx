@@ -2,7 +2,7 @@
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
+import { compare } from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import dbPool from "../../utils/database-pool.ts";
 import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
@@ -35,7 +35,7 @@ export const handler: Handlers = {
         user = results.rows[0];
       }
 
-      const validPassword = await bcrypt.compare(password, user.password);
+      const validPassword = await compare(password, user.password);
 
       if (validPassword) {
         return new Response(
