@@ -19,13 +19,13 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     try {
       let user;
-      // const { email, password } = await req.formData().then((formData) => {
-      //   const loginCredentials: LoginCredentials = { email: "", password: "" };
-      //   for (const [key, value] of formData.entries()) {
-      //     loginCredentials[key] = value;
-      //   }
-      //   return loginCredentials;
-      // });
+      const { email, password } = await req.formData().then((formData) => {
+        const loginCredentials: LoginCredentials = { email: "", password: "" };
+        for (const [key, value] of formData.entries()) {
+          loginCredentials[key] = value;
+        }
+        return loginCredentials;
+      });
 
       // const results = await dbConn.queryObject`
       //         SELECT * FROM public.users WHERE email=${email}
@@ -47,7 +47,11 @@ export const handler: Handlers = {
       // }
 
       return new Response(
-        JSON.stringify({ message: "Searching for broken worker" }),
+        JSON.stringify({
+          message: "Searching for broken worker",
+          email,
+          password,
+        }),
         { status: 200 }
       );
 
