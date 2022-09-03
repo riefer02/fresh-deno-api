@@ -35,16 +35,25 @@ export const handler: Handlers = {
         user = results.rows[0];
       }
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
-        new Response(
-          JSON.stringify({ message: "Incorrect username and password" }),
-          { status: 404 }
+      if (await bcrypt.compare(password, user.password)) {
+        return new Response(
+          JSON.stringify({
+            message: "Passwords match",
+          }),
+          { status: 200 }
         );
-
-        return ctx.render({
-          err: new Error("Incorrect username and password"),
-        });
       }
+
+      // if (!user || !(await bcrypt.compare(password, user.password)) {
+      //   new Response(
+      //     JSON.stringify({ message: "Incorrect username and password" }),
+      //     { status: 404 }
+      //   );
+
+      //   return ctx.render({
+      //     err: new Error("Incorrect username and password"),
+      //   });
+      // }
 
       return new Response(
         JSON.stringify({
