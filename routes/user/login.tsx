@@ -19,34 +19,44 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     try {
       let user;
-      const { email, password } = await req.formData().then((formData) => {
-        const loginCredentials: LoginCredentials = { email: "", password: "" };
-        for (const [key, value] of formData.entries()) {
-          loginCredentials[key] = value;
-        }
-        return loginCredentials;
-      });
+      // const { email, password } = await req.formData().then((formData) => {
+      //   const loginCredentials: LoginCredentials = { email: "", password: "" };
+      //   for (const [key, value] of formData.entries()) {
+      //     loginCredentials[key] = value;
+      //   }
+      //   return loginCredentials;
+      // });
 
-      const results = await dbConn.queryObject`
-              SELECT * FROM public.users WHERE email=${email}
-            `;
+      // const results = await dbConn.queryObject`
+      //         SELECT * FROM public.users WHERE email=${email}
+      //       `;
 
-      if (results.rows) {
-        user = results.rows[0];
-      }
+      // if (results.rows) {
+      //   user = results.rows[0];
+      // }
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
-        new Response(
-          JSON.stringify({ message: "Incorrect username and password" }),
-          { status: 404 }
-        );
+      // if (!user || !(await bcrypt.compare(password, user.password))) {
+      //   new Response(
+      //     JSON.stringify({ message: "Incorrect username and password" }),
+      //     { status: 404 }
+      //   );
 
-        return ctx.render({
-          err: new Error("Incorrect username and password"),
-        });
-      }
+      //   return ctx.render({
+      //     err: new Error("Incorrect username and password"),
+      //   });
+      // }
+
+      return new Response(
+        JSON.stringify({ message: "Searching for broken worker" }),
+        { status: 200 }
+      );
 
       const jwk = await Deno.readTextFile(".jwk");
+
+      if (!jwk)
+        new Response(JSON.stringify({ message: "jwk does not exist" }), {
+          status: 500,
+        });
 
       const reimportedKey = await crypto.subtle.importKey(
         "jwk",
@@ -55,8 +65,6 @@ export const handler: Handlers = {
         true,
         ["sign", "verify"]
       );
-
-      // console.log(reimportedKey);
 
       const jwt = await create(
         { alg: "HS512", typ: "JWT" },
@@ -68,10 +76,6 @@ export const handler: Handlers = {
         },
         reimportedKey
       );
-
-      // const isValid = await verify(jwt, reimportedKey);
-
-      // console.log("isValid", isValid);
 
       return new Response(JSON.stringify({ message: "Successful login" }), {
         status: 303,
