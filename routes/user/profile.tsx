@@ -9,10 +9,16 @@ dbConn.release();
 
 export const handler: Handlers = {
   GET(req, ctx) {
-    return ctx.render();
+    const user = ctx.state.user;
+
+    return ctx.render({ user });
   },
 };
 
 export default function ProfilePage(props: PageProps) {
-  return <div class={tw`p-4 mx-auto max-w-screen-md`}>Profile Page</div>;
+  return (
+    <div class={tw`p-4 mx-auto max-w-screen-md`}>
+      Profile Page of {props.data.user.email}
+    </div>
+  );
 }

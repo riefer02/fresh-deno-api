@@ -84,7 +84,7 @@ function Intro() {
         />
       </picture>
 
-      <h2 class={title}>The Next-Gen API.</h2>
+      <h2 class={title}>The next-gen API.</h2>
 
       <p class={tw`text-gray-600`}>
         GraveyardJS is a next generation web API, built for speed, reliability,
@@ -120,25 +120,3 @@ function Intro() {
     </section>
   );
 }
-
-// /** @jsx h */
-// import { h } from "preact";
-// import { tw } from "@twind";
-// import Counter from "../islands/Counter.tsx";
-
-// export default function Home() {
-//   return (
-//     <div class={tw`p-4 mx-auto max-w-screen-md`}>
-//       <img
-//         src="/logo.svg"
-//         height="100px"
-//         alt="the fresh logo: a sliced lemon dripping with juice"
-//       />
-//       <p class={tw`my-6`}>
-//         Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
-//         file, and refresh.
-//       </p>
-//       {/* <Counter start={3} /> */}
-//     </div>
-//   );
-// }

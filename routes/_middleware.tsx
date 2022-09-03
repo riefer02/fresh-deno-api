@@ -1,12 +1,10 @@
 // routes/_middleware.ts
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { getCookies } from "https://deno.land/std/http/cookie.ts";
-import { decode } from "https://deno.land/x/djwt@v2.7/mod.ts";
-import cryptoKey from "../utils/crypto-key.ts";
+import { verify, decode, Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
-
 interface State {
-  user: string;
+  user: Payload;
 }
 
 export async function handler(
@@ -14,7 +12,7 @@ export async function handler(
   ctx: MiddlewareHandlerContext<State>
 ) {
   const cookies = getCookies(req.headers);
-  
+
   if (reqMiddlewareUrlBlackList.includes(req.url)) {
     return ctx.next();
   }
@@ -23,13 +21,21 @@ export async function handler(
     return ctx.next();
   }
 
-  const token = cookies["graveyardjs-jwt"];
-  const [header, payload, signature] = decode(token);
+  const jwt = cookies["graveyardjs-jwt"];
 
-  // Check signature of jwt
+  const jwk = await Deno.readTextFile(".jwk");
 
-  // Verified get user data from
-  ctx.state.user = "graveyardjs user";
+  const reimportedKey = await crypto.subtle.importKey(
+    "jwk",
+    JSON.parse(jwk),
+    { name: "HMAC", hash: "SHA-512" },
+    true,
+    ["sign", "verify"]
+  );
+
+  const validUserData = await verify(jwt, reimportedKey);
+
+  ctx.state.user = validUserData;
 
   return await ctx.next();
 }

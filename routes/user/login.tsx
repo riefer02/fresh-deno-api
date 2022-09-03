@@ -4,9 +4,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
-
 import dbPool from "../../utils/database-pool.ts";
-import cryptoKey from "../../utils/crypto-key.ts";
 import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
 
 const dbConn = await dbPool.connect();
@@ -48,6 +46,18 @@ export const handler: Handlers = {
         });
       }
 
+      const jwk = await Deno.readTextFile(".jwk");
+
+      const reimportedKey = await crypto.subtle.importKey(
+        "jwk",
+        JSON.parse(jwk),
+        { name: "HMAC", hash: "SHA-512" },
+        true,
+        ["sign", "verify"]
+      );
+
+      // console.log(reimportedKey);
+
       const jwt = await create(
         { alg: "HS512", typ: "JWT" },
         {
@@ -56,8 +66,12 @@ export const handler: Handlers = {
           exp: jwtExpirationTime(),
           iss: "graveyardjs",
         },
-        cryptoKey
+        reimportedKey
       );
+
+      // const isValid = await verify(jwt, reimportedKey);
+
+      // console.log("isValid", isValid);
 
       return new Response(JSON.stringify({ message: "Successful login" }), {
         status: 303,
@@ -65,7 +79,7 @@ export const handler: Handlers = {
         headers: {
           ["set-cookie"]: `graveyardjs-jwt=${jwt}; SameSite=Lax; Expires=${new Date(
             getTomorrow()
-          )}; Path=/`,
+          )}; Path=/; HttpOnly`,
           Location: "/user/profile",
         },
       });
