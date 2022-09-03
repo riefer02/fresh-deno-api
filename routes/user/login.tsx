@@ -3,9 +3,9 @@ import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
+import { compare } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import dbPool from "../../utils/database-pool.ts";
 import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
-import { compare } from "../../utils/hash.ts";
 
 const dbConn = await dbPool.connect();
 
