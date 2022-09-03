@@ -27,9 +27,9 @@ export const handler: Handlers = {
         return loginCredentials;
       });
 
-      // const results = await dbConn.queryObject`
-      //         SELECT * FROM public.users WHERE email=${email}
-      //       `;
+      const results = await dbConn.queryObject`
+              SELECT * FROM public.users WHERE email=${email}
+            `;
 
       // if (results.rows) {
       //   user = results.rows[0];
@@ -51,6 +51,7 @@ export const handler: Handlers = {
           message: "Searching for broken worker",
           email,
           password,
+          results,
         }),
         { status: 200 }
       );
