@@ -31,9 +31,9 @@ export const handler: Handlers = {
               SELECT * FROM public.users WHERE email=${email}
             `;
 
-      // if (results.rows) {
-      //   user = results.rows[0];
-      // }
+      if (results.rows) {
+        user = results.rows[0];
+      }
 
       // if (!user || !(await bcrypt.compare(password, user.password))) {
       //   new Response(
@@ -52,6 +52,7 @@ export const handler: Handlers = {
           email,
           password,
           results,
+          user,
         }),
         { status: 200 }
       );
