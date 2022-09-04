@@ -4,16 +4,17 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
+import { config } from "https://deno.land/x/dotenv/mod.ts";
 import dbPool from "../../utils/database-pool.ts";
 import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
-
-const dbConn = await dbPool.connect();
 
 interface LoginCredentials {
   [key: string]: string | FormDataEntryValue;
   email: string;
   password: string;
 }
+
+const dbConn = await dbPool.connect();
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -35,49 +36,27 @@ export const handler: Handlers = {
         user = results.rows[0];
       }
 
-      const validPassword = await compareSync(password, user.password);
-
-      if (validPassword) {
-        return new Response(
-          JSON.stringify({
-            message: "Passwords match",
-          }),
-          { status: 200 }
+      if (!user || !(await compareSync(password, user.password))) {
+        new Response(
+          JSON.stringify({ message: "Incorrect username and password" }),
+          { status: 404 }
         );
+
+        return ctx.render({
+          err: new Error("Incorrect username and password"),
+        });
       }
 
-      // if (!user || !(await bcrypt.compare(password, user.password)) {
-      //   new Response(
-      //     JSON.stringify({ message: "Incorrect username and password" }),
-      //     { status: 404 }
-      //   );
+      const key = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
 
-      //   return ctx.render({
-      //     err: new Error("Incorrect username and password"),
-      //   });
-      // }
-
-      return new Response(
-        JSON.stringify({
-          message: "Searching for broken worker",
-          email,
-          password,
-          results,
-          user,
-        }),
-        { status: 200 }
-      );
-
-      const jwk = await Deno.readTextFile(".jwk");
-
-      if (!jwk)
+      if (!key)
         new Response(JSON.stringify({ message: "jwk does not exist" }), {
           status: 500,
         });
 
       const reimportedKey = await crypto.subtle.importKey(
         "jwk",
-        JSON.parse(jwk),
+        JSON.parse(key),
         { name: "HMAC", hash: "SHA-512" },
         true,
         ["sign", "verify"]

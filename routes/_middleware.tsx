@@ -1,8 +1,10 @@
 // routes/_middleware.ts
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { getCookies } from "https://deno.land/std/http/cookie.ts";
-import { verify, decode, Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
+import { verify, Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
+import { config } from "https://deno.land/x/dotenv/mod.ts";
+
 interface State {
   user: Payload;
 }
@@ -23,7 +25,7 @@ export async function handler(
 
   const jwt = cookies["graveyardjs-jwt"];
 
-  const jwk = await Deno.readTextFile(".jwk");
+  const jwk = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
 
   const reimportedKey = await crypto.subtle.importKey(
     "jwk",
