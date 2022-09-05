@@ -2,7 +2,7 @@
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
 
 const dbConn = await dbPool.connect();
