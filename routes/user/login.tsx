@@ -5,6 +5,7 @@ import { tw } from "@twind";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
+import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
 import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
 
@@ -93,15 +94,17 @@ export const handler: Handlers = {
 
 export default function LoginPage(props: PageProps) {
   return (
-    <div class={tw`p-4 mx-auto max-w-screen-md`}>
-      <form method="post">
-        <input type="email" name="email" class={tw`bg-gray-300 mr-4`} />
-        <input type="password" name="password" class={tw`bg-gray-300 mr-4`} />
-        <button type="submit">Login</button>
-      </form>
-      {props.data?.err?.message.length > 0 && (
-        <div>{props.data.err.message}</div>
-      )}
-    </div>
+    <Layout>
+      <div class={tw`p-4 mx-auto max-w-screen-md`}>
+        <form method="post">
+          <input type="email" name="email" class={tw`bg-gray-300 mr-4`} />
+          <input type="password" name="password" class={tw`bg-gray-300 mr-4`} />
+          <button type="submit">Login</button>
+        </form>
+        {props.data?.err?.message.length > 0 && (
+          <div>{props.data.err.message}</div>
+        )}
+      </div>
+    </Layout>
   );
 }

@@ -4,7 +4,10 @@
   },
   "music-production": {
     "title": "Music Production",
-    "pages": [["check-stereo-sends", "Check Stereo Sends"]]
+    "pages": [
+      ["check-stereo-sends", "Check Stereo Sends"],
+      ["musicians-journey", "Musician's Journey"]
+    ]
   },
   "concepts": {
     "title": "Concepts",

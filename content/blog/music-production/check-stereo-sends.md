@@ -2,7 +2,6 @@
 description: |
   Check your stereo outs, you might have missed something.
 ---
-# Check Your Stereo Send Levels
 
 Today I discovered I had been sending all my mix routing at -db levels. Which forced me to push my Master Bus Processor gain too much.
 

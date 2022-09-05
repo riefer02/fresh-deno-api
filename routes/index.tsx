@@ -6,12 +6,9 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
-import VERSIONS from "../versions.json" assert { type: "json" };
+import { timeFmt } from "../utils/date-time.ts";
 
-const timeFmt = new Intl.DateTimeFormat("en-US", {
-  timeStyle: "long",
-  hour12: false,
-});
+import VERSIONS from "../versions.json" assert { type: "json" };
 
 export const handler: Handlers = {
   GET(req, ctx) {
@@ -29,7 +26,7 @@ export const handler: Handlers = {
 
 const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
-  "Welcome to GraveyardJS, next-generation API tool for the legendary heroes of our day.";
+  "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
 
 export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
@@ -87,7 +84,7 @@ function Intro() {
       <h2 class={title}>The next-gen API.</h2>
 
       <p class={tw`text-gray-600`}>
-        GraveyardJS is a next generation web API, built for speed, reliability,
+        GraveyardJS is a next gen web API, built for speed, reliability,
         and simplicity. Some stand out features: {timeFmt.format(new Date())}
       </p>
 

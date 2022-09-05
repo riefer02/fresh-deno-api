@@ -4,3 +4,8 @@ export const getTomorrow = () => {
 };
 
 export const jwtExpirationTime = () => Date.now() + 28800000; // 8 hours
+
+export const timeFmt = new Intl.DateTimeFormat("en-US", {
+  timeStyle: "long",
+  hour12: false,
+});

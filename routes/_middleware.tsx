@@ -37,6 +37,12 @@ export async function handler(
 
   const validUserData = await verify(jwt, reimportedKey);
 
+  if (!validUserData)
+    return new Response(
+      JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
+      { status: 401, headers: { Location: "/user/login" } }
+    );
+
   ctx.state.user = validUserData;
 
   return await ctx.next();

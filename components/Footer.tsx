@@ -5,15 +5,15 @@ import { tw } from "@twind";
 const LINKS = [
   {
     title: "Source",
-    href: "https://github.com/denoland/fresh",
+    href: "https://github.com/riefer02/fresh-deno-api",
   },
   {
-    title: "License",
-    href: "https://github.com/denoland/fresh/blob/main/LICENSE",
+    title: "Music",
+    href: "https://thelewddudes.com",
   },
   {
-    title: "Code of Conduct",
-    href: "https://github.com/denoland/fresh/blob/main/CODE_OF_CONDUCT.md",
+    title: "Chili",
+    href: "https://abowlofred.com",
   },
 ];
 
