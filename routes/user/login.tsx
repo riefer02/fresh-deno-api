@@ -2,12 +2,12 @@
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
 import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
-import { getTomorrow, jwtExpirationTime } from "../../utils/date-time.ts";
+import { errorHandler } from "../../utils/error-handlers.ts";
+import { getTomorrow } from "../../utils/date-time.ts";
+import { createJWT } from "../../utils/jwt.ts";
 
 interface LoginCredentials {
   [key: string]: string | FormDataEntryValue;
@@ -48,31 +48,7 @@ export const handler: Handlers = {
         });
       }
 
-      const key = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
-
-      if (!key)
-        new Response(JSON.stringify({ message: "jwk does not exist" }), {
-          status: 500,
-        });
-
-      const reimportedKey = await crypto.subtle.importKey(
-        "jwk",
-        JSON.parse(key),
-        { name: "HMAC", hash: "SHA-512" },
-        true,
-        ["sign", "verify"]
-      );
-
-      const jwt = await create(
-        { alg: "HS512", typ: "JWT" },
-        {
-          sub: user.id,
-          email: user.email,
-          exp: jwtExpirationTime(),
-          iss: "graveyardjs",
-        },
-        reimportedKey
-      );
+      const jwt = await createJWT(user);
 
       return new Response(JSON.stringify({ message: "Successful login" }), {
         status: 303,
@@ -85,6 +61,8 @@ export const handler: Handlers = {
         },
       });
     } catch (err) {
+      err.message = errorHandler(err);
+
       return ctx.render({ err });
     } finally {
       dbConn.release();

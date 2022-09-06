@@ -1,9 +1,8 @@
-// routes/_middleware.ts
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
-import { getCookies } from "https://deno.land/std/http/cookie.ts";
-import { verify, Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
+import { getCookies, deleteCookie } from "https://deno.land/std/http/cookie.ts";
+import { Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
+import { verifyJWT } from "../utils/jwt.ts";
 
 interface State {
   user: Payload;
@@ -15,33 +14,26 @@ export async function handler(
 ) {
   const cookies = getCookies(req.headers);
 
-  if (reqMiddlewareUrlBlackList.includes(req.url)) {
-    return ctx.next();
-  }
-
-  if (!cookies["graveyardjs-jwt"]) {
+  if (
+    reqMiddlewareUrlBlackList.includes(req.url) ||
+    !cookies["graveyardjs-jwt"]
+  ) {
     return ctx.next();
   }
 
   const jwt = cookies["graveyardjs-jwt"];
+  const validUserData = await verifyJWT(jwt);
 
-  const jwk = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
-
-  const reimportedKey = await crypto.subtle.importKey(
-    "jwk",
-    JSON.parse(jwk),
-    { name: "HMAC", hash: "SHA-512" },
-    true,
-    ["sign", "verify"]
-  );
-
-  const validUserData = await verify(jwt, reimportedKey);
-
-  if (!validUserData)
-    return new Response(
+  if (!validUserData) {
+    const res = new Response(
       JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
       { status: 401, headers: { Location: "/user/login" } }
     );
+
+    deleteCookie(res.headers, "graveyardjs-jwt");
+
+    return res;
+  }
 
   ctx.state.user = validUserData;
 
