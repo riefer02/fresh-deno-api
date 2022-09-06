@@ -12,8 +12,9 @@ import * as $6 from "./routes/api/todos/index.tsx";
 import * as $7 from "./routes/blog/[...slug].tsx";
 import * as $8 from "./routes/gfm.css.tsx";
 import * as $9 from "./routes/index.tsx";
-import * as $10 from "./routes/user/login.tsx";
-import * as $11 from "./routes/user/profile.tsx";
+import * as $10 from "./routes/user/join.tsx";
+import * as $11 from "./routes/user/login.tsx";
+import * as $12 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
 
@@ -29,8 +30,9 @@ const manifest = {
     "./routes/blog/[...slug].tsx": $7,
     "./routes/gfm.css.tsx": $8,
     "./routes/index.tsx": $9,
-    "./routes/user/login.tsx": $10,
-    "./routes/user/profile.tsx": $11,
+    "./routes/user/join.tsx": $10,
+    "./routes/user/login.tsx": $11,
+    "./routes/user/profile.tsx": $12,
   },
   islands: {
     "./islands/Countdown.tsx": $$0,
