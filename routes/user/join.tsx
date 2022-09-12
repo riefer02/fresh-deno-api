@@ -68,7 +68,7 @@ export const handler: Handlers = {
 
 export default function JoinPage(props: PageProps) {
   return (
-    <Layout>
+    <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
         <h1>Join GraveyardJS Form</h1>
         <form method="post">
@@ -77,9 +77,9 @@ export default function JoinPage(props: PageProps) {
           <button type="submit">Create Account</button>
         </form>
         {props.data?.err?.message.length > 0 && (
-          <Fragment>
+          <>
             <div>{props.data.err.message}</div>
-          </Fragment>
+          </>
         )}
       </div>
     </Layout>

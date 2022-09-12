@@ -3,9 +3,7 @@ import { asset } from "$fresh/runtime.ts";
 export default function Header() {
   return (
     <div class="bg-purple-400">
-      <header
-        class="mx-auto max-w-screen-lg flex gap-3 justify-between  w-full"
-      >
+      <header class="mx-auto max-w-screen-lg flex gap-3 justify-between  w-full">
         <div class="p-4 flex">
           <a href="/" class="flex mr-3 items-center">
             <img

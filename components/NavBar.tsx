@@ -1,7 +1,10 @@
-import { tw } from "twind";
+import { isActivePage } from "../utils/navigation.ts";
 
-export default function NavigationBar() {
-  const active = Math.random() > 0 ? "Home" : "Blog";
+interface NavBarProps {
+  pathname: string;
+}
+
+export default function NavigationBar(props: NavBarProps) {
   const items = [
     {
       name: "Home",
@@ -28,8 +31,8 @@ export default function NavigationBar() {
           <li>
             <a
               href={item.href}
-              class={tw`text-gray-600 hover:underline ${
-                active === item.href ? "font-bold" : ""
+              class={`text-gray-600 hover:underline ${
+                isActivePage(item.href, props.pathname) ? "font-bold" : ""
               }`}
             >
               {item.name}

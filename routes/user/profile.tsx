@@ -21,7 +21,7 @@ export const handler: Handlers = {
 
 export default function ProfilePage(props: PageProps) {
   return (
-    <Layout>
+    <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
         Profile Page of {props.data.user.email}
       </div>

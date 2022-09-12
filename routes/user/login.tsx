@@ -69,7 +69,7 @@ export const handler: Handlers = {
 
 export default function LoginPage(props: PageProps) {
   return (
-    <Layout>
+    <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
         <form method="post">
           <input type="email" name="email" class="bg-gray-300 mr-4" />

@@ -64,7 +64,7 @@ export default function BlogPage(props: PageProps<Data>) {
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
         {description && <meta name="description" content={description} />}
       </Head>
-      <Layout>
+      <Layout pathname={props.url.pathname}>
         <Main path={props.url.pathname} page={props.data.page} />
       </Layout>
     </>
@@ -143,9 +143,7 @@ function MobileSidebar(props: { path: string }) {
 
 function DesktopSidebar(props: { path: string }) {
   return (
-    <nav
-      class="w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)"
-    >
+    <nav class="w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)">
       <BlogSidebar path={props.path} />
     </nav>
   );

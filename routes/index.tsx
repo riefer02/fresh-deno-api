@@ -1,7 +1,6 @@
 import { ComponentChildren } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { tw } from "twind";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
@@ -28,7 +27,7 @@ const DESCRIPTION =
 
 export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
-    .href; // TODO: Create/Update ogImage
+    .href;
   const origin = `${props.url.protocol}//${props.url.host}`;
 
   return (
@@ -42,7 +41,7 @@ export default function MainPage(props: PageProps) {
         <meta property="og:url" content={props.url.href} />
         <meta property="og:image" content={ogImageUrl} />
       </Head>
-      <Layout>
+      <Layout pathname={props.url.pathname}>
         <Intro />
       </Layout>
     </>
@@ -63,12 +62,10 @@ function ListItem(props: ListItemProps) {
 }
 
 function Intro() {
-  const title = tw`py-4 text(4xl sm:4xl lg:4xl gray-900 center) sm:tracking-tight font-extrabold`;
+  const title = `py-4 text(4xl sm:4xl lg:4xl gray-900 center) sm:tracking-tight font-extrabold`;
 
   return (
-    <section
-      class="max-w-screen-sm mx-auto my-16 px(4 sm:6 md:8) space-y-4"
-    >
+    <section class="max-w-screen-sm mx-auto my-16 px(4 sm:6 md:8) space-y-4">
       <picture>
         <img
           src="/jerry-the-ghost-200w.png"
@@ -82,8 +79,8 @@ function Intro() {
       <h2 class={title}>The next-gen API.</h2>
 
       <p class="text-gray-600">
-        GraveyardJS is a next gen web API, built for speed, reliability,
-        and simplicity. Some stand out features: {timeFmt.format(new Date())}
+        GraveyardJS is a next gen web API, built for speed, reliability, and
+        simplicity. Some stand out features: {timeFmt.format(new Date())}
       </p>
 
       <div>
