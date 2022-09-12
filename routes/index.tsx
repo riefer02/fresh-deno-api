@@ -1,9 +1,7 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-import { ComponentChildren, Fragment, h } from "preact";
+import { ComponentChildren } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { tw } from "@twind";
+import { tw } from "twind";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
@@ -57,9 +55,9 @@ export interface ListItemProps {
 
 function ListItem(props: ListItemProps) {
   return (
-    <div class={tw`flex mt-3 items-center`}>
+    <div class="flex mt-3 items-center">
       <HeartIcon />
-      <div class={tw`pl-4 flex-1`}>{props.children}</div>
+      <div class="pl-4 flex-1">{props.children}</div>
     </div>
   );
 }
@@ -69,12 +67,12 @@ function Intro() {
 
   return (
     <section
-      class={tw`max-w-screen-sm mx-auto my-16 px(4 sm:6 md:8) space-y-4`}
+      class="max-w-screen-sm mx-auto my-16 px(4 sm:6 md:8) space-y-4"
     >
       <picture>
         <img
           src="/jerry-the-ghost-200w.png"
-          class={tw`w-20 mx-auto`}
+          class="w-20 mx-auto"
           width={800}
           height={678}
           alt="Jerry is hovering in place"
@@ -83,7 +81,7 @@ function Intro() {
 
       <h2 class={title}>The next-gen API.</h2>
 
-      <p class={tw`text-gray-600`}>
+      <p class="text-gray-600">
         GraveyardJS is a next gen web API, built for speed, reliability,
         and simplicity. Some stand out features: {timeFmt.format(new Date())}
       </p>
@@ -110,7 +108,7 @@ function Intro() {
         </ListItem>
       </div>
 
-      <p class={tw`text-gray-600`}>
+      <p class="text-gray-600">
         GraveyardJS embraces the tried and true design of server side rendering
         and progressive enhancement on the client side.
       </p>

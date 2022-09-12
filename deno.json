@@ -4,5 +4,9 @@
     "production": "deno run -A main.ts",
     "screenshot": "deno run -A utils/screenshot.ts"
   },
-  "importMap": "./import_map.json"
+  "importMap": "./import_map.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  }
 }

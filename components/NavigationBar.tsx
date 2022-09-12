@@ -1,6 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
+import { tw } from "twind";
 
 export default function NavigationBar() {
   const active = Math.random() > 0 ? "Home" : "Blog";
@@ -24,8 +22,8 @@ export default function NavigationBar() {
   ];
 
   return (
-    <nav class={tw`bg-purple-200 py-2`}>
-      <ul class={tw`flex justify-center gap-8 mx-4`}>
+    <nav class="bg-purple-200 py-2">
+      <ul class="flex justify-center gap-8 mx-4">
         {items.map((item) => (
           <li>
             <a

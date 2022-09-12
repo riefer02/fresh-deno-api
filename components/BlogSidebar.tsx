@@ -1,6 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
-import { apply, tw } from "@twind";
+import { apply, tw } from "twind";
 
 import {
   CATEGORIES,

@@ -1,7 +1,4 @@
-/** @jsx h */
-import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { tw } from "@twind";
 import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
 
@@ -25,7 +22,7 @@ export const handler: Handlers = {
 export default function ProfilePage(props: PageProps) {
   return (
     <Layout>
-      <div class={tw`p-4 mx-auto max-w-screen-md`}>
+      <div class="p-4 mx-auto max-w-screen-md">
         Profile Page of {props.data.user.email}
       </div>
     </Layout>

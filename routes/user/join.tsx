@@ -1,7 +1,4 @@
-/** @jsx h */
-import { h, Fragment } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { tw } from "@twind";
 import { genSalt, hash } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
@@ -72,11 +69,11 @@ export const handler: Handlers = {
 export default function JoinPage(props: PageProps) {
   return (
     <Layout>
-      <div class={tw`p-4 mx-auto max-w-screen-md`}>
+      <div class="p-4 mx-auto max-w-screen-md">
         <h1>Join GraveyardJS Form</h1>
         <form method="post">
-          <input type="email" name="email" class={tw`bg-gray-300 mr-4`} />
-          <input type="password" name="password" class={tw`bg-gray-300 mr-4`} />
+          <input type="email" name="email" class="bg-gray-300 mr-4" />
+          <input type="password" name="password" class="bg-gray-300 mr-4" />
           <button type="submit">Create Account</button>
         </form>
         {props.data?.err?.message.length > 0 && (
