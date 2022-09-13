@@ -5,17 +5,12 @@ import dbPool from "../../utils/database-pool.ts";
 import { errorHandler } from "../../utils/error-handlers.ts";
 import { getTomorrow } from "../../utils/date-time.ts";
 import { createJWT } from "../../utils/jwt.ts";
-
-interface LoginCredentials {
-  [key: string]: string | FormDataEntryValue;
-  email: string;
-  password: string;
-}
-
-const dbConn = await dbPool.connect();
+import { LoginCredentials } from "../../utils/types.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
+    const dbConn = await dbPool.connect();
+
     try {
       let user;
       const { email, password } = await req.formData().then((formData) => {
@@ -71,6 +66,7 @@ export default function LoginPage(props: PageProps) {
   return (
     <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
+        <h1>Login Form</h1>
         <form method="post">
           <input type="email" name="email" class="bg-gray-300 mr-4" />
           <input type="password" name="password" class="bg-gray-300 mr-4" />

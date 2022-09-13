@@ -1,31 +1,32 @@
 import { ComponentChildren } from "preact";
 import { asset, Head } from "$fresh/runtime.ts";
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
-
-import VERSIONS from "../versions.json" assert { type: "json" };
+import { JWTUserCredentials } from "../utils/types.ts";
 
 export const handler: Handlers = {
-  GET(req, ctx) {
-    const accept = req.headers.get("accept");
-    if (accept && !accept.includes("text/html")) {
-      const path = `https://deno.land/x/fresh@${VERSIONS[0]}/init.ts`;
-      return new Response(`Redirecting to ${path}`, {
-        headers: { Location: path },
-        status: 307,
-      });
+  GET(_req: Request, ctx: HandlerContext) {
+    let user: JWTUserCredentials | undefined | unknown;
+
+    if (ctx.state.user) {
+      user = ctx.state.user;
     }
-    return ctx.render();
+
+    return ctx.render({ user });
   },
 };
+
+interface HomePageProps extends PageProps {
+  user: JWTUserCredentials;
+}
 
 const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
   "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
 
-export default function MainPage(props: PageProps) {
+export default function MainPage(props: HomePageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href;
   const origin = `${props.url.protocol}//${props.url.host}`;
@@ -41,7 +42,7 @@ export default function MainPage(props: PageProps) {
         <meta property="og:url" content={props.url.href} />
         <meta property="og:image" content={ogImageUrl} />
       </Head>
-      <Layout pathname={props.url.pathname}>
+      <Layout pathname={props.url.pathname} user={props.data.user}>
         <Intro />
       </Layout>
     </>

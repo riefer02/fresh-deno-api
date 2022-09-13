@@ -3,7 +3,6 @@ import { getCookies, deleteCookie } from "https://deno.land/std/http/cookie.ts";
 import { Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
 import { verifyJWT } from "../utils/jwt.ts";
-
 interface State {
   user: Payload;
 }

@@ -4,17 +4,13 @@ import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
 import { getTomorrow } from "../../utils/date-time.ts";
 import { errorHandler } from "../../utils/error-handlers.ts";
-
-interface LoginCredentials {
-  [key: string]: string | FormDataEntryValue;
-  email: string;
-  password: string;
-}
-
-const dbConn = await dbPool.connect();
+import { createJWT } from "../../utils/jwt.ts";
+import { LoginCredentials } from "../../utils/types.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
+    const dbConn = await dbPool.connect();
+
     try {
       let user;
       const { email, password } = await req.formData().then((formData) => {
@@ -37,11 +33,9 @@ export const handler: Handlers = {
             INSERT INTO users(email,password,salt) VALUES (${email}, ${hashPassword}, ${salt}) RETURNING *;
           `;
 
-      console.log("results", results);
+      if (results.rows[0]) {
+        user = results.rows[0];
 
-      return;
-
-      if (results.rowCount > 0) {
         const jwt = await createJWT(user);
 
         return new Response(JSON.stringify({ message: "Successful sign up" }), {
@@ -55,10 +49,12 @@ export const handler: Handlers = {
           },
         });
       }
-    } catch (err) {
-      console.log("Error", err);
-      err.message = errorHandler(err);
 
+      return new Response(
+        JSON.stringify({ message: "Unable to create new user" })
+      );
+    } catch (err) {
+      err.message = errorHandler(err);
       return ctx.render({ err });
     } finally {
       dbConn.release();
@@ -68,9 +64,9 @@ export const handler: Handlers = {
 
 export default function JoinPage(props: PageProps) {
   return (
-    <Layout pathname={props.url.pathname}>
+    <Layout pathname={props.url.pathname} user={props.user}>
       <div class="p-4 mx-auto max-w-screen-md">
-        <h1>Join GraveyardJS Form</h1>
+        <h1>Join GraveyardJS</h1>
         <form method="post">
           <input type="email" name="email" class="bg-gray-300 mr-4" />
           <input type="password" name="password" class="bg-gray-300 mr-4" />
