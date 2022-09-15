@@ -9,17 +9,8 @@
       ["musicians-journey", "Musician's Journey"]
     ]
   },
-  "concepts": {
-    "title": "Concepts",
-    "pages": [
-      ["architechture", "Architecture"],
-      ["routes", "Routes"],
-      ["islands", "Interactive islands"],
-      ["static-files", "Static files"],
-      ["middleware", "Route middleware"],
-      ["error-pages", "Error pages"],
-      ["routing", "Routing"],
-      ["data-fetching", "Data fetching"]
-    ]
+  "software-development": {
+    "title": "Software Development",
+    "pages": [["new-app-idea", "New App Idea"]]
   }
 }
