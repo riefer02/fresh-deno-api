@@ -6,8 +6,13 @@ import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
 import { JWTUserCredentials } from "../utils/types.ts";
 
+interface HomePageProps extends PageProps {
+  user: JWTUserCredentials;
+}
+
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
+    console.log("index handler", ctx.state.user);
     let user: JWTUserCredentials | undefined | unknown;
 
     if (ctx.state.user) {
@@ -18,15 +23,13 @@ export const handler: Handlers = {
   },
 };
 
-interface HomePageProps extends PageProps {
-  user: JWTUserCredentials;
-}
-
 const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
   "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
 
 export default function MainPage(props: HomePageProps) {
+  console.log("home", props);
+
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href;
   const origin = `${props.url.protocol}//${props.url.host}`;
