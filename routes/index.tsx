@@ -12,7 +12,6 @@ interface HomePageProps extends PageProps {
 
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
-    console.log("index handler", ctx.state.user);
     let user: JWTUserCredentials | undefined | unknown;
 
     if (ctx.state.user) {
@@ -28,8 +27,6 @@ const DESCRIPTION =
   "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
 
 export default function MainPage(props: HomePageProps) {
-  console.log("home", props);
-
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href;
   const origin = `${props.url.protocol}//${props.url.host}`;
