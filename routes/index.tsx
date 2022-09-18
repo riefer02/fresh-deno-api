@@ -6,10 +6,6 @@ import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
 import { JWTUserCredentials } from "../utils/types.ts";
 
-interface HomePageProps extends PageProps {
-  user: JWTUserCredentials;
-}
-
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
     let user: JWTUserCredentials | undefined | unknown;
@@ -26,10 +22,10 @@ const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
   "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
 
-export default function MainPage(props: HomePageProps) {
+export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href;
-  const origin = `${props.url.protocol}//${props.url.host}`;
+  // const origin = `${props.url.protocol}//${props.url.host}`;
 
   return (
     <>

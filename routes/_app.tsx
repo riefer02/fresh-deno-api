@@ -1,5 +1,9 @@
+import { createContext } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import { AppProps } from "$fresh/server.ts";
+import { userData } from "../utils/user-signal.ts";
+
+export const UserContext = createContext({});
 
 export default function App(props: AppProps) {
   return (
@@ -11,7 +15,9 @@ export default function App(props: AppProps) {
           content="A next-gen API for undead purposes and a library for long forgotten web components and utilities."
         />
       </Head>
-      <props.Component />
+      <UserContext.Provider value={userData.value}>
+        <props.Component />
+      </UserContext.Provider>
     </>
   );
 }

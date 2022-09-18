@@ -3,6 +3,7 @@ import { getCookies, deleteCookie } from "https://deno.land/std/http/cookie.ts";
 import { Payload } from "https://deno.land/x/djwt@v2.7/mod.ts";
 import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
 import { verifyJWT } from "../utils/jwt.ts";
+import { userData } from "../utils/user-signal.ts";
 
 interface State {
   user: Payload;
@@ -32,8 +33,12 @@ export async function handler(
 
     deleteCookie(res.headers, "graveyardjs-jwt");
 
+    userData.value = {};
+
     return res;
   }
+
+  userData.value = validUserData;
 
   ctx.state.user = validUserData;
 

@@ -5,24 +5,26 @@ export const navigationItems = [
   {
     name: "Home",
     href: "/",
+    linkType: "always",
   },
   {
     name: "Blog",
     href: "/blog",
+    linkType: "always",
   },
   {
     name: "Login",
     href: "/user/login",
-    hidePostLogin: true,
+    linkType: "unauthenticated",
   },
   {
     name: "Join",
     href: "/user/join",
-    hidePostLogin: true,
+    linkType: "unauthenticated",
   },
   {
     name: "Profile",
-    href: "user/profile",
-    hidePreLogin: true,
+    href: "/user/profile",
+    linkType: "authenticated",
   },
 ];
