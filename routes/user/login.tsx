@@ -8,11 +8,15 @@ import { createJWT } from "../../utils/jwt.ts";
 import { LoginCredentials } from "../../utils/types.ts";
 
 export const handler: Handlers = {
+  GET(req, ctx) {
+    return ctx.render();
+  },
   async POST(req, ctx) {
     const dbConn = await dbPool.connect();
 
     try {
       let user;
+
       const { email, password } = await req.formData().then((formData) => {
         const loginCredentials: LoginCredentials = { email: "", password: "" };
         for (const [key, value] of formData.entries()) {

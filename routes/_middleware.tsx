@@ -30,7 +30,6 @@ export async function handler(
       JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
       { status: 401, headers: { Location: "/user/login" } }
     );
-
     deleteCookie(res.headers, "graveyardjs-jwt");
 
     userData.value = {};
@@ -39,8 +38,6 @@ export async function handler(
   }
 
   userData.value = validUserData;
-
-  ctx.state.user = validUserData;
 
   return await ctx.next();
 }

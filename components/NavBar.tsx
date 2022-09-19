@@ -1,5 +1,4 @@
 import { isActivePage } from "../utils/navigation.ts";
-import { JWTUserCredentials } from "../utils/types.ts";
 import { navigationItems } from "../utils/navigation.ts";
 import { useContext } from "preact/hooks";
 import { UserContext } from "../routes/_app.tsx";
@@ -7,13 +6,10 @@ import { isEmptyObject } from "../utils/is-empty-object.ts";
 
 interface NavBarProps {
   pathname: string;
-  user: JWTUserCredentials | unknown;
 }
 
 export default function NavigationBar(props: NavBarProps) {
   const user = useContext(UserContext);
-
-  console.log("Navbar User:", isEmptyObject(user));
 
   return (
     <nav class="bg-purple-200 py-2">

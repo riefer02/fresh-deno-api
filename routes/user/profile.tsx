@@ -1,13 +1,14 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
 import dbPool from "../../utils/database-pool.ts";
+import { userData } from "../../utils/user-signal.ts";
 
 const dbConn = await dbPool.connect();
 dbConn.release();
 
 export const handler: Handlers = {
   GET(req, ctx) {
-    const user = ctx.state?.user;
+    const user = userData.value;
 
     if (!user)
       return new Response(

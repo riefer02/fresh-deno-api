@@ -4,17 +4,10 @@ import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
-import { JWTUserCredentials } from "../utils/types.ts";
 
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
-    let user: JWTUserCredentials | undefined | unknown;
-
-    if (ctx.state.user) {
-      user = ctx.state.user;
-    }
-
-    return ctx.render({ user });
+    return ctx.render();
   },
 };
 
@@ -25,7 +18,6 @@ const DESCRIPTION =
 export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
     .href;
-  // const origin = `${props.url.protocol}//${props.url.host}`;
 
   return (
     <>
@@ -38,7 +30,7 @@ export default function MainPage(props: PageProps) {
         <meta property="og:url" content={props.url.href} />
         <meta property="og:image" content={ogImageUrl} />
       </Head>
-      <Layout pathname={props.url.pathname} user={props.data.user}>
+      <Layout pathname={props.url.pathname}>
         <Intro />
       </Layout>
     </>
