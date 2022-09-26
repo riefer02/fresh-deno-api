@@ -1,26 +1,35 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
-import dbPool from "../../utils/database-pool.ts";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
-
-const dbConn = await dbPool.connect();
-dbConn.release();
+import { supabase } from "../../utils/supabase-client.ts";
+import { toFileUrl, resolve } from "https://deno.land/std/path/mod.ts";
 
 export const handler: Handlers = {
-  async POST(req, ctx) {
-    const filename = await req.formData().then((formData) => {
-      for (const [key, value] of formData.entries()) {
-        if (key === "avatar") return value;
-      }
-    });
+  async POST(req, _ctx) {
+    try {
+      const form = await req.formData();
+      const avatarFile = form.get("avatar");
 
-    console.log({ filename });
+      // const { data, error } = await supabase.storage
+      //   .from("avatars")
+      //   .upload(avatarFileUrl, avatarFile);
 
-    return new Response(JSON.stringify({ message: "Avatar uploading..." }), {
-      status: 200,
-      statusText: "OK",
-    });
+      // console.log({ data });
+
+      return new Response(JSON.stringify({ message: "Avatar uploading..." }), {
+        status: 200,
+        statusText: "OK",
+      });
+    } catch (err) {
+      return new Response(
+        JSON.stringify({ message: `Failed to upload avatar: ${err.message}` }),
+        {
+          status: 500,
+          statusText: "Error",
+        }
+      );
+    }
   },
   GET(_req, ctx) {
     const user = userData.value;
@@ -41,7 +50,7 @@ export default function ProfilePage(props: PageProps) {
       <div class="p-4 mx-auto max-w-screen-md">
         <p class="mb-6">Profile Page of {props.data.user.email}</p>
         <label for="avatar">Choose avatar to upload</label>
-        <form method="post">
+        <form method="post" encType="multipart/form-data" webkitdirectory>
           <input
             type="file"
             id="avatar"
