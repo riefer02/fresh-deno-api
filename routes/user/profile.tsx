@@ -2,25 +2,42 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
-import { supabase } from "../../utils/supabase-client.ts";
-import { toFileUrl, resolve } from "https://deno.land/std/path/mod.ts";
+import dbPool from "../../utils/database-pool.ts";
+import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.js";
 
 export const handler: Handlers = {
-  async POST(req, _ctx) {
+  async POST(req, ctx) {
+    const dbConn = await dbPool.connect();
+
     try {
       const form = await req.formData();
       const avatarFile = form.get("avatar");
+      const url = `${supabaseUrl}/storage/v1/object/avatars/${avatarFile.name}`;
 
-      // const { data, error } = await supabase.storage
-      //   .from("avatars")
-      //   .upload(avatarFileUrl, avatarFile);
-
-      // console.log({ data });
-
-      return new Response(JSON.stringify({ message: "Avatar uploading..." }), {
-        status: 200,
-        statusText: "OK",
+      const response = await fetch(url, {
+        method: "POST",
+        headers: supabaseAuthHeaders,
+        body: avatarFile,
       });
+
+      // console.log(response);
+
+      // if (response.status === 200) {
+      //     const results = await dbConn.queryObject`
+      //     INSERT INTO public.users(avatar_url) VALUES (${"blah"}) RETURNING *;
+      //   `;
+
+      //     console.log(results);
+      //   return ctx.render({ user: userData.value });
+      // }
+
+      return new Response(
+        JSON.stringify({ message: "Something went wrong or did it?" }),
+        {
+          status: 400,
+          statusText: "OK",
+        }
+      );
     } catch (err) {
       return new Response(
         JSON.stringify({ message: `Failed to upload avatar: ${err.message}` }),
@@ -48,9 +65,11 @@ export default function ProfilePage(props: PageProps) {
   return (
     <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
-        <p class="mb-6">Profile Page of {props.data.user.email}</p>
+        {props.data?.user.email && (
+          <p class="mb-6">Profile Page of {props.data.user.email || "poop"}</p>
+        )}
         <label for="avatar">Choose avatar to upload</label>
-        <form method="post" encType="multipart/form-data" webkitdirectory>
+        <form method="post" encType="multipart/form-data">
           <input
             type="file"
             id="avatar"
