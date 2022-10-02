@@ -9,3 +9,7 @@ export const supabaseKey =
 export const supabaseAuthHeaders = {
   Authorization: `Bearer ${supabaseKey}`,
 };
+
+// TODO
+export const getUserAvatarUrl = (userAvatarKey) =>
+  `${supabaseUrl}/storage/v1/object/${userAvatarKey}?token=${supabaseKey}`;

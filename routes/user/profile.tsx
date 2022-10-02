@@ -4,15 +4,17 @@ import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import dbPool from "../../utils/database-pool.ts";
 import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.js";
+import { getUserAvatarUrl } from "../../utils/supabase-api.js";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
     const dbConn = await dbPool.connect();
 
     try {
+      const user = userData.value;
       const form = await req.formData();
       const avatarFile = form.get("avatar");
-      const url = `${supabaseUrl}/storage/v1/object/avatars/${avatarFile.name}`;
+      const url = `${supabaseUrl}/storage/v1/object/avatars/${user.email}-avatar`;
 
       const response = await fetch(url, {
         method: "POST",
@@ -20,22 +22,28 @@ export const handler: Handlers = {
         body: avatarFile,
       });
 
-      // console.log(response);
+      if (response.status === 200) {
+        const { Key } = await response.json();
 
-      // if (response.status === 200) {
-      //     const results = await dbConn.queryObject`
-      //     INSERT INTO public.users(avatar_url) VALUES (${"blah"}) RETURNING *;
-      //   `;
+        const results =
+          await dbConn.queryObject`UPDATE public.users SET avatar_url=${Key} WHERE email=${user.email} RETURNING *;`;
 
-      //     console.log(results);
-      //   return ctx.render({ user: userData.value });
-      // }
+        // console.log("save:", results);
+
+        if (results.rows[0]) {
+          return ctx.render({ user: userData.value });
+        }
+
+        throw new Error("No row was returned when updating user data.");
+      }
 
       return new Response(
-        JSON.stringify({ message: "Something went wrong or did it?" }),
+        JSON.stringify({
+          message: "Something went wrong when updating user data.",
+        }),
         {
           status: 400,
-          statusText: "OK",
+          statusText: "Error",
         }
       );
     } catch (err) {
@@ -46,9 +54,12 @@ export const handler: Handlers = {
           statusText: "Error",
         }
       );
+    } finally {
+      dbConn.release();
     }
   },
-  GET(_req, ctx) {
+  async GET(_req, ctx) {
+    const dbConn = await dbPool.connect();
     const user = userData.value;
 
     if (isEmptyObject(user))
@@ -57,7 +68,28 @@ export const handler: Handlers = {
         { status: 307, headers: { Location: "/user/login" } }
       );
 
-    return ctx.render({ user });
+    try {
+      let userAvatarKey;
+
+      const results =
+        await dbConn.queryObject`SELECT (avatar_url) FROM public.users WHERE email = ${user.email};`;
+
+      console.log(results);
+
+      if (results.rows[0]) {
+        userAvatarKey = results.rows[0]?.avatar_url;
+      }
+
+      // TODO
+      console.log(userAvatarKey);
+      console.log(getUserAvatarUrl(userAvatarKey));
+
+      return ctx.render({ user, userAvatarKey });
+    } catch (err) {
+      return ctx.render({ err });
+    } finally {
+      dbConn.release();
+    }
   },
 };
 
@@ -68,6 +100,9 @@ export default function ProfilePage(props: PageProps) {
         {props.data?.user.email && (
           <p class="mb-6">Profile Page of {props.data.user.email || "poop"}</p>
         )}
+        {/* {props.data?.userAvatarKey && (
+          <img src={getUserAvatarUrl(props.data.userAvatarKey)} alt="" />
+        )} */}
         <label for="avatar">Choose avatar to upload</label>
         <form method="post" encType="multipart/form-data">
           <input
@@ -84,6 +119,7 @@ export default function ProfilePage(props: PageProps) {
           </button>
         </form>
       </div>
+      {props.data.err && <div>Error</div>}
     </Layout>
   );
 }
