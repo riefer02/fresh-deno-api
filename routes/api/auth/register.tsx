@@ -2,10 +2,10 @@ import { Handlers } from "$fresh/server.ts";
 import { genSalt, hash } from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import dbPool from "../../../utils/database-pool.ts";
 
-const dbConn = await dbPool.connect();
-
 export const handler: Handlers = {
   async POST(req, ctx) {
+    const dbConn = await dbPool.connect();
+
     try {
       const { email, password } = await req.json();
       const salt = await genSalt(8);

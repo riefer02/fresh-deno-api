@@ -1,9 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import dbPool from "../../../utils/database-pool.ts";
 
-// Connect to the database
-const dbConn = await dbPool.connect();
-
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };
@@ -11,6 +8,7 @@ BigInt.prototype.toJSON = function () {
 export const handler: Handlers = {
   async GET(req, ctx) {
     const { id } = ctx.params;
+    const dbConn = await dbPool.connect();
 
     try {
       const results = await dbConn.queryObject`
@@ -32,6 +30,7 @@ export const handler: Handlers = {
 
   async DELETE(req, ctx) {
     const { id } = ctx.params;
+    const dbConn = await dbPool.connect();
 
     try {
       const results = await dbConn.queryObject`
@@ -68,6 +67,7 @@ export const handler: Handlers = {
   },
 
   async PATCH(req, ctx) {
+    const dbConn = await dbPool.connect();
     const { id } = ctx.params;
     const { title } = await req.json();
 

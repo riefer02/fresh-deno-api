@@ -28,8 +28,6 @@ export const handler: Handlers = {
         const results =
           await dbConn.queryObject`UPDATE public.users SET avatar_url=${Key} WHERE email=${user.email} RETURNING *;`;
 
-        // console.log("save:", results);
-
         if (results.rows[0]) {
           return ctx.render({ user: userData.value });
         }
@@ -73,8 +71,6 @@ export const handler: Handlers = {
 
       const results =
         await dbConn.queryObject`SELECT (avatar_url) FROM public.users WHERE email = ${user.email};`;
-
-      console.log(results);
 
       if (results.rows[0]) {
         userAvatarKey = results.rows[0]?.avatar_url;

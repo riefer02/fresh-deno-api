@@ -1,15 +1,13 @@
 import { Handlers } from "$fresh/server.ts";
 import dbPool from "../../../utils/database-pool.ts";
 
-// Connect to the database
-const dbConn = await dbPool.connect();
-
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };
 
 export const handler: Handlers = {
   async GET(req, ctx) {
+    const dbConn = await dbPool.connect();
     try {
       const results = await dbConn.queryObject`
         SELECT * FROM public.todos
@@ -29,6 +27,7 @@ export const handler: Handlers = {
   },
 
   async POST(req, ctx) {
+    const dbConn = await dbPool.connect();
     try {
       const { title } = await req.json();
 
