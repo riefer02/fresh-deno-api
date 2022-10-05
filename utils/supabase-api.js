@@ -8,8 +8,20 @@ export const supabaseKey =
 
 export const supabaseAuthHeaders = {
   Authorization: `Bearer ${supabaseKey}`,
+  "Content-Type": "application/json",
 };
 
-// TODO
-export const getUserAvatarUrl = (userAvatarKey) =>
-  `${supabaseUrl}/storage/v1/object/${userAvatarKey}?token=${supabaseKey}`;
+export const getUserAvatarImg = async (userAvatarKey) => {
+  const res = await fetch(
+    `${supabaseUrl}/storage/v1/object/sign/${userAvatarKey}`,
+    {
+      method: "POST",
+      headers: supabaseAuthHeaders,
+      body: JSON.stringify({ expiresIn: 6000 }),
+    }
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err.message));
+
+  return `${supabaseUrl}/storage/v1${res.signedURL}`;
+};

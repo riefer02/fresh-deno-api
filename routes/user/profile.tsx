@@ -4,7 +4,7 @@ import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import dbPool from "../../utils/database-pool.ts";
 import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.js";
-import { getUserAvatarUrl } from "../../utils/supabase-api.js";
+import { getUserAvatarImg } from "../../utils/supabase-api.js";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -57,7 +57,6 @@ export const handler: Handlers = {
     }
   },
   async GET(_req, ctx) {
-    const dbConn = await dbPool.connect();
     const user = userData.value;
 
     if (isEmptyObject(user))
@@ -65,6 +64,8 @@ export const handler: Handlers = {
         JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
         { status: 307, headers: { Location: "/user/login" } }
       );
+
+    const dbConn = await dbPool.connect();
 
     try {
       let userAvatarKey;
@@ -76,13 +77,19 @@ export const handler: Handlers = {
         userAvatarKey = results.rows[0]?.avatar_url;
       }
 
-      // TODO
-      console.log(userAvatarKey);
-      console.log(getUserAvatarUrl(userAvatarKey));
+      const userAvatarUrl = await getUserAvatarImg(userAvatarKey);
 
-      return ctx.render({ user, userAvatarKey });
+      return ctx.render({ user, userAvatarUrl });
     } catch (err) {
-      return ctx.render({ err });
+      return new Response(
+        JSON.stringify({
+          message: `Something went wrong finding your profile. Error: ${err.message}`,
+        }),
+        {
+          status: 500,
+          statusText: "Error",
+        }
+      );
     } finally {
       dbConn.release();
     }
@@ -90,15 +97,21 @@ export const handler: Handlers = {
 };
 
 export default function ProfilePage(props: PageProps) {
+  const avatarFrameStyles = "w-20 h-20 rounded-full overflow-hidden";
+
   return (
     <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
         {props.data?.user.email && (
           <p class="mb-6">Profile Page of {props.data.user.email || "poop"}</p>
         )}
-        {/* {props.data?.userAvatarKey && (
-          <img src={getUserAvatarUrl(props.data.userAvatarKey)} alt="" />
-        )} */}
+        <div class={avatarFrameStyles}>
+          {props.data?.userAvatarUrl ? (
+            <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
+          ) : (
+            <div class="h-full w-full bg-gray-500"></div>
+          )}
+        </div>
         <label for="avatar">Choose avatar to upload</label>
         <form method="post" encType="multipart/form-data">
           <input
@@ -115,7 +128,6 @@ export default function ProfilePage(props: PageProps) {
           </button>
         </form>
       </div>
-      {props.data.err && <div>Error</div>}
     </Layout>
   );
 }
