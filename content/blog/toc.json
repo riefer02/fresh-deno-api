@@ -7,7 +7,8 @@
     "pages": [
       ["check-stereo-sends", "Check Stereo Sends"],
       ["musicians-journey", "Musician's Journey"],
-      ["band-death", "Band Death"]
+      ["band-death", "Band Death"],
+      ["drum-tracking", "Drum Tracking"]
     ]
   },
   "software-development": {
