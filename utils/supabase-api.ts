@@ -23,7 +23,5 @@ export const getUserAvatarImg = async (userAvatarKey: string) => {
     .then((res) => res.json())
     .catch((err) => console.log(err.message));
 
-  if (res.signedURL) return `${supabaseUrl}/storage/v1${res.signedURL}`;
-
-  return "";
+  return `${supabaseUrl}/storage/v1${res.signedURL}`;
 };

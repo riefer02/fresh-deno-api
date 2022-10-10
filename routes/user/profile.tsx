@@ -80,7 +80,7 @@ export const handler: Handlers = {
         userAvatarKey = results.rows[0]?.avatar_url;
       }
 
-      if (userAvatarKey !== null && userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
+      if (userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
 
       return ctx.render({ user, userAvatarUrl });
     } catch (err) {
