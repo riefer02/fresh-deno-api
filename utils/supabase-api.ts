@@ -11,7 +11,7 @@ export const supabaseAuthHeaders = {
   "Content-Type": "application/json",
 };
 
-export const getUserAvatarImg = async (userAvatarKey) => {
+export const getUserAvatarImg = async (userAvatarKey: string) => {
   const res = await fetch(
     `${supabaseUrl}/storage/v1/object/sign/${userAvatarKey}`,
     {
