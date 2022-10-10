@@ -30,7 +30,7 @@ export async function handler(
   if (!validUserData) {
     const res = new Response(
       JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
-      { status: 401, headers: { Location: "/user/login" } }
+      { status: 303, headers: { Location: "/user/login" } }
     );
     deleteCookie(res.headers, "graveyardjs-jwt");
 
