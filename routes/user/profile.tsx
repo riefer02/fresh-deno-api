@@ -3,8 +3,8 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import dbPool from "../../utils/database-pool.ts";
-import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.js";
-import { getUserAvatarImg } from "../../utils/supabase-api.js";
+import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.ts";
+import { getUserAvatarImg } from "../../utils/supabase-api.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -68,7 +68,7 @@ export const handler: Handlers = {
     const dbConn = await dbPool.connect();
 
     try {
-      let userAvatarKey;
+      let userAvatarKey, userAvatarUrl;
 
       const results =
         await dbConn.queryObject`SELECT (avatar_url) FROM public.users WHERE email = ${user.email};`;
@@ -77,7 +77,7 @@ export const handler: Handlers = {
         userAvatarKey = results.rows[0]?.avatar_url;
       }
 
-      const userAvatarUrl = await getUserAvatarImg(userAvatarKey);
+      if (userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
 
       return ctx.render({ user, userAvatarUrl });
     } catch (err) {
