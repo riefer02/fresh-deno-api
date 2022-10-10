@@ -7,7 +7,6 @@ import { timeFmt } from "../utils/date-time.ts";
 
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
-    console.log(Deno.env.get("DATABASE_URL"));
     return ctx.render();
   },
 };
