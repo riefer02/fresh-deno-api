@@ -3,7 +3,11 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import dbPool from "../../utils/database-pool.ts";
-import { supabaseUrl, supabaseAuthHeaders, getUserAvatarImg } from "../../utils/supabase-api.ts";
+import {
+  supabaseUrl,
+  supabaseAuthHeaders,
+  getUserAvatarImg,
+} from "../../utils/supabase-api.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -76,7 +80,7 @@ export const handler: Handlers = {
         userAvatarKey = results.rows[0]?.avatar_url;
       }
 
-      if (userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
+      if (userAvatarKey !== null && userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
 
       return ctx.render({ user, userAvatarUrl });
     } catch (err) {
