@@ -108,7 +108,7 @@ export default function ProfilePage(props: PageProps) {
           {props.data?.userAvatarUrl ? (
             <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
           ) : (
-            <div class="h-full w-full bg-gray-500"></div>
+            <div class="h-full w-full bg-gray-300"></div>
           )}
         </div>
         <label for="avatar">Choose avatar to upload</label>

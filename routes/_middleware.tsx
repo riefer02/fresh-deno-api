@@ -15,6 +15,8 @@ export async function handler(
 ) {
   const cookies = getCookies(req.headers);
 
+  if (!cookies["graveyardjs-jwt"]) userData.value = {};
+
   if (
     reqMiddlewareUrlBlackList.includes(req.url) ||
     !cookies["graveyardjs-jwt"]
