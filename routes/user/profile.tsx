@@ -3,8 +3,7 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import dbPool from "../../utils/database-pool.ts";
-import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.ts";
-import { getUserAvatarImg } from "../../utils/supabase-api.ts";
+import { supabaseUrl, supabaseAuthHeaders, getUserAvatarImg } from "../../utils/supabase-api.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
