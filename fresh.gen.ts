@@ -14,9 +14,10 @@ import * as $7 from "./routes/api/todos/index.tsx";
 import * as $8 from "./routes/blog/[...slug].tsx";
 import * as $9 from "./routes/gfm.css.tsx";
 import * as $10 from "./routes/index.tsx";
-import * as $11 from "./routes/user/join.tsx";
-import * as $12 from "./routes/user/login.tsx";
-import * as $13 from "./routes/user/profile.tsx";
+import * as $11 from "./routes/sitemap.xml.ts";
+import * as $12 from "./routes/user/join.tsx";
+import * as $13 from "./routes/user/login.tsx";
+import * as $14 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
 import * as $$2 from "./islands/UseSignal.tsx";
@@ -34,9 +35,10 @@ const manifest = {
     "./routes/blog/[...slug].tsx": $8,
     "./routes/gfm.css.tsx": $9,
     "./routes/index.tsx": $10,
-    "./routes/user/join.tsx": $11,
-    "./routes/user/login.tsx": $12,
-    "./routes/user/profile.tsx": $13,
+    "./routes/sitemap.xml.ts": $11,
+    "./routes/user/join.tsx": $12,
+    "./routes/user/login.tsx": $13,
+    "./routes/user/profile.tsx": $14,
   },
   islands: {
     "./islands/Countdown.tsx": $$0,
