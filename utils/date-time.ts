@@ -9,3 +9,13 @@ export const timeFmt = new Intl.DateTimeFormat("en-US", {
   timeStyle: "long",
   hour12: false,
 });
+
+export const formatBlogDate = (utcDate) => {
+  const date = new Date(utcDate);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
+};

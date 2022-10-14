@@ -2,6 +2,7 @@ import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { apply, tw } from "twind";
 import { frontMatter, gfm } from "../../utils/markdown.ts";
+import { formatBlogDate } from "../../utils/date-time.ts";
 
 import BlogSidebar from "../../components/BlogSidebar.tsx";
 import Layout from "../../components/Layout.tsx";
@@ -154,9 +155,13 @@ function Content(props: { page: Page }) {
   const title = tw`text(4xl gray-900) tracking-tight font-extrabold mt-6`;
   const body = tw`mt-6`;
   const html = gfm.render(props.page.markdown);
+
   return (
     <main class={main}>
       <h1 class={title}>{props.page.title}</h1>
+      {props.page.data?.date && (
+        <sub>{formatBlogDate(props.page.data.date)}</sub>
+      )}
       <div
         class={`${body} markdown-body`}
         dangerouslySetInnerHTML={{ __html: html }}
