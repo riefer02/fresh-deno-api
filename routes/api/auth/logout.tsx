@@ -2,7 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 import { userData } from "../../../utils/user-signal.ts";
 
 export const handler: Handlers = {
-  GET(_req, _ctx) {
+  POST(_req, _ctx) {
     userData.value = {};
 
     try {

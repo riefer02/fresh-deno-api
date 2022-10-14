@@ -34,6 +34,16 @@ export default function NavigationBar(props: NavBarProps) {
             );
           }
         })}
+        {!isEmptyObject(user) && (
+          <form action="/api/auth/logout" method="POST">
+            <input
+              type="submit"
+              name="logout"
+              value="Logout"
+              class="bg-transparent text-gray-600 cursor-pointer hover:underline"
+            />
+          </form>
+        )}
       </ul>
     </nav>
   );
