@@ -13,11 +13,10 @@ export const handler: Handlers = {
 
 const TITLE = "GraveyardJS - The next-gen web API.";
 const DESCRIPTION =
-  "Welcome to GraveyardJS, next-generation API tool for the legendary undead heroes of the world.";
+  "Welcome to GraveyardJS, next-generation API tool, and personal blog for the legendary undead heroes of the world.";
 
 export default function MainPage(props: PageProps) {
-  const ogImageUrl = new URL(asset("/jerry-the-ghost-200w.png"), props.url)
-    .href;
+  const ogImageUrl = new URL(asset("/graveyardjs-ogimage.png"), props.url).href;
 
   return (
     <>
@@ -29,6 +28,12 @@ export default function MainPage(props: PageProps) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={props.url.href} />
         <meta property="og:image" content={ogImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="graveyardjs.com" />
+        <meta property="twitter:url" content={props.url.href} />
+        <meta name="twitter:title" content={TITLE} />
+        <meta name="twitter:description" content={DESCRIPTION} />
+        <meta name="twitter:image" content={ogImageUrl} />
       </Head>
       <Layout pathname={props.url.pathname}>
         <Intro />

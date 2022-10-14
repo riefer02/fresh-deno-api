@@ -18,5 +18,9 @@
       ["answer-not-found", "Answer, Not Found"],
       ["presigned-url", "Presigned Url"]
     ]
+  },
+  "personal-reflections": {
+    "title": "Personal Reflections",
+    "pages": [["bad-day-good-day", "Bad Day, Good Day"]]
   }
 }
