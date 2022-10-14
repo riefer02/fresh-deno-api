@@ -1,4 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { asset } from "$fresh/runtime.ts";
 import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
@@ -110,7 +111,11 @@ export default function ProfilePage(props: PageProps) {
         )}
         <div class={avatarFrameStyles}>
           {props.data?.userAvatarUrl ? (
-            <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
+            <img
+              src={props.data.userAvatarUrl}
+              alt=""
+              class="object-cover"
+            />
           ) : (
             <div class="h-full w-full bg-gray-300"></div>
           )}
