@@ -6,7 +6,7 @@ BigInt.prototype.toJSON = function () {
 };
 
 export const handler: Handlers = {
-  async GET(req, ctx) {
+  async GET(_req, _ctx) {
     const dbConn = await dbPool.connect();
     try {
       const results = await dbConn.queryObject`
@@ -26,7 +26,7 @@ export const handler: Handlers = {
     }
   },
 
-  async POST(req, ctx) {
+  async POST(req, _ctx) {
     const dbConn = await dbPool.connect();
     try {
       const { title } = await req.json();

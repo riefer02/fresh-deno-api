@@ -1,13 +1,12 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
+
+import dbPool from "../../utils/database-pool.ts";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
-import dbPool from "../../utils/database-pool.ts";
-import {
-  supabaseUrl,
-  supabaseAuthHeaders,
-  getUserAvatarImg,
-} from "../../utils/supabase-api.ts";
+import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.ts";
+
+import { getUserProfile } from "../../services/get-user-profile.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -68,34 +67,9 @@ export const handler: Handlers = {
         { status: 307, headers: { Location: "/user/login" } }
       );
 
-    const dbConn = await dbPool.connect();
+    const { userAvatarUrl } = await getUserProfile(user);
 
-    try {
-      let userAvatarKey, userAvatarUrl;
-
-      const results =
-        await dbConn.queryObject`SELECT (avatar_url) FROM public.users WHERE email = ${user.email};`;
-
-      if (results.rows[0]) {
-        userAvatarKey = results.rows[0]?.avatar_url;
-      }
-
-      if (userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
-
-      return ctx.render({ user, userAvatarUrl });
-    } catch (err) {
-      return new Response(
-        JSON.stringify({
-          message: `Something went wrong finding your profile. Error: ${err.message}`,
-        }),
-        {
-          status: 500,
-          statusText: "Error",
-        }
-      );
-    } finally {
-      dbConn.release();
-    }
+    return ctx.render({ user, userAvatarUrl });
   },
 };
 
@@ -110,11 +84,7 @@ export default function ProfilePage(props: PageProps) {
         )}
         <div class={avatarFrameStyles}>
           {props.data?.userAvatarUrl ? (
-            <img
-              src={props.data.userAvatarUrl}
-              alt=""
-              class="object-cover"
-            />
+            <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
           ) : (
             <div class="h-full w-full bg-gray-300"></div>
           )}
