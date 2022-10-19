@@ -4,7 +4,7 @@ import { jwtExpirationTime } from "./date-time.ts";
 
 const rawKey = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
 
-const importKey = async (rawKey) =>
+const importKey = async (rawKey: string) =>
   await crypto.subtle.importKey(
     "jwk",
     JSON.parse(rawKey),
