@@ -1,5 +1,5 @@
-import { getUserAvatarImg } from "../utils/supabase-api.ts";
-import dbPool from "../utils/database-pool.ts";
+import { getUserAvatarImg } from "./get-user-avatar.ts";
+import dbPool from "../../utils/database-pool.ts";
 
 export const getUserProfile = async (user) => {
   const dbConn = await dbPool.connect();

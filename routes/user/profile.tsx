@@ -4,7 +4,7 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 
-import { getUserProfile } from "../../services/get-user-profile.ts";
+import { getUserProfile } from "../../services/user/get-user-profile.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
