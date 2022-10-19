@@ -8,7 +8,7 @@ import { createJWT } from "../../utils/jwt.ts";
 import { LoginCredentials } from "../../utils/types.ts";
 
 export const handler: Handlers = {
-  GET(req, ctx) {
+  GET(_req, ctx) {
     return ctx.render();
   },
   async POST(req, ctx) {
