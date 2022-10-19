@@ -8,7 +8,6 @@ export const supabaseKey =
 
 export const supabaseAuthHeaders = {
   Authorization: `Bearer ${supabaseKey}`,
-  "Content-Type": "application/json",
 };
 
 export const getUserAvatarImg = async (userAvatarKey: string) => {
@@ -16,12 +15,16 @@ export const getUserAvatarImg = async (userAvatarKey: string) => {
     `${supabaseUrl}/storage/v1/object/sign/${userAvatarKey}`,
     {
       method: "POST",
-      headers: supabaseAuthHeaders,
+      headers: { ...supabaseAuthHeaders, "Content-Type": "application/json" },
       body: JSON.stringify({ expiresIn: 6000 }),
     }
   )
     .then((res) => res.json())
     .catch((err) => console.log(err.message));
 
-  return `${supabaseUrl}/storage/v1${res.signedURL}`;
+  if (res.signedURL) {
+    return `${supabaseUrl}/storage/v1${res.signedURL}`;
+  }
+
+  return "";
 };

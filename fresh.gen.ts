@@ -12,13 +12,15 @@ import * as $5 from "./routes/api/healthcheck.tsx";
 import * as $6 from "./routes/api/todos/[id].tsx";
 import * as $7 from "./routes/api/todos/index.tsx";
 import * as $8 from "./routes/api/user/avatar.tsx";
-import * as $9 from "./routes/blog/[...slug].tsx";
-import * as $10 from "./routes/gfm.css.tsx";
-import * as $11 from "./routes/index.tsx";
-import * as $12 from "./routes/sitemap.xml.ts";
-import * as $13 from "./routes/user/join.tsx";
-import * as $14 from "./routes/user/login.tsx";
-import * as $15 from "./routes/user/profile.tsx";
+import * as $9 from "./routes/api/v1/audio/song/index.tsx";
+import * as $10 from "./routes/api/v1/user/avatar/index.tsx";
+import * as $11 from "./routes/blog/[...slug].tsx";
+import * as $12 from "./routes/gfm.css.tsx";
+import * as $13 from "./routes/index.tsx";
+import * as $14 from "./routes/sitemap.xml.ts";
+import * as $15 from "./routes/user/join.tsx";
+import * as $16 from "./routes/user/login.tsx";
+import * as $17 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
 import * as $$2 from "./islands/UseSignal.tsx";
@@ -34,13 +36,15 @@ const manifest = {
     "./routes/api/todos/[id].tsx": $6,
     "./routes/api/todos/index.tsx": $7,
     "./routes/api/user/avatar.tsx": $8,
-    "./routes/blog/[...slug].tsx": $9,
-    "./routes/gfm.css.tsx": $10,
-    "./routes/index.tsx": $11,
-    "./routes/sitemap.xml.ts": $12,
-    "./routes/user/join.tsx": $13,
-    "./routes/user/login.tsx": $14,
-    "./routes/user/profile.tsx": $15,
+    "./routes/api/v1/audio/song/index.tsx": $9,
+    "./routes/api/v1/user/avatar/index.tsx": $10,
+    "./routes/blog/[...slug].tsx": $11,
+    "./routes/gfm.css.tsx": $12,
+    "./routes/index.tsx": $13,
+    "./routes/sitemap.xml.ts": $14,
+    "./routes/user/join.tsx": $15,
+    "./routes/user/login.tsx": $16,
+    "./routes/user/profile.tsx": $17,
   },
   islands: {
     "./islands/Countdown.tsx": $$0,

@@ -1,63 +1,12 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
 
-import dbPool from "../../utils/database-pool.ts";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
-import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.ts";
 
 import { getUserProfile } from "../../services/get-user-profile.ts";
 
 export const handler: Handlers = {
-  async POST(req, ctx) {
-    const dbConn = await dbPool.connect();
-
-    try {
-      const user = userData.value;
-      const form = await req.formData();
-      const avatarFile = form.get("avatar");
-      const url = `${supabaseUrl}/storage/v1/object/avatars/${user.email}-avatar`;
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: supabaseAuthHeaders,
-        body: avatarFile,
-      });
-
-      if (response.status === 200) {
-        const { Key } = await response.json();
-
-        const results =
-          await dbConn.queryObject`UPDATE public.users SET avatar_url=${Key} WHERE email=${user.email} RETURNING *;`;
-
-        if (results.rows[0]) {
-          return ctx.render({ user: userData.value });
-        }
-
-        throw new Error("No row was returned when updating user data.");
-      }
-
-      return new Response(
-        JSON.stringify({
-          message: "Something went wrong when updating user data.",
-        }),
-        {
-          status: 400,
-          statusText: "Error",
-        }
-      );
-    } catch (err) {
-      return new Response(
-        JSON.stringify({ message: `Failed to upload avatar: ${err.message}` }),
-        {
-          status: 500,
-          statusText: "Error",
-        }
-      );
-    } finally {
-      dbConn.release();
-    }
-  },
   async GET(_req, ctx) {
     const user = userData.value;
 
@@ -90,7 +39,11 @@ export default function ProfilePage(props: PageProps) {
           )}
         </div>
         <label for="avatar">Choose avatar to upload</label>
-        <form method="post" encType="multipart/form-data">
+        <form
+          method="post"
+          encType="multipart/form-data"
+          action="/api/v1/user/avatar"
+        >
           <input
             type="file"
             id="avatar"
@@ -104,6 +57,62 @@ export default function ProfilePage(props: PageProps) {
             Submit
           </button>
         </form>
+        <div class="mt-10">
+          <h3 class="font-bold">Artist Songs</h3>
+          <label for="avatar">Upload a song to upload</label>
+          <form
+            method="post"
+            encType="multipart/form-data"
+            action="/api/v1/audio/song"
+            class="flex flex-col"
+          >
+            <input
+              type="file"
+              id="song-file"
+              name="song-file"
+              accept="audio/mp3, audio/wav"
+              class="mb-4"
+            />
+            <label for="song-name">Song Name</label>
+            <input
+              type="text"
+              id="song-name"
+              name="song-name"
+              class="bg-gray-300 mb-4"
+            />
+            <label for="song-name">Song Description</label>
+
+            <input
+              type="text"
+              id="song-description"
+              name="song-description"
+              class="bg-gray-300 mb-4"
+            />
+            <label for="song-name">Song Artist</label>
+
+            <input
+              type="text"
+              id="song-artist"
+              name="song-artist"
+              class="bg-gray-300 mb-4"
+            />
+            <label for="song-name">Song Album</label>
+
+            <input
+              type="text"
+              id="song-album"
+              name="song-album"
+              class="bg-gray-300 mb-4"
+            />
+
+            <button
+              class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </Layout>
   );
