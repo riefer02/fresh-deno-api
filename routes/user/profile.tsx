@@ -1,9 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
-
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
-
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
 
 export const handler: Handlers = {
@@ -28,36 +26,63 @@ export default function ProfilePage(props: PageProps) {
   return (
     <Layout pathname={props.url.pathname}>
       <div class="p-4 mx-auto max-w-screen-md">
-        {props.data?.user.email && (
-          <p class="mb-6">Profile Page of {props.data.user.email || "poop"}</p>
-        )}
-        <div class={avatarFrameStyles}>
-          {props.data?.userAvatarUrl ? (
-            <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
-          ) : (
-            <div class="h-full w-full bg-gray-300"></div>
+        <div class="mb-10">
+          {props.data?.user.email && (
+            <p class="mb-6">
+              Profile Page of {props.data.user.email || "poop"}
+            </p>
           )}
-        </div>
-        <label for="avatar">Choose avatar to upload</label>
-        <form
-          method="post"
-          encType="multipart/form-data"
-          action="/api/v1/user/avatar"
-        >
-          <input
-            type="file"
-            id="avatar"
-            name="avatar"
-            accept="image/png, image/jpeg"
-          />
-          <button
-            class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
-            type="submit"
+          <div class={avatarFrameStyles}>
+            {props.data?.userAvatarUrl ? (
+              <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
+            ) : (
+              <div class="h-full w-full bg-gray-300"></div>
+            )}
+          </div>
+          <label for="avatar">Choose avatar to upload</label>
+          <form
+            method="post"
+            encType="multipart/form-data"
+            action="/api/v1/user/avatar"
           >
-            Submit
-          </button>
-        </form>
-        <div class="mt-10">
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+            />
+            <button
+              class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        {/* <div class="mb-10">
+          <h3 class="font-bold mb-4">Add Artist/Project</h3>
+          <form method="post" action="/api/v1/artist" class="flex flex-col">
+            <label for="artist-name">Name</label>
+            <input
+              type="text"
+              id="artist-name"
+              name="artist-name"
+              class="bg-gray-300 mb-4"
+            />
+            <label for="artist-genres">Genre</label>
+            <select multiple name="artist-genres">
+              <option>Rock</option>
+              <option>Indie</option>
+              <option>Hip Hop</option>
+              <option>Eletronic</option>
+              <option>Folk</option>
+              <option>Country</option>
+              <option>World</option>
+            </select>
+          </form>
+        </div> */}
+
+        {/* <div class="mt-10">
           <h3 class="font-bold">Artist Songs</h3>
           <label for="avatar">Upload a song to upload</label>
           <form
@@ -112,7 +137,7 @@ export default function ProfilePage(props: PageProps) {
               Submit
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );
