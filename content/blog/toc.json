@@ -21,6 +21,9 @@
   },
   "personal-reflections": {
     "title": "Personal Reflections",
-    "pages": [["bad-day-good-day", "Bad Day, Good Day"]]
+    "pages": [
+      ["bad-day-good-day", "Bad Day, Good Day"],
+      ["new-mexico", "New Mexico"]
+    ]
   }
 }
