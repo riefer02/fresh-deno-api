@@ -1,20 +1,21 @@
 import { PostgresError } from "https://deno.land/x/postgres@v0.16.1/mod.ts";
 
-export const errorHandler = (err: PostgresError) => {
+export const errorHandler = (err: PostgresError, model: string) => {
   switch (err.name) {
     case "PostgresError":
-      return postgresErrorHandler(err);
+      return postgresErrorHandler(err, model);
 
     default:
-      return "Bark, bark something went wrong.";
+      return `Bark, bark something went wrong. Error: ${err.message}`;
   }
 };
 
-const postgresErrorHandler = (err: PostgresError) => {
-  console.log(err.fields)
+const postgresErrorHandler = (err: PostgresError, model: string) => {
+  console.log("Postgres Error Fields:", err.fields);
+
   switch (err.fields.code) {
     case "23505":
-      return "Email has already been registered";
+      return `${model} has already been registered, ErrorCode: ${err.fields.code}, ErrorMessage: ${err.message}`;
 
     default:
       return "Bark, bark something went wrong with our database.";

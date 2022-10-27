@@ -54,7 +54,7 @@ export const handler: Handlers = {
         JSON.stringify({ message: "Unable to create new user" })
       );
     } catch (err) {
-      err.message = errorHandler(err);
+      err.message = errorHandler(err, "user");
       return ctx.render({ err });
     } finally {
       dbConn.release();

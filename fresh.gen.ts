@@ -11,7 +11,7 @@ import * as $4 from "./routes/api/auth/register.tsx";
 import * as $5 from "./routes/api/healthcheck.tsx";
 import * as $6 from "./routes/api/todos/[id].tsx";
 import * as $7 from "./routes/api/todos/index.tsx";
-import * as $8 from "./routes/api/user/avatar.tsx";
+import * as $8 from "./routes/api/v1/artist/index.tsx";
 import * as $9 from "./routes/api/v1/audio/song/index.tsx";
 import * as $10 from "./routes/api/v1/user/avatar/index.tsx";
 import * as $11 from "./routes/blog/[...slug].tsx";
@@ -23,7 +23,8 @@ import * as $16 from "./routes/user/login.tsx";
 import * as $17 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
-import * as $$2 from "./islands/UseSignal.tsx";
+import * as $$2 from "./islands/CreateArtist.tsx";
+import * as $$3 from "./islands/UseSignal.tsx";
 
 const manifest = {
   routes: {
@@ -35,7 +36,7 @@ const manifest = {
     "./routes/api/healthcheck.tsx": $5,
     "./routes/api/todos/[id].tsx": $6,
     "./routes/api/todos/index.tsx": $7,
-    "./routes/api/user/avatar.tsx": $8,
+    "./routes/api/v1/artist/index.tsx": $8,
     "./routes/api/v1/audio/song/index.tsx": $9,
     "./routes/api/v1/user/avatar/index.tsx": $10,
     "./routes/blog/[...slug].tsx": $11,
@@ -49,7 +50,8 @@ const manifest = {
   islands: {
     "./islands/Countdown.tsx": $$0,
     "./islands/Counter.tsx": $$1,
-    "./islands/UseSignal.tsx": $$2,
+    "./islands/CreateArtist.tsx": $$2,
+    "./islands/UseSignal.tsx": $$3,
   },
   baseUrl: import.meta.url,
   config,

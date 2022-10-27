@@ -57,7 +57,7 @@ export const handler: Handlers = {
         },
       });
     } catch (err) {
-      err.message = errorHandler(err);
+      err.message = errorHandler(err, "user");
 
       return ctx.render({ err });
     } finally {

@@ -3,6 +3,7 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
+import CreateArtist from "../../islands/CreateArtist.tsx";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
@@ -59,29 +60,7 @@ export default function ProfilePage(props: PageProps) {
             </button>
           </form>
         </div>
-        {/* <div class="mb-10">
-          <h3 class="font-bold mb-4">Add Artist/Project</h3>
-          <form method="post" action="/api/v1/artist" class="flex flex-col">
-            <label for="artist-name">Name</label>
-            <input
-              type="text"
-              id="artist-name"
-              name="artist-name"
-              class="bg-gray-300 mb-4"
-            />
-            <label for="artist-genres">Genre</label>
-            <select multiple name="artist-genres">
-              <option>Rock</option>
-              <option>Indie</option>
-              <option>Hip Hop</option>
-              <option>Eletronic</option>
-              <option>Folk</option>
-              <option>Country</option>
-              <option>World</option>
-            </select>
-          </form>
-        </div> */}
-
+        <CreateArtist />
         {/* <div class="mt-10">
           <h3 class="font-bold">Artist Songs</h3>
           <label for="avatar">Upload a song to upload</label>
