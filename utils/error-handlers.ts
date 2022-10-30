@@ -1,4 +1,5 @@
 import { PostgresError } from "https://deno.land/x/postgres@v0.16.1/mod.ts";
+import { capitalizeFirstLetter } from "./strings.ts";
 
 export const errorHandler = (err: PostgresError, model: string) => {
   switch (err.name) {
@@ -15,9 +16,9 @@ const postgresErrorHandler = (err: PostgresError, model: string) => {
 
   switch (err.fields.code) {
     case "23505":
-      return `${model} has already been registered, ErrorCode: ${err.fields.code}, ErrorMessage: ${err.message}`;
+      return `${capitalizeFirstLetter(model)} has already been registered`;
 
     default:
-      return "Bark, bark something went wrong with our database.";
+      return `Bark, bark something went wrong with our database. ErrorCode: ${err.fields.code}, ErrorMessage: ${err.message}`;
   }
 };

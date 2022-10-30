@@ -4,35 +4,41 @@ import { errorHandler } from "../../../../utils/error-handlers.ts";
 import { userData } from "../../../../utils/user-signal.ts";
 
 export const handler: Handlers = {
-  async POST(req, ctx) {
-    console.log({ req, ctx });
+  async POST(req, _ctx) {
     const dbConn = await dbPool.connect();
 
     try {
       const user = userData.value;
-      const form = await req.formData();
-      const artistName = form.get("artist-name");
+      const { artistName } = await req.json();
+
+      if (!artistName)
+        return new Response(
+          JSON.stringify({ message: "Please enter an artist name" }),
+          { status: 400 }
+        );
+
       const initialUserIdObject = JSON.stringify([
         { id: user.sub, email: user.email },
       ]);
 
       const results =
-        await dbConn.queryObject`INSERT INTO public.artists (name, user_ids) VALUES (${artistName}, 
+        await dbConn.queryObject`INSERT INTO public.artists (name, user_ids) VALUES (${artistName},
           ${initialUserIdObject}) RETURNING *;`;
 
       if (results.rows[0]) {
         return new Response(
           JSON.stringify({
-            message: `Successfully created artist. ${results.rows[0]}`,
+            message: `Successfully created artxist.`,
           }),
-          { status: 303, headers: { Location: "/user/profile" } }
+          { status: 200 }
         );
       }
 
       return new Response(
         JSON.stringify({
           message: "Testing at the moment. Hmmm... no results returned.",
-        })
+        }),
+        { status: 404 }
       );
     } catch (err) {
       err.message = errorHandler(err, "artist");
@@ -42,9 +48,8 @@ export const handler: Handlers = {
           message: err.message,
         }),
         {
-          status: 303,
+          status: 500,
           statusText: "Something went wrong",
-          headers: { Location: "/user/profile", error: err.message },
         }
       );
     } finally {

@@ -14,7 +14,11 @@ export const getUserProfile = async (user) => {
       userAvatarKey = results.rows[0]?.avatar_url;
     }
 
+    const startTime = performance.now();
     if (userAvatarKey) userAvatarUrl = await getUserAvatarImg(userAvatarKey);
+    const endTime = performance.now();
+
+    console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
 
     return { userAvatarUrl };
   } catch (err) {

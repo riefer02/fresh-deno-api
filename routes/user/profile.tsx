@@ -4,6 +4,7 @@ import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
 import CreateArtist from "../../islands/CreateArtist.tsx";
+import { HOSTNAME } from "../../utils/environment.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
@@ -60,7 +61,7 @@ export default function ProfilePage(props: PageProps) {
             </button>
           </form>
         </div>
-        <CreateArtist />
+        <CreateArtist apiURL={HOSTNAME} />
         {/* <div class="mt-10">
           <h3 class="font-bold">Artist Songs</h3>
           <label for="avatar">Upload a song to upload</label>

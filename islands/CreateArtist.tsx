@@ -1,32 +1,50 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useRef, useCallback, useEffect } from "preact/hooks";
 
-export default function MyIsland() {
-  const [error, setError] = useState(false);
-  const [formData, setFormData] = useState()
+export default function CreateArtist({ apiURL }) {
+  const artistNameInputElement = useRef(null);
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: Event) => {
+  const formHandler = useCallback(async (e: Event) => {
     e.preventDefault();
-    console.log(e);
-  };
+    setMessage("");
 
-  useEffect(() => {
-    console.log("here");
-    setTimeout(() => {
-      setError(true);
-    }, 2000);
+    const { message } = await fetch(`${apiURL}api/v1/artist`, {
+      method: "POST",
+      body: JSON.stringify({
+        artistName: artistNameInputElement.current?.value,
+      }),
+    })
+      .then((res) => {
+        artistNameInputElement.current.value = "";
+        return res.json();
+      })
+      .catch((err) => console.log(err.message));
+
+    setMessage(message);
   }, []);
+
+  useEffect(
+    () =>
+      setTimeout(() => {
+        setMessage("");
+      }, 2000),
+    [message]
+  );
 
   return (
     <div class="mb-10">
-      {error && <div>Error: {JSON.stringify(error)}</div>}
+      <div className="h-4">
+        {message && <div className="text-red-500">{message}</div>}
+      </div>
       <h3 class="font-bold mb-2 underline">Add Artist/Project</h3>
-      <form method="post" action="/api/v1/artist" class="flex flex-col">
+      <div class="flex flex-col">
         <label for="artist-name">Name</label>
         <input
           type="text"
           id="artist-name"
           name="artist-name"
           class="bg-gray-300 mb-4"
+          ref={artistNameInputElement}
         />
         {/* <label for="artist-genres">Genre</label>
             <select multiple name="artist-genres">
@@ -39,13 +57,13 @@ export default function MyIsland() {
               <option>World</option>
             </select> */}
         <button
-          onClick={(e) => handleSubmit(e)}
-          class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
+          onClick={(e) => formHandler(e)}
           type="submit"
+          class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
         >
           Submit
         </button>
-      </form>
+      </div>
     </div>
   );
 }
