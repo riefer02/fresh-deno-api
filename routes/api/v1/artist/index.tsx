@@ -3,7 +3,33 @@ import dbPool from "../../../../utils/database-pool.ts";
 import { errorHandler } from "../../../../utils/error-handlers.ts";
 import { userData } from "../../../../utils/user-signal.ts";
 
+// NPM Package in action!
+import { PrismaClient } from "../../../../node_modules/.prisma/client/edge.js";
+
 export const handler: Handlers = {
+  async GET(req, _ctx) {
+    try {
+      await PrismaClient.create.artist({
+        data: {
+          name: `${req.method} ${req.url}`,
+        },
+      });
+
+      return new Response(
+        JSON.stringify({
+          message: "Successfully created new artist w/ prisma client",
+        })
+      );
+    } catch (err) {
+      return new Response(
+        JSON.stringify({
+          message: "There was an error tring to use prisma client",
+        }),
+        { status: 500 }
+      );
+    }
+  },
+
   async POST(req, _ctx) {
     const dbConn = await dbPool.connect();
 
