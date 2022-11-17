@@ -1,8 +1,10 @@
 {
   "tasks": {
-    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "start": "npx dotenv -- deno run -A --unstable --watch=static/,routes/ dev.ts",
     "production": "deno run -A main.ts",
-    "screenshot": "deno run -A utils/screenshot.ts"
+    "screenshot": "deno run -A utils/screenshot.ts",
+    "generate-client": "npx dotenv -- deno run -A --unstable npm:prisma generate --data-proxy",
+    "migrate-deploy": "deno run -A --unstable npm:prisma migrate deploy"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {

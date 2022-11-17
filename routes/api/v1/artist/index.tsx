@@ -4,26 +4,27 @@ import { errorHandler } from "../../../../utils/error-handlers.ts";
 import { userData } from "../../../../utils/user-signal.ts";
 
 // NPM Package in action!
-import { PrismaClient } from "../../../../node_modules/.prisma/client/edge.js";
+import { PrismaClient } from "@prisma/client/edge";
+const prisma = new PrismaClient();
 
 export const handler: Handlers = {
   async GET(req, _ctx) {
     try {
-      await PrismaClient.create.artist({
+      const artist = await prisma.artists.create({
         data: {
-          name: `${req.method} ${req.url}`,
+          name: `Prisma Artist v2`,
         },
       });
 
-      return new Response(
-        JSON.stringify({
-          message: "Successfully created new artist w/ prisma client",
-        })
-      );
+      const body = JSON.stringify(artist, null, 2);
+
+      return new Response(body, {
+        headers: { "content-type": "application/json; charset=utf-8" },
+      });
     } catch (err) {
       return new Response(
         JSON.stringify({
-          message: "There was an error tring to use prisma client",
+          message: "There was an error trying to use prisma client",
         }),
         { status: 500 }
       );
