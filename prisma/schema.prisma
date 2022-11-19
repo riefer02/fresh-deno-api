@@ -1,7 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["deno"]
+  provider        = "prisma-client-js"
   output          = "../generated/client"
+  previewFeatures = ["deno"]
 }
 
 datasource db {
@@ -48,4 +48,12 @@ model users {
   password   String?   @db.VarChar
   salt       String?   @db.VarChar
   avatar_url String?   @db.VarChar
+}
+
+model songs {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  title      String?   @db.VarChar
+  owner_id   String?   @db.Uuid
+  key        String?   @db.VarChar
 }

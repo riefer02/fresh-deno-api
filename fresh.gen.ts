@@ -11,8 +11,8 @@ import * as $4 from "./routes/api/auth/register.tsx";
 import * as $5 from "./routes/api/healthcheck.tsx";
 import * as $6 from "./routes/api/todos/[id].tsx";
 import * as $7 from "./routes/api/todos/index.tsx";
-import * as $8 from "./routes/api/v1/artist/index.tsx";
-import * as $9 from "./routes/api/v1/audio/song/index.tsx";
+import * as $8 from "./routes/api/v1/artists/index.tsx";
+import * as $9 from "./routes/api/v1/songs/index.tsx";
 import * as $10 from "./routes/api/v1/user/avatar/index.tsx";
 import * as $11 from "./routes/blog/[...slug].tsx";
 import * as $12 from "./routes/gfm.css.tsx";
@@ -36,8 +36,8 @@ const manifest = {
     "./routes/api/healthcheck.tsx": $5,
     "./routes/api/todos/[id].tsx": $6,
     "./routes/api/todos/index.tsx": $7,
-    "./routes/api/v1/artist/index.tsx": $8,
-    "./routes/api/v1/audio/song/index.tsx": $9,
+    "./routes/api/v1/artists/index.tsx": $8,
+    "./routes/api/v1/songs/index.tsx": $9,
     "./routes/api/v1/user/avatar/index.tsx": $10,
     "./routes/blog/[...slug].tsx": $11,
     "./routes/gfm.css.tsx": $12,

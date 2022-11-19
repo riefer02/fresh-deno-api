@@ -3,16 +3,20 @@ import dbPool from "../../../../utils/database-pool.ts";
 import { errorHandler } from "../../../../utils/error-handlers.ts";
 import { userData } from "../../../../utils/user-signal.ts";
 
-// NPM Package in action!
 import { PrismaClient } from "@prisma/client/edge";
 const prisma = new PrismaClient();
+
+interface UserData {
+  sub?: string;
+  email?: string;
+}
 
 export const handler: Handlers = {
   async GET(req, _ctx) {
     try {
       const artist = await prisma.artists.create({
         data: {
-          name: `Prisma Artist v2`,
+          name: `Prisma Artist v4`,
         },
       });
 
@@ -35,7 +39,7 @@ export const handler: Handlers = {
     const dbConn = await dbPool.connect();
 
     try {
-      const user = userData.value;
+      const user: UserData = userData.value;
       const { artistName } = await req.json();
 
       if (!artistName)
