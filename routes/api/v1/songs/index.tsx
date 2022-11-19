@@ -12,7 +12,7 @@ export const handler: Handlers = {
     });
 
     return new Response(
-      JSON.stringify({ message: "Song upload successfully..." })
+      JSON.stringify({ message: "Song upload successfully...", data: res })
     );
   },
 };
