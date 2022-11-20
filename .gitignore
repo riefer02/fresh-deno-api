@@ -1,6 +1,5 @@
 .vscode
-.env
-.env-migration
+.env*
 .jwk
 
 node_modules
