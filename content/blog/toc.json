@@ -17,7 +17,8 @@
       ["new-app-idea", "New App Idea"],
       ["answer-not-found", "Answer, Not Found"],
       ["presigned-url", "Presigned Url"],
-      ["migration-adventure", "Migration Adventure"]
+      ["migration-adventure", "Migration Adventure"],
+      ["prisma-deno-frustration", "Prisma Deno Frustration"]
     ]
   },
   "personal-reflections": {
