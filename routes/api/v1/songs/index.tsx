@@ -1,7 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-
-import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
+import prisma from "../../../../utils/prisma-client.ts";
 
 export const handler: Handlers = {
   async GET(_req, _ctx) {

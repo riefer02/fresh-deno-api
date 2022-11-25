@@ -2,9 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 import dbPool from "../../../../utils/database-pool.ts";
 import { errorHandler } from "../../../../utils/error-handlers.ts";
 import { userData } from "../../../../utils/user-signal.ts";
-
-import { PrismaClient } from "@prisma/client/edge";
-const prisma = new PrismaClient();
+import prisma from "../../../../utils/prisma-client.ts";
 
 interface UserData {
   sub?: string;
@@ -13,7 +11,7 @@ interface UserData {
 
 export const handler: Handlers = {
   async GET(req, _ctx) {
-    console.log('here')
+    console.log("here");
     try {
       const artist = await prisma.artists.create({
         data: {
