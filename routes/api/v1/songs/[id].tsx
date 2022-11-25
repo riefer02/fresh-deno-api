@@ -52,7 +52,33 @@ export const handler: Handlers = {
     }
   },
 
-  //   async PATCH(req, ctx) {
+  async PATCH(req, ctx) {
+    const { id } = ctx.params;
+    const { title } = await req.json();
 
-  //   },
+    try {
+      const updateSong = await prisma.songs.update({
+        where: {
+          id,
+        },
+        data: {
+          title,
+        },
+      });
+
+      return new Response(
+        JSON.stringify({
+          data: updateSong,
+          message: "Successfully updated the song",
+        }),
+        {
+          status: 200,
+          statusText: "OK",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } catch (err) {
+      return new Response(`${err.message}`, { status: 404 });
+    }
+  },
 };
