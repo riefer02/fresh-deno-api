@@ -3,7 +3,7 @@ import Layout from "../../components/Layout.tsx";
 import { isEmptyObject } from "../../utils/is-empty-object.ts";
 import { userData } from "../../utils/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
-import CreateArtist from "../../islands/CreateArtist.tsx";
+import CreateSongForm from "../../islands/CreateSongForm.tsx";
 import { HOSTNAME } from "../../utils/environment.ts";
 
 export const handler: Handlers = {
@@ -61,63 +61,7 @@ export default function ProfilePage(props: PageProps) {
             </button>
           </form>
         </div>
-        <CreateArtist apiURL={HOSTNAME} />
-        {/* <div class="mt-10">
-          <h3 class="font-bold">Artist Songs</h3>
-          <label for="avatar">Upload a song to upload</label>
-          <form
-            method="post"
-            encType="multipart/form-data"
-            action="/api/v1/audio/song"
-            class="flex flex-col"
-          >
-            <input
-              type="file"
-              id="song-file"
-              name="song-file"
-              accept="audio/mp3, audio/wav"
-              class="mb-4"
-            />
-            <label for="song-name">Song Name</label>
-            <input
-              type="text"
-              id="song-name"
-              name="song-name"
-              class="bg-gray-300 mb-4"
-            />
-            <label for="song-name">Song Description</label>
-
-            <input
-              type="text"
-              id="song-description"
-              name="song-description"
-              class="bg-gray-300 mb-4"
-            />
-            <label for="song-name">Song Artist</label>
-
-            <input
-              type="text"
-              id="song-artist"
-              name="song-artist"
-              class="bg-gray-300 mb-4"
-            />
-            <label for="song-name">Song Album</label>
-
-            <input
-              type="text"
-              id="song-album"
-              name="song-album"
-              class="bg-gray-300 mb-4"
-            />
-
-            <button
-              class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
-        </div> */}
+        <CreateSongForm apiURL={HOSTNAME} />
       </div>
     </Layout>
   );

@@ -25,7 +25,8 @@ import * as $18 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/Countdown.tsx";
 import * as $$1 from "./islands/Counter.tsx";
 import * as $$2 from "./islands/CreateArtist.tsx";
-import * as $$3 from "./islands/UseSignal.tsx";
+import * as $$3 from "./islands/CreateSongForm.tsx";
+import * as $$4 from "./islands/UseSignal.tsx";
 
 const manifest = {
   routes: {
@@ -53,7 +54,8 @@ const manifest = {
     "./islands/Countdown.tsx": $$0,
     "./islands/Counter.tsx": $$1,
     "./islands/CreateArtist.tsx": $$2,
-    "./islands/UseSignal.tsx": $$3,
+    "./islands/CreateSongForm.tsx": $$3,
+    "./islands/UseSignal.tsx": $$4,
   },
   baseUrl: import.meta.url,
   config,
