@@ -11,16 +11,19 @@ export const handler: Handlers = {
   },
 
   async POST(req, _ctx) {
-    const { title } = await req.json();
+    const { title, artist } = await req.json();
 
-    if (!title)
+    console.log(title, artist);
+    // Input Validation Functions TODO which returns clean API for handling missing fields and messenging
+    if (!title || !artist)
       return new Response(
-        JSON.stringify({ message: "Please add a title for your song." })
+        JSON.stringify({ message: "Please add missing fields for your song." })
       );
 
     const res = await prisma.songs.create({
       data: {
         title,
+        artist,
       },
     });
 

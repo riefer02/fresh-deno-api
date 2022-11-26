@@ -578,6 +578,7 @@
     "https://esm.sh/he@1.2.0": "5336335e86da61d1b33161e0d1774addea4ba7c71056a47e7ad7ca6ac42e46e8",
     "https://esm.sh/marked@4.0.12": "5c99887f5c8a774db4195b36769dbf3342516151b2a14becd544e7a425224686",
     "https://esm.sh/preact@10.11.0": "e888b244446037c56f1881173fb51d1f5fa7aae5599e6c5154619346a6a5094e",
+    "https://esm.sh/preact@10.11.0/compat": "5641fed454f05cc40e96305b1a7376422b899f85025a5192e27d0f12d532db9c",
     "https://esm.sh/preact@10.11.0/hooks": "2b8ec155eb8b87501663f074acff1d55a9114fa7d88f0b39da06c940af1ff736",
     "https://esm.sh/preact@10.11.0/jsx-runtime": "5c123264f19799ab243211132dded45f6d42d594b5c78dd585f947d07bf20eae",
     "https://esm.sh/prismjs@1.27.0": "70c19676fe384168269a63875ee7cf88bf284f4b6126149d314a2ff81304f050",
@@ -585,6 +586,7 @@
     "https://esm.sh/prismjs@1.27.0/components/prism-tsx.js?no-check": "5970a80f2feaac8d89e5aade182aa099f6a1058db963776d0af5addfb69b085c",
     "https://esm.sh/prismjs@1.27.0/components/prism-typescript.js?no-check": "09a22be47642feca1d3d292a1570ed5e839492ce13047a1b2fd0d76205353a86",
     "https://esm.sh/sanitize-html@2.7.0": "169457057f251c37863b0ad57b4f14c71a7e891ed146999742f9f166bc901b1d",
+    "https://esm.sh/stable/preact@10.11.0/deno/compat.js": "1a121f6e6dd7f0a2b8f01bac821b8336304f3935306528e005279da77777989f",
     "https://esm.sh/stable/preact@10.11.0/deno/hooks.js": "48b7674c1f0c2a0f8a0f758b786f5bc15ba0f7a4f3a356ecc783848f1e4a1c55",
     "https://esm.sh/stable/preact@10.11.0/deno/jsx-runtime.js": "b5a8e96758c20b5dea05802c6f6962b8a95bfdbd476eb4ea51cf3234f6e09271",
     "https://esm.sh/stable/preact@10.11.0/deno/preact.js": "071b515099e5dff2fe56768be62644e32fab702b194171357ccc4d7d1210144a",
@@ -651,7 +653,13 @@
     "https://esm.sh/v95/@preact/signals-core@1.0.1/X-ZS8q/deno/signals-core.js": "cceff90da93a32d4885f394e83c5073b124c455e08cd95a8167503d7f962a743",
     "https://esm.sh/v95/@preact/signals-core@1.0.1/X-ZS8q/dist/signals-core.d.ts": "7a2bc0ea4bb4197fe888236017e1429cb3129ca64eb37146f11f102d9513c54d",
     "https://esm.sh/v95/@preact/signals@1.0.3/X-ZS8q/deno/signals.js": "464a574f4493b079bcc66c1518968c4da2c81e2fbe2ab05b6aa10836d8b7c60d",
-    "https://esm.sh/v95/@preact/signals@1.0.3/X-ZS8q/dist/signals.d.ts": "f4fbae092f6622b348cc45503aef1a2076ea0c4bf37ab78a691a77220217a027"
+    "https://esm.sh/v95/@preact/signals@1.0.3/X-ZS8q/dist/signals.d.ts": "f4fbae092f6622b348cc45503aef1a2076ea0c4bf37ab78a691a77220217a027",
+    "https://esm.sh/v99/preact@10.11.0/compat/src/index.d.ts": "c1f8da0c5666e296510cab41732743d593d71642ea55f57fbd19c6abae4e0192",
+    "https://esm.sh/v99/preact@10.11.0/compat/src/suspense-list.d.ts": "b8e274324392157ce476ef3a48ae215c9f7003b08525d140645f19eab20d1948",
+    "https://esm.sh/v99/preact@10.11.0/compat/src/suspense.d.ts": "81f5266e0977a94347505d11b8103024211f2b4f3b2eb2aa276a10d8fd169e65",
+    "https://esm.sh/v99/preact@10.11.0/hooks/src/index.d.ts": "5c29febb624fc25d71cb0e125848c9b711e233337a08f7eacfade38fd4c14cc3",
+    "https://esm.sh/v99/preact@10.11.0/src/index.d.ts": "1a5c331227be54be6515b0c92a469d352834fa413963ae84a39a05a3177111f6",
+    "https://esm.sh/v99/preact@10.11.0/src/jsx.d.ts": "c423715fd7992b2e1446fea11d2d04e8adbd66c1edca1ce5e85f90e0d26a2eb2"
   },
   "npm": {
     "specifiers": {

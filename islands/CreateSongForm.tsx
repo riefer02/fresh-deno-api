@@ -1,11 +1,16 @@
+import { createRef } from "preact";
 import { useState, useRef, useCallback, useEffect } from "preact/hooks";
+import Input from "../components/form/Input.tsx";
 
 type CreateSongProps = {
   apiURL: string;
 };
 
 export default function CreateSong({ apiURL }: CreateSongProps) {
-  const songTitleInputElement = useRef<HTMLInputElement>();
+  const songTitleInputRef = useRef<HTMLInputElement>();
+  // TODO Resolve Forward Ref issue with Input Element
+  const songArtistInputRef = createRef();
+
   const [message, setMessage] = useState("");
 
   const formHandler = useCallback(async (e: Event) => {
@@ -15,12 +20,16 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
     const { message } = await fetch(`${apiURL}api/v1/songs`, {
       method: "POST",
       body: JSON.stringify({
-        title: songTitleInputElement.current?.value,
+        title: songTitleInputRef.current?.value,
+        // artist: songArtistInputRef.current?.value,
       }),
     })
       .then((res) => {
-        if (songTitleInputElement.current) {
-          songTitleInputElement.current.value = "";
+        if (songTitleInputRef.current) {
+          songTitleInputRef.current.value = "";
+
+          if (songArtistInputRef.current) songArtistInputRef.current.value = "";
+
           return res.json();
         }
 
@@ -52,7 +61,13 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
           id="song-name"
           name="song-name"
           class="bg-gray-300 mb-4"
-          ref={songTitleInputElement}
+          ref={songTitleInputRef}
+        />
+        <Input
+          name="song-artist"
+          label="Artist"
+          ref={songArtistInputRef}
+          type="text"
         />
         <button
           onClick={(e) => formHandler(e)}
