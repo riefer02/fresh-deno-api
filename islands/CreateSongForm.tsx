@@ -1,4 +1,3 @@
-import { createRef } from "preact";
 import { useState, useRef, useCallback, useEffect } from "preact/hooks";
 import Input from "../components/form/Input.tsx";
 
@@ -8,8 +7,7 @@ type CreateSongProps = {
 
 export default function CreateSong({ apiURL }: CreateSongProps) {
   const songTitleInputRef = useRef<HTMLInputElement>();
-  // TODO Resolve Forward Ref issue with Input Element
-  const songArtistInputRef = createRef();
+  const songArtistInputRef = useRef<HTMLInputElement>();
 
   const [message, setMessage] = useState("");
 
@@ -17,23 +15,22 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
     e.preventDefault();
     setMessage("");
 
+    const formData = {
+      title: songTitleInputRef.current?.getValue(),
+      artist: songArtistInputRef.current?.getValue(),
+    };
+
     const { message } = await fetch(`${apiURL}api/v1/songs`, {
       method: "POST",
-      body: JSON.stringify({
-        title: songTitleInputRef.current?.value,
-        // artist: songArtistInputRef.current?.value,
-      }),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
-        if (songTitleInputRef.current) {
-          songTitleInputRef.current.value = "";
+        if (res.status === 400) return res.json();
 
-          if (songArtistInputRef.current) songArtistInputRef.current.value = "";
+        if (songTitleInputRef.current) songTitleInputRef.current.clearValue();
+        if (songArtistInputRef.current) songArtistInputRef.current.clearValue();
 
-          return res.json();
-        }
-
-        throw new Error("Song input element does not exist");
+        return res.json();
       })
       .catch((err) => console.log(err.message));
 
@@ -55,19 +52,19 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
       </div>
       <h3 class="font-bold mb-2 underline">Create Song</h3>
       <div class="flex flex-col">
-        <label for="song-name">Title</label>
-        <input
-          type="text"
-          id="song-name"
+        <Input
           name="song-name"
-          class="bg-gray-300 mb-4"
+          type="text"
+          label="Title"
           ref={songTitleInputRef}
+          placeholder={"Song title"}
         />
         <Input
           name="song-artist"
           label="Artist"
           ref={songArtistInputRef}
           type="text"
+          placeholder={"Song artist"}
         />
         <button
           onClick={(e) => formHandler(e)}

@@ -1,30 +1,45 @@
-import { forwardRef } from "preact/compat";
+import { forwardRef, useImperativeHandle, useState } from "preact/compat";
 
 interface InputProps {
   name: string;
   ref: any;
   label: string;
   type: string;
+  placeholder: string;
 }
 
 const Input = forwardRef((props: InputProps, ref) => {
-  const { name, label, type } = props;
+  const { name, label, type, placeholder } = props;
+  const [{ value }, set] = useState({ value: "" });
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      getValue: () => value,
+      clearValue: () => set({ value: "" }),
+    }),
+    [value]
+  );
 
   const handleInputChange = (event: Event) => {
     event.preventDefault();
-    // ref.current.value = event.target.value;
+    set({ value: event.target?.value });
   };
 
   return (
     <>
-      <label for={name}>{label}</label>
+      <label class="" for={name}>
+        {label}
+      </label>
       <input
         type={type}
         id={name}
         name={name}
-        class="bg-gray-300 mb-4"
+        class="rounded-lg mb-4 py-1 px-2"
         ref={ref}
-        onInput={(e) => handleInputChange(e)}
+        value={value}
+        onInput={(event) => handleInputChange(event)}
+        placeholder={placeholder}
       />
     </>
   );
