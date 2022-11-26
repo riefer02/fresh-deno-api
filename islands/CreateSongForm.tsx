@@ -24,7 +24,7 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
           return res.json();
         }
 
-        throw new Error("Artist input element does not exist");
+        throw new Error("Song input element does not exist");
       })
       .catch((err) => console.log(err.message));
 

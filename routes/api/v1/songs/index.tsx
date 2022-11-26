@@ -9,15 +9,23 @@ export const handler: Handlers = {
       JSON.stringify({ message: "Here are all the songs", data: res })
     );
   },
-  async POST(_req, _ctx) {
+
+  async POST(req, _ctx) {
+    const { title } = await req.json();
+
+    if (!title)
+      return new Response(
+        JSON.stringify({ message: "Please add a title for your song." })
+      );
+
     const res = await prisma.songs.create({
       data: {
-        title: "Freebird 2",
+        title,
       },
     });
 
     return new Response(
-      JSON.stringify({ message: "Song upload successfully...", data: res })
+      JSON.stringify({ message: "Song created successfully", data: res })
     );
   },
 };
