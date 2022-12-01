@@ -1,5 +1,12 @@
 name: Deploy
-on: [push]
+run-name: ${{ github.actor}} is building graveyardjs
+on: 
+  push:
+    branches: 
+      - prisma
+  pull_request:
+    branches:
+      - prisma
 
 jobs:
   deploy:
@@ -11,12 +18,14 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 # reads the repo 
 
       # TODO: add a build step here
       - name: Generate Prisma Client
-        run: |-
-          deno task generate-client
+        run: deno task generate-client
+
+      - name: Test Print
+        run: echo "Hello World Github Action"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
