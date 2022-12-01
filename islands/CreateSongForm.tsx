@@ -20,7 +20,7 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
       artist: songArtistInputRef.current?.getValue(),
     };
 
-    const { message } = await fetch(`${window.location.origin}/api/v1/songs`, {
+    const { message } = await fetch(`${apiURL}api/v1/songs`, {
       method: "POST",
       body: JSON.stringify(formData),
     })
