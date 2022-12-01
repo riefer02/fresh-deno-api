@@ -22,7 +22,7 @@ jobs:
 
       # TODO: add a build step here
       - name: Generate Prisma Client
-        run: deno task generate-client
+        run: ls
 
       - name: Test Print
         run: echo "Hello World Github Action"
