@@ -7,7 +7,7 @@
     "generate-client": "npx dotenv -- deno run -A --unstable npm:prisma generate --data-proxy",
     "migrate-deploy": "npx dotenv -e .env.migration -- deno run -A --unstable npm:prisma migrate deploy",
     "db-url": "npx dotenv -p DATABASE_URL",
-    "deploy-staging": "deployctl deploy --project=graveyardjs-staging ."
+    "deploy-staging": "deployctl deploy --project=graveyardjs-staging ./main.ts"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {
