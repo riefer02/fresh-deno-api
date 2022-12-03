@@ -27,9 +27,6 @@ jobs:
       - name: Generate Prisma Client
         run: deno task generate-client
 
-      - name: Test Print
-        run: echo "Hello World Github Action"
-
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
