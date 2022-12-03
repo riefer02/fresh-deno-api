@@ -1,9 +1,10 @@
 import { ComponentChildren } from "preact";
-import { asset, Head } from "$fresh/runtime.ts";
+import { asset } from "$fresh/runtime.ts";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
 import { timeFmt } from "../utils/date-time.ts";
+import { HeadElement } from "../components/HeadElement.tsx";
 
 export const handler: Handlers = {
   GET(_req: Request, ctx: HandlerContext) {
@@ -20,21 +21,12 @@ export default function MainPage(props: PageProps) {
 
   return (
     <>
-      <Head>
-        <title>{TITLE}</title>
-        <meta name="description" content={DESCRIPTION} />
-        <meta property="og:title" content={TITLE} />
-        <meta property="og:description" content={DESCRIPTION} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={props.url.href} />
-        <meta property="og:image" content={ogImageUrl} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="graveyardjs.com" />
-        <meta property="twitter:url" content={props.url.href} />
-        <meta name="twitter:title" content={TITLE} />
-        <meta name="twitter:description" content={DESCRIPTION} />
-        <meta name="twitter:image" content={ogImageUrl} />
-      </Head>
+      <HeadElement
+        description={DESCRIPTION}
+        image={ogImageUrl}
+        title={TITLE}
+        url={new URL(props.url.href)}
+      />
       <Layout pathname={props.url.pathname}>
         <Intro />
       </Layout>

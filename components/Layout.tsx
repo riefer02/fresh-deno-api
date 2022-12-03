@@ -10,7 +10,7 @@ type LayoutProps = {
 
 export default function Layout(props: LayoutProps) {
   return (
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen bg-aurora">
       <Header />
       <NavBar pathname={props.pathname} />
       {props.children}

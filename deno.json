@@ -1,8 +1,13 @@
 {
   "tasks": {
-    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "start": "npx dotenv -- deno run -A --unstable --watch=static/,routes/ dev.ts",
     "production": "deno run -A main.ts",
-    "screenshot": "deno run -A utils/screenshot.ts"
+    "screenshot": "deno run -A utils/screenshot.ts",
+    "db-pull": "npx dotenv -e .env.migration -- deno run -A --unstable npm:prisma db pull",
+    "generate-client": "deno run -A --unstable npm:prisma generate --data-proxy",
+    "migrate-deploy": "npx dotenv -e .env.migration -- deno run -A --unstable npm:prisma migrate deploy",
+    "db-url": "npx dotenv -p DATABASE_URL",
+    "deploy-staging": "deployctl deploy --project=graveyardjs-staging ./main.ts"
   },
   "importMap": "./import_map.json",
   "compilerOptions": {

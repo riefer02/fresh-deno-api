@@ -1,35 +1,43 @@
 import { useState, useRef, useCallback, useEffect } from "preact/hooks";
 
-export default function CreateArtist({ apiURL }) {
-  const artistNameInputElement = useRef(null);
+type CreateArtistProps = {
+  apiURL: string;
+};
+
+export default function CreateArtist({ apiURL }: CreateArtistProps) {
+  const artistNameInputElement = useRef<HTMLInputElement>();
   const [message, setMessage] = useState("");
 
   const formHandler = useCallback(async (e: Event) => {
     e.preventDefault();
     setMessage("");
 
-    const { message } = await fetch(`${apiURL}api/v1/artist`, {
+    const { message } = await fetch(`${apiURL}api/v1/artists`, {
       method: "POST",
       body: JSON.stringify({
         artistName: artistNameInputElement.current?.value,
       }),
     })
       .then((res) => {
-        artistNameInputElement.current.value = "";
-        return res.json();
+        if (artistNameInputElement.current) {
+          artistNameInputElement.current.value = "";
+          return res.json();
+        }
+
+        throw new Error("Artist input element does not exist");
       })
       .catch((err) => console.log(err.message));
 
     setMessage(message);
   }, []);
 
-  useEffect(
-    () =>
-      setTimeout(() => {
-        setMessage("");
-      }, 2000),
-    [message]
-  );
+  useEffect(() => {
+    let timeoutID: null | ReturnType<typeof setTimeout> = null;
+
+    timeoutID = setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  }, [message]);
 
   return (
     <div class="mb-10">
