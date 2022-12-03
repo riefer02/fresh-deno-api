@@ -10,7 +10,7 @@ export const timeFmt = new Intl.DateTimeFormat("en-US", {
   hour12: false,
 });
 
-export const formatBlogDate = (utcDate) => {
+export const formatBlogDate = (utcDate: string | number | Date) => {
   const date = new Date(utcDate);
 
   const day = date.getDate();
