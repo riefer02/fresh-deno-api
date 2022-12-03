@@ -1,4 +1,4 @@
-name: Deploy
+name: Staging Deploy
 run-name: ${{ github.actor}} is building graveyardjs-staging
 on: 
   push:
