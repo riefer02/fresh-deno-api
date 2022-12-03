@@ -1,5 +1,5 @@
 import { ComponentChildren } from "preact";
-import { asset, Head } from "$fresh/runtime.ts";
+import { asset } from "$fresh/runtime.ts";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
