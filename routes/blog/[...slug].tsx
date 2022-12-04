@@ -17,8 +17,6 @@ interface Data {
   page: Page;
 }
 
-const testGitProtectedBranch = "";
-
 interface Page extends TableOfContentsEntry {
   markdown: string;
   data: Record<string, unknown>;
