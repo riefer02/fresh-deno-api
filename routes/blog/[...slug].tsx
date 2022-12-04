@@ -17,8 +17,6 @@ interface Data {
   page: Page;
 }
 
-const test = "test";
-
 interface Page extends TableOfContentsEntry {
   markdown: string;
   data: Record<string, unknown>;
