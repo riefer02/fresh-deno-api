@@ -1,13 +1,16 @@
 import { Head } from "$fresh/runtime.ts";
+import { defaultOGImage } from "../utils/sitemeta.ts";
 
 export type HeadProps = {
   url: URL;
   title: string;
-  description: string;
+  description: string | undefined;
   image?: string;
 };
 
 export function HeadElement({ description, image, title, url }: HeadProps) {
+  const ogImage = image ? image : defaultOGImage(url.href);
+
   return (
     <Head>
       <title>{title}</title>
@@ -19,7 +22,7 @@ export function HeadElement({ description, image, title, url }: HeadProps) {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      {image && <meta property="og:image" content={image} />}
+      {ogImage && <meta property="og:image" content={ogImage} />}
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -27,7 +30,7 @@ export function HeadElement({ description, image, title, url }: HeadProps) {
       <meta property="twitter:url" content={url.href} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {image && <meta name="twitter:image" content={image} />}
+      {ogImage && <meta name="twitter:image" content={ogImage} />}
     </Head>
   );
 }

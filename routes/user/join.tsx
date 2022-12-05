@@ -6,6 +6,7 @@ import { getTomorrow } from "../../utils/date-time.ts";
 import { errorHandler } from "../../utils/error-handlers.ts";
 import { createJWT } from "../../utils/jwt.ts";
 import { LoginCredentials } from "../../utils/types.ts";
+import { HeadElement } from "../../components/HeadElement.tsx";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
@@ -64,20 +65,27 @@ export const handler: Handlers = {
 
 export default function JoinPage(props: PageProps) {
   return (
-    <Layout pathname={props.url.pathname} user={props.user}>
-      <div class="p-4 mx-auto max-w-screen-md">
-        <h1>Join GraveyardJS</h1>
-        <form method="post">
-          <input type="email" name="email" class="bg-gray-300 mr-4" />
-          <input type="password" name="password" class="bg-gray-300 mr-4" />
-          <button type="submit">Create Account</button>
-        </form>
-        {props.data?.err?.message.length > 0 && (
-          <>
-            <div>{props.data.err.message}</div>
-          </>
-        )}
-      </div>
-    </Layout>
+    <>
+      <HeadElement
+        title="Register Form"
+        description="Registration form for GraveyardJS"
+        url={new URL(props.url.href)}
+      />
+      <Layout pathname={props.url.pathname} user={props.user}>
+        <div class="p-4 mx-auto max-w-screen-md">
+          <h1>Join GraveyardJS</h1>
+          <form method="post">
+            <input type="email" name="email" class="bg-gray-300 mr-4" />
+            <input type="password" name="password" class="bg-gray-300 mr-4" />
+            <button type="submit">Create Account</button>
+          </form>
+          {props.data?.err?.message.length > 0 && (
+            <>
+              <div>{props.data.err.message}</div>
+            </>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 }
