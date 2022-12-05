@@ -3,10 +3,9 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { apply, tw } from "twind";
 import { frontMatter, gfm } from "../../utils/markdown.ts";
 import { formatBlogDate } from "../../utils/date-time.ts";
-
+import { HeadElement } from "../../components/HeadElement.tsx";
 import BlogSidebar from "../../components/BlogSidebar.tsx";
 import Layout from "../../components/Layout.tsx";
-
 import {
   SLUGS,
   TABLE_OF_CONTENTS,
@@ -50,20 +49,22 @@ export const handler: Handlers<Data> = {
 };
 
 export default function BlogPage(props: PageProps<Data>) {
-  let description;
+  let DESCRIPTION;
+  const TITLE = `${props.data.page?.title} | GraveyardJS Blog` ?? "Not Found";
 
   if (props.data.page.data.description) {
-    description = String(props.data.page.data.description);
+    DESCRIPTION = String(props.data.page.data.description);
   }
 
   return (
     <>
+      <HeadElement
+        description={DESCRIPTION}
+        title={TITLE}
+        url={new URL(props.url.href)}
+      />
       <Head>
-        <title>
-          {props.data.page?.title ?? "Not Found"} | graveyardjs blog
-        </title>
         <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
-        {description && <meta name="description" content={description} />}
       </Head>
       <Layout pathname={props.url.pathname}>
         <Main path={props.url.pathname} page={props.data.page} />

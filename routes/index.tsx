@@ -1,5 +1,4 @@
 import { ComponentChildren } from "preact";
-import { asset } from "$fresh/runtime.ts";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
@@ -17,13 +16,10 @@ const DESCRIPTION =
   "Welcome to GraveyardJS, next-generation API tool, and personal blog for the legendary undead heroes of the world.";
 
 export default function MainPage(props: PageProps) {
-  const ogImageUrl = new URL(asset("/graveyardjs-ogimage.png"), props.url).href;
-
   return (
     <>
       <HeadElement
         description={DESCRIPTION}
-        image={ogImageUrl}
         title={TITLE}
         url={new URL(props.url.href)}
       />
