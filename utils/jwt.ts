@@ -20,7 +20,7 @@ export const createJWT = async (user) => {
     return await create(
       { alg: "HS512", typ: "JWT" },
       {
-        sub: user.id,
+        sub: user.user_id,
         email: user.email,
         exp: jwtExpirationTime(),
         iss: "graveyardjs",
@@ -28,7 +28,7 @@ export const createJWT = async (user) => {
       reimportedKey
     );
   } catch (err) {
-    console.log(err);
+    console.log(`Unable to create JWT Token - Error: ${err.message}`);
 
     return false;
   }
@@ -40,7 +40,7 @@ export const verifyJWT = async (jwt) => {
 
     return await verify(jwt, key);
   } catch (err) {
-    console.log(err);
+    console.log(`JWT failed validation. Invalid JWT token - Error: ${err.message}`);
 
     return false;
   }
