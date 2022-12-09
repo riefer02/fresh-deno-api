@@ -7,13 +7,13 @@ export const handler: Handlers = {
       const { id } = ctx.params;
       const res = await prisma.artists.findUnique({
         where: {
-          id,
+          artist_id: id,
         },
       });
 
       return new Response(
         JSON.stringify({
-          message: `Here is the artist by id: ${res.title}`,
+          message: `Here is the artist name by id: ${res.name}`,
           data: res,
         })
       );
@@ -32,13 +32,13 @@ export const handler: Handlers = {
       const { id } = ctx.params;
       const res = await prisma.artists.delete({
         where: {
-          id,
+          artist_id: id,
         },
       });
 
       return new Response(
         JSON.stringify({
-          message: `Here is the artist by id that was deleted: ${res.title}`,
+          message: `Here is the artist by id that was deleted: ${res.name}`,
           data: res,
         })
       );
@@ -59,7 +59,7 @@ export const handler: Handlers = {
     try {
       const updateArtist = await prisma.artists.update({
         where: {
-          id,
+          artist_id: id,
         },
         data: {
           name: artistName,
