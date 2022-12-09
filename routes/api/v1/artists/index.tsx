@@ -1,88 +1,33 @@
 import { Handlers } from "$fresh/server.ts";
-import dbPool from "../../../../utils/database-pool.ts";
-import { errorHandler } from "../../../../utils/error-handlers.ts";
-import { userData } from "../../../../utils/user-signal.ts";
 import prisma from "../../../../utils/prisma-client.ts";
 
-interface UserData {
-  sub?: string;
-  email?: string;
-}
-
 export const handler: Handlers = {
-  async GET(req, _ctx) {
-    try {
-      const artist = await prisma.artists.create({
-        data: {
-          name: `Prisma Artist v6`,
-        },
-      });
+  async GET(_req, _ctx) {
+    const res = await prisma.artists.findMany();
 
-      const body = JSON.stringify(artist, null, 2);
-
-      return new Response(body, {
-        headers: { "content-type": "application/json; charset=utf-8" },
-      });
-    } catch (err) {
-      return new Response(
-        JSON.stringify({
-          message: "There was an error trying to use prisma client",
-        }),
-        { status: 500 }
-      );
-    }
+    return new Response(
+      JSON.stringify({ message: "Here are all the artists", data: res })
+    );
   },
 
   async POST(req, _ctx) {
-    const dbConn = await dbPool.connect();
+    const { artistName } = await req.json();
 
-    try {
-      const user: UserData = userData.value;
-      const { artistName } = await req.json();
-
-      if (!artistName)
-        return new Response(
-          JSON.stringify({ message: "Please enter an artist name" }),
-          { status: 400 }
-        );
-
-      const initialUserIdObject = JSON.stringify([
-        { id: user.sub, email: user.email },
-      ]);
-
-      const results =
-        await dbConn.queryObject`INSERT INTO public.artists (name, user_ids) VALUES (${artistName},
-          ${initialUserIdObject}) RETURNING *;`;
-
-      if (results.rows[0]) {
-        return new Response(
-          JSON.stringify({
-            message: `Successfully created artxist.`,
-          }),
-          { status: 200 }
-        );
-      }
-
+    // Input Validation Functions TODO which returns clean API for handling missing fields and messenging
+    if (!artistName)
       return new Response(
-        JSON.stringify({
-          message: "Testing at the moment. Hmmm... no results returned.",
-        }),
-        { status: 404 }
+        JSON.stringify({ message: "Please add missing fields for your song." }),
+        { status: 400 }
       );
-    } catch (err) {
-      err.message = errorHandler(err, "artist");
 
-      return new Response(
-        JSON.stringify({
-          message: err.message,
-        }),
-        {
-          status: 500,
-          statusText: "Something went wrong",
-        }
-      );
-    } finally {
-      dbConn.release();
-    }
+    const res = await prisma.artists.create({
+      data: {
+        name: artistName,
+      },
+    });
+
+    return new Response(
+      JSON.stringify({ message: "Song created successfully", data: res })
+    );
   },
 };
