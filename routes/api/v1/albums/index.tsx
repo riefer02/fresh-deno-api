@@ -3,31 +3,33 @@ import prisma from "../../../../utils/prisma-client.ts";
 
 export const handler: Handlers = {
   async GET(_req, _ctx) {
-    const res = await prisma.artists.findMany();
+    const res = await prisma.albums.findMany();
 
     return new Response(
-      JSON.stringify({ message: "Here are all the artists", data: res })
+      JSON.stringify({ message: "Here are all the albums", data: res })
     );
   },
 
   async POST(req, _ctx) {
-    const { artistName } = await req.json();
+    const { albumName } = await req.json();
 
     // Input Validation Functions TODO which returns clean API for handling missing fields and messenging
-    if (!artistName)
+    if (!albumName)
       return new Response(
-        JSON.stringify({ message: "Please add missing fields for your artist." }),
+        JSON.stringify({
+          message: "Please add missing fields for your album.",
+        }),
         { status: 400 }
       );
 
-    const res = await prisma.artists.create({
+    const res = await prisma.albums.create({
       data: {
-        name: artistName,
+        name: albumName,
       },
     });
 
     return new Response(
-      JSON.stringify({ message: "Artist created successfully", data: res })
+      JSON.stringify({ message: "Album created successfully", data: res })
     );
   },
 };
