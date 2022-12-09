@@ -11,11 +11,10 @@ interface UserData {
 
 export const handler: Handlers = {
   async GET(req, _ctx) {
-    console.log("here");
     try {
       const artist = await prisma.artists.create({
         data: {
-          name: `Prisma Artist v5`,
+          name: `Prisma Artist v6`,
         },
       });
 

@@ -3,13 +3,11 @@ import {
   supabaseUrl,
   supabaseAuthHeaders,
 } from "../../../../../utils/supabase-api.ts";
-import dbPool from "../../../../../utils/database-pool.ts";
 import { userData } from "../../../../../utils/user-signal.ts";
+import prisma from "../../../../../utils/prisma-client.ts";
 
 export const handler: Handlers = {
   async POST(req, _ctx) {
-    const dbConn = await dbPool.connect();
-
     try {
       const user = userData.value;
       const form = await req.formData();
@@ -33,10 +31,16 @@ export const handler: Handlers = {
       if (response.status === 200) {
         const { Key } = await response.json();
 
-        const results =
-          await dbConn.queryObject`UPDATE public.users SET avatar_url=${Key} WHERE email=${user.email} RETURNING *;`;
+        const updateUser = await prisma.users.update({
+          where: {
+            email: user.email,
+          },
+          data: {
+            avatar_url: Key,
+          },
+        });
 
-        if (results.rows[0]) {
+        if (updateUser) {
           return new Response(
             JSON.stringify({ message: "Successfully uploaded user avatar" }),
             { status: 303, headers: { Location: "/user/profile" } }
@@ -61,8 +65,6 @@ export const handler: Handlers = {
           statusText: "Error",
         }
       );
-    } finally {
-      dbConn.release();
     }
   },
 };
