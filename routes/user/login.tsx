@@ -1,23 +1,19 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import Layout from "../../components/Layout.tsx";
-import dbPool from "../../utils/database-pool.ts";
 import { errorHandler } from "../../utils/error-handlers.ts";
 import { getTomorrow } from "../../utils/date-time.ts";
 import { createJWT } from "../../utils/jwt.ts";
 import { LoginCredentials } from "../../utils/types.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
+import prisma from "../../utils/prisma-client.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
     return ctx.render();
   },
   async POST(req, ctx) {
-    const dbConn = await dbPool.connect();
-
     try {
-      let user;
-
       const { email, password } = await req.formData().then((formData) => {
         const loginCredentials: LoginCredentials = { email: "", password: "" };
         for (const [key, value] of formData.entries()) {
@@ -26,20 +22,13 @@ export const handler: Handlers = {
         return loginCredentials;
       });
 
-      const results = await dbConn.queryObject`
-              SELECT * FROM public.users WHERE email=${email}
-            `;
-
-      if (results.rows) {
-        user = results.rows[0];
-      }
+      const user = await prisma.users.findUnique({
+        where: {
+          email,
+        },
+      });
 
       if (!user || !(await compareSync(password, user.password))) {
-        new Response(
-          JSON.stringify({ message: "Incorrect username and password" }),
-          { status: 404 }
-        );
-
         return ctx.render({
           err: new Error("Incorrect username and password"),
         });
@@ -59,10 +48,7 @@ export const handler: Handlers = {
       });
     } catch (err) {
       err.message = errorHandler(err, "user");
-
       return ctx.render({ err });
-    } finally {
-      dbConn.release();
     }
   },
 };
