@@ -1,8 +1,8 @@
 import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { apply, tw } from "twind";
-import { frontMatter, gfm } from "../../utils/markdown.ts";
-import { formatBlogDate } from "../../utils/date-time.ts";
+import { frontMatter, gfm } from "../../lib/markdown.ts";
+import { formatBlogDate } from "../../lib/date-time.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
 import BlogSidebar from "../../components/BlogSidebar.tsx";
 import Layout from "../../components/Layout.tsx";

@@ -1,12 +1,13 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import Layout from "../../components/Layout.tsx";
-import { errorHandler } from "../../utils/error-handlers.ts";
-import { getTomorrow } from "../../utils/date-time.ts";
-import { createJWT } from "../../utils/jwt.ts";
-import { LoginCredentials } from "../../utils/types.ts";
+import { errorHandler } from "../../lib/error-handlers.ts";
+import { getTomorrow } from "../../lib/date-time.ts";
+import { createJWT } from "../../lib/jwt.ts";
+import { LoginCredentials } from "../../lib/types.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
-import prisma from "../../utils/prisma-client.ts";
+import Input from "../../components/form/Input.tsx";
+import prisma from "../../lib/prisma-client.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {

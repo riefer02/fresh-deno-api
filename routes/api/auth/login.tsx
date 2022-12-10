@@ -1,8 +1,8 @@
 import { Handlers } from "$fresh/server.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
 import { create } from "https://deno.land/x/djwt@v2.7/mod.ts";
-import dbPool from "../../../utils/database-pool.ts";
-import { getTomorrow, jwtExpirationTime } from "../../../utils/date-time.ts";
+import dbPool from "../../../lib/database-pool.ts";
+import { getTomorrow, jwtExpirationTime } from "../../../lib/date-time.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {

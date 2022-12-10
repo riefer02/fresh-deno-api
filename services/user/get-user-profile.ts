@@ -1,5 +1,5 @@
 import { getUserAvatarImg } from "./get-user-avatar.ts";
-import prisma from "../../utils/prisma-client.ts";
+import prisma from "../../lib/prisma-client.ts";
 
 export const getUserProfile = async (user) => {
   try {

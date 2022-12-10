@@ -1,10 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
-import { isEmptyObject } from "../../utils/is-empty-object.ts";
-import { userData } from "../../utils/user-signal.ts";
+import { isEmptyObject } from "../../lib/is-empty-object.ts";
+import { userData } from "../../lib/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
 import CreateSongForm from "../../islands/CreateSongForm.tsx";
-import { HOSTNAME } from "../../utils/environment.ts";
+import { HOSTNAME } from "../../lib/environment.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
@@ -27,7 +27,7 @@ export default function ProfilePage(props: PageProps) {
 
   return (
     <Layout pathname={props.url.pathname}>
-      <div class="p-4 mx-auto max-w-screen-md">
+      <div class="p-4 mx-auto max-w-md w-full">
         <div class="mb-10">
           {props.data?.user.email && (
             <p class="mb-6">
@@ -52,6 +52,7 @@ export default function ProfilePage(props: PageProps) {
               id="avatar"
               name="avatar"
               accept="image/png, image/jpeg"
+              required
             />
             <button
               class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
