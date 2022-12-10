@@ -1,6 +1,6 @@
 import { createContext } from "preact";
 import { AppProps } from "$fresh/server.ts";
-import { userData } from "../utils/user-signal.ts";
+import { userData } from "../lib/user-signal.ts";
 
 export const UserContext = createContext({});
 

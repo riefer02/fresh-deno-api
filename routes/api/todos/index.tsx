@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import dbPool from "../../../utils/database-pool.ts";
+import dbPool from "../../../lib/database-pool.ts";
 
 BigInt.prototype.toJSON = function () {
   return this.toString();

@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { genSalt, hash } from "https://deno.land/x/bcrypt@v0.4.0/mod.ts";
-import dbPool from "../../../utils/database-pool.ts";
+import dbPool from "../../../lib/database-pool.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {

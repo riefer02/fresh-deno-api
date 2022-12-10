@@ -2,7 +2,7 @@ import { ComponentChildren } from "preact";
 import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../components/Layout.tsx";
 import { HeartIcon } from "../components/Icons.tsx";
-import { timeFmt } from "../utils/date-time.ts";
+import { timeFmt } from "../lib/date-time.ts";
 import { HeadElement } from "../components/HeadElement.tsx";
 
 export const handler: Handlers = {

@@ -2,9 +2,9 @@ import { Handlers } from "$fresh/server.ts";
 import {
   supabaseUrl,
   supabaseAuthHeaders,
-} from "../../../../../utils/supabase-api.ts";
-import { userData } from "../../../../../utils/user-signal.ts";
-import prisma from "../../../../../utils/prisma-client.ts";
+} from "../../../../../lib/supabase-api.ts";
+import { userData } from "../../../../../lib/user-signal.ts";
+import prisma from "../../../../../lib/prisma-client.ts";
 
 export const handler: Handlers = {
   async POST(req, _ctx) {

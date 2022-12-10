@@ -5,15 +5,15 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     try {
       const { id } = ctx.params;
-      const res = await prisma.songs.findUnique({
+      const res = await prisma.albums.findUnique({
         where: {
-          id,
+          album_id: id,
         },
       });
 
       return new Response(
         JSON.stringify({
-          message: `Here is the song by id: ${res.title}`,
+          message: `Here is the album name by id: ${res.name}`,
           data: res,
         })
       );
@@ -30,15 +30,15 @@ export const handler: Handlers = {
   async DELETE(req, ctx) {
     try {
       const { id } = ctx.params;
-      const res = await prisma.songs.delete({
+      const res = await prisma.albums.delete({
         where: {
-          id,
+          album_id: id,
         },
       });
 
       return new Response(
         JSON.stringify({
-          message: `Here is the song by id that was deleted: ${res.title}`,
+          message: `Here is the album by id that was deleted: ${res.name}`,
           data: res,
         })
       );
@@ -54,22 +54,22 @@ export const handler: Handlers = {
 
   async PATCH(req, ctx) {
     const { id } = ctx.params;
-    const { title } = await req.json();
+    const { albumName } = await req.json();
 
     try {
-      const updateSong = await prisma.songs.update({
+      const updateAlbum = await prisma.albums.update({
         where: {
-          id,
+          album_id: id,
         },
         data: {
-          title,
+          name: albumName,
         },
       });
 
       return new Response(
         JSON.stringify({
-          data: updateSong,
-          message: "Successfully updated the song",
+          data: updateAlbum,
+          message: "Successfully updated the album",
         }),
         {
           status: 200,
