@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { userData } from "../../../utils/user-signal.ts";
+import { userData } from "../../../lib/user-signal.ts";
 
 export const handler: Handlers = {
   POST(_req, _ctx) {

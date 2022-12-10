@@ -1,7 +1,7 @@
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { getCookies } from "https://deno.land/std/http/cookie.ts";
 import { Payload } from "https://deno.land/x/djwt@v2.8/mod.ts";
-import { verifyJWT } from "../../utils/jwt.ts";
+import { verifyJWT } from "../../lib/jwt.ts";
 
 interface State {
   user: Payload;

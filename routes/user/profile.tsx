@@ -1,10 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../components/Layout.tsx";
-import { isEmptyObject } from "../../utils/is-empty-object.ts";
-import { userData } from "../../utils/user-signal.ts";
+import { isEmptyObject } from "../../lib/is-empty-object.ts";
+import { userData } from "../../lib/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
 import CreateSongForm from "../../islands/CreateSongForm.tsx";
-import { HOSTNAME } from "../../utils/environment.ts";
+import { HOSTNAME } from "../../lib/environment.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {

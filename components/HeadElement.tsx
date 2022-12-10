@@ -1,5 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
-import { defaultOGImage } from "../utils/sitemeta.ts";
+import { defaultOGImage } from "../lib/sitemeta.ts";
 
 export type HeadProps = {
   url: URL;

@@ -1,8 +1,8 @@
-import { isActivePage } from "../utils/navigation.ts";
-import { navigationItems } from "../utils/navigation.ts";
+import { isActivePage } from "../lib/navigation.ts";
+import { navigationItems } from "../lib/navigation.ts";
 import { useContext } from "preact/hooks";
 import { UserContext } from "../routes/_app.tsx";
-import { isEmptyObject } from "../utils/is-empty-object.ts";
+import { isEmptyObject } from "../lib/is-empty-object.ts";
 
 interface NavBarProps {
   pathname: string;

@@ -1,9 +1,9 @@
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { getCookies, deleteCookie } from "https://deno.land/std/http/cookie.ts";
 import { Payload } from "https://deno.land/x/djwt@v2.8/mod.ts";
-import { reqMiddlewareUrlBlackList } from "../utils/dev-blacklist.ts";
-import { verifyJWT } from "../utils/jwt.ts";
-import { userData } from "../utils/user-signal.ts";
+import { reqMiddlewareUrlBlackList } from "../lib/dev-blacklist.ts";
+import { verifyJWT } from "../lib/jwt.ts";
+import { userData } from "../lib/user-signal.ts";
 
 interface State {
   user: Payload;

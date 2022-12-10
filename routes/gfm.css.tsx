@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { gfm } from "../utils/markdown.ts";
+import { gfm } from "../lib/markdown.ts";
 
 // ToResearch: hash the file and use the hash as the filename, and serve
 // with high-cacheability headers.

@@ -1,4 +1,4 @@
-import { supabaseUrl, supabaseAuthHeaders } from "../../utils/supabase-api.ts";
+import { supabaseUrl, supabaseAuthHeaders } from "../../lib/supabase-api.ts";
 
 export const getUserAvatarImg = async (userAvatarKey: string) => {
   try {
