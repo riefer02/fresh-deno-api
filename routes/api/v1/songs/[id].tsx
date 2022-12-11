@@ -5,9 +5,9 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     try {
       const { id } = ctx.params;
-      const res = await prisma.songs.findUnique({
+      const res = await prisma.songs.findFirst({
         where: {
-          id,
+          song_id: id,
         },
       });
 
@@ -32,7 +32,7 @@ export const handler: Handlers = {
       const { id } = ctx.params;
       const res = await prisma.songs.delete({
         where: {
-          id,
+          song_id: id,
         },
       });
 
@@ -59,7 +59,7 @@ export const handler: Handlers = {
     try {
       const updateSong = await prisma.songs.update({
         where: {
-          id,
+          song_id: id,
         },
         data: {
           title,
