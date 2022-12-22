@@ -73,7 +73,8 @@ export const handler: Handlers = {
       if (completion.error) throw new Error(completion.error.message);
 
       return new Response(
-        JSON.stringify({ message: completion.choices[0]?.text })
+        JSON.stringify({ message: completion.choices[0]?.text }),
+        { headers: { "content-type": "application/json" } }
       );
     } catch (err) {
       return new Response(

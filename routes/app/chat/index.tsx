@@ -2,7 +2,6 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../../components/Layout.tsx";
 import { HeadElement } from "../../../components/HeadElement.tsx";
 import { HOSTNAME } from "../../../lib/environment.ts";
-import { userData } from "../../../lib/user-signal.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
