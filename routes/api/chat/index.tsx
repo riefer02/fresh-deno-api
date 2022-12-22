@@ -53,8 +53,10 @@ export const handler: Handlers = {
 
   async POST(req, _ctx) {
     try {
+      const form = await req.formData();
+      const question = form.get("question");
       console.log({ apiRequest: req });
-      const question = await req.json();
+      // const question = await req.json();
       console.log({ question });
 
       if (!question)

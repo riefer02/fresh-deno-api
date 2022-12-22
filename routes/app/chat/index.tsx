@@ -2,19 +2,21 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../../components/Layout.tsx";
 import { HeadElement } from "../../../components/HeadElement.tsx";
 import { HOSTNAME } from "../../../lib/environment.ts";
+import { handler as chatBotHandler } from "../../api/chat/index.tsx";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
     return ctx.render();
   },
   async POST(req, ctx) {
-    const form = await req.formData();
-    const question = form.get("question");
-    const res = await fetch(`${HOSTNAME}api/chat`, {
-      method: "POST",
-      body: JSON.stringify(question),
-      headers: req.headers,
-    });
+    // const form = await req.formData();
+    // const question = form.get("question");
+    // const res = await fetch(`${HOSTNAME}api/chat`, {
+    //   method: "POST",
+    //   body: JSON.stringify(question),
+    //   headers: req.headers,
+    // });
+    const res = await chatBotHandler.POST(req, ctx);
     console.log({ apiResponse: res });
     const { message } = await res.json();
 
