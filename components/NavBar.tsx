@@ -11,10 +11,6 @@ interface NavBarProps {
 export default function NavigationBar(props: NavBarProps) {
   const user = useContext(UserContext);
 
-  // console.log({ pathname: props.pathname });
-  // console.log({ navItems: navigationItems });
-  console.log({ user });
-
   return (
     <nav class="bg-purple-200 py-2">
       <ul class="flex justify-center gap-8 mx-4">
