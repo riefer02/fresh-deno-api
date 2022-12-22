@@ -11,8 +11,6 @@ export async function handler(
   req: Request,
   ctx: MiddlewareHandlerContext<State>
 ) {
-  return await ctx.next();
-
   const cookies = getCookies(req.headers);
 
   if (!cookies["graveyardjs-jwt"])

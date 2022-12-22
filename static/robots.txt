@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 
 Disallow: /api/*
+Disallow: /user/profile
 
 Sitemap: https://graveyardjs.com/sitemap.xml

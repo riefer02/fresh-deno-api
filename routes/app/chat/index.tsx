@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../../components/Layout.tsx";
 import { HeadElement } from "../../../components/HeadElement.tsx";
 import { HOSTNAME } from "../../../lib/environment.ts";
+import { userData } from "../../../lib/user-signal.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
@@ -13,6 +14,7 @@ export const handler: Handlers = {
     const res = await fetch(`${HOSTNAME}api/chat`, {
       method: "POST",
       body: JSON.stringify(question),
+      headers: req.headers,
     });
     const { message } = await res.json();
 
