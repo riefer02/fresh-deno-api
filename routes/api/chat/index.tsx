@@ -53,7 +53,9 @@ export const handler: Handlers = {
 
   async POST(req, _ctx) {
     try {
+      console.log(req);
       const question = await req.json();
+      console.log({ question });
 
       if (!question)
         new Response(

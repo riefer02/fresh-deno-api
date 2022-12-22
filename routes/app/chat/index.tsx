@@ -10,13 +10,12 @@ export const handler: Handlers = {
   async POST(req, ctx) {
     const form = await req.formData();
     const question = form.get("question");
-    console.log({ question });
     const res = await fetch(`${HOSTNAME}api/chat`, {
       method: "POST",
       body: JSON.stringify(question),
       headers: req.headers,
     });
-    console.log({ res });
+    console.log({ apiResponse: res });
     const { message } = await res.json();
 
     return ctx.render({ message });
