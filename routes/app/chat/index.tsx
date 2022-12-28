@@ -21,22 +21,23 @@ export default function ChatPage(props: PageProps) {
   return (
     <>
       <HeadElement
-        title="Chat Bot Companion"
-        description="The Chat Bot Companion, an interal tool for graveyardjs, is an AI overlord who runs this domain. He stands before you ready to serve. Best to keep your wits about you."
+        title="Terlingua Cowboy Chatbot"
+        description="The Terlingua Cowboy Chatbot, an interal tool for graveyardjs, is an AI overlord who runs this domain. He stands before you ready to serve. Best to keep your wits about you."
         url={new URL(props.url.href)}
       />
       <Layout pathname={props.url.pathname}>
         <div class="min-h-[70vh]">
           <div class="mx-auto max-w-screen-md py-10 p-8 text-center">
-            <h1 class="text-6xl font-bold mb-10 py-4 px-6">Chat Bot</h1>
-            <form method="post" class="flex flex-col gap-y-4 max-w-sm mx-auto">
+            <h1 class="text-6xl font-bold mb-10 py-4 px-6">Terlingua Cowboy</h1>
+            <form method="post" class="flex flex-col gap-y-4 max-w-xs mx-auto">
               <label for="question" class="text-2xl py-2 px-3">
-                "Ask your question below."
+                "Howdy, names Diego."
               </label>
               <input
                 type="question"
                 name="question"
                 class="rounded-lg py-1 px-2"
+                placeholder="Ask a question..."
               />
               <button
                 type="submit"
@@ -51,10 +52,7 @@ export default function ChatPage(props: PageProps) {
           </div>
           <div class="max-w-xl mx-auto">
             {chatResponse && (
-              <div
-                class="text-xl px-2 py-2 pb-10 whitespace-normal max-w-xl mx-auto"
-                // dangerouslySetInnerHTML={{ __html: chatResponse }}
-              >
+              <div class="text-xl px-2 py-2 pb-10 whitespace-normal max-w-xl mx-auto">
                 {chatResponse}
               </div>
             )}

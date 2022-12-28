@@ -53,8 +53,16 @@ export const handler: Handlers = {
 
   async POST(req, _ctx) {
     try {
-      const form = await req.formData();
-      const question = form.get("question");
+      const contentType = req.headers.get("Content-Type");
+      let question;
+
+      if (contentType === "application/json") {
+        const data = await req.json();
+        question = data.question;
+      } else if (contentType === "application/x-www-form-urlencoded") {
+        const form = await req.formData();
+        question = form.get("question");
+      }
 
       if (!question)
         new Response(

@@ -12,10 +12,18 @@ export const timeFmt = new Intl.DateTimeFormat("en-US", {
 
 export const formatBlogDate = (utcDate: string | number | Date) => {
   const date = new Date(utcDate);
-
   const day = date.getDate();
   const month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
   const year = date.getFullYear();
 
   return `${month}/${day}/${year}`;
+};
+
+export const calcFullYearFromNow = () => {
+  const now = new Date();
+  const yearsToAdd = 1;
+  const futureDate = new Date();
+  futureDate.setFullYear(now.getFullYear() + yearsToAdd);
+
+  return futureDate.getTime(); // Outputs the number of milliseconds since the epoch
 };
