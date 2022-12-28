@@ -3,7 +3,7 @@ export const getTomorrow = () => {
   return tomorrow.setDate(tomorrow.getDate() + 1);
 };
 
-export const jwtExpirationTime = () => Date.now() + 28800000; // 8 hours
+export const eightHoursFromNow = () => Date.now() + 28800000; // 8 hours
 
 export const timeFmt = new Intl.DateTimeFormat("en-US", {
   timeStyle: "long",

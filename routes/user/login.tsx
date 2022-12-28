@@ -6,7 +6,7 @@ import { getTomorrow } from "../../lib/date-time.ts";
 import { createJWT } from "../../lib/jwt.ts";
 import { LoginCredentials } from "../../lib/types.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
-import Input from "../../components/form/Input.tsx";
+import { eightHoursFromNow } from "../../lib/date-time.ts";
 import prisma from "../../lib/prisma-client.ts";
 
 export const handler: Handlers = {
@@ -35,7 +35,7 @@ export const handler: Handlers = {
         });
       }
 
-      const jwt = await createJWT(user);
+      const jwt = await createJWT(user, eightHoursFromNow());
 
       return new Response(JSON.stringify({ message: "Successful login" }), {
         status: 303,
