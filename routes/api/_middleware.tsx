@@ -16,7 +16,7 @@ export async function handler(
   // refactor to utility function...
   const authHeader =
     req.headers.get("authorization") || req.headers.get("Authorization");
-
+    
   // Todo generate API tokens for user leveraging authorization headers...
   if (authHeader !== "test" && !cookies["graveyardjs-jwt"]) {
     return new Response(
