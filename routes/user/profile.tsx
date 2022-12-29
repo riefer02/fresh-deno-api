@@ -5,6 +5,7 @@ import { userData } from "../../lib/user-signal.ts";
 import { getUserProfile } from "../../services/user/get-user-profile.ts";
 import CreateSongForm from "../../islands/CreateSongForm.tsx";
 import { HOSTNAME } from "../../lib/environment.ts";
+import { HeadElement } from "../../components/HeadElement.tsx";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
@@ -27,6 +28,11 @@ export default function ProfilePage(props: PageProps) {
 
   return (
     <Layout pathname={props.url.pathname}>
+      <HeadElement
+        title={`${userData.value.email} User Profile | GraveyardJS`}
+        description={`User profile of ${userData.value.email}.`}
+        url={new URL(props.url.href)}
+      />
       <div class="p-4 mx-auto max-w-md w-full">
         <div class="mb-10">
           {props.data?.user.email && (
