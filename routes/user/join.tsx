@@ -69,12 +69,29 @@ export default function JoinPage(props: PageProps) {
         url={new URL(props.url.href)}
       />
       <Layout pathname={props.url.pathname} user={props.user}>
-        <div class="p-4 mx-auto max-w-screen-md">
-          <h1>Join GraveyardJS</h1>
-          <form method="post">
-            <input type="email" name="email" class="bg-gray-300 mr-4" />
-            <input type="password" name="password" class="bg-gray-300 mr-4" />
-            <button type="submit">Create Account</button>
+        <div class="mx-auto max-w-sm w-full py-10 p-8">
+          <h1 class="py-6 text-4xl text-gray-900 text-center font-extrabold">
+            Join GraveyardJS
+          </h1>
+          <form method="post" class="flex flex-col">
+            <input
+              type="email"
+              name="email"
+              class="rounded-lg mb-4 py-1 px-2"
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              name="password"
+              class="rounded-lg mb-4 py-1 px-2"
+              placeholder="Password"
+            />
+            <button
+              type="submit"
+              class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
+            >
+              Create Account
+            </button>
           </form>
           {props.data?.err?.message.length > 0 && (
             <>
