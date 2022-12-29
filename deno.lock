@@ -548,6 +548,8 @@
     "https://deno.land/x/gfm@0.1.22/style.js": "8f64515cd70d9446ba6eea180e8203757e1c93920e4fd261d626f57aa0178be3",
     "https://deno.land/x/importmap@0.2.1/_util.ts": "ada9a9618b537e6c0316c048a898352396c882b9f2de38aba18fd3f2950ede89",
     "https://deno.land/x/importmap@0.2.1/mod.ts": "ae3d1cd7eabd18c01a4960d57db471126b020f23b37ef14e1359bbb949227ade",
+    "https://deno.land/x/openai@v1.1.0/mod.ts": "d5548bb6f93121e164b4dedfb5c784ee03d923f3496a9713434ed986e3a7a13d",
+    "https://deno.land/x/openai@v1.1.0/src/openai.ts": "71819c59fffde4e36165c197f32dcc18a1dc260d745db8395bff324064dc9bf1",
     "https://deno.land/x/postgres@v0.16.1/client.ts": "348779c9f6a1c75ef1336db662faf08dce7d2101ff72f0d1e341ba1505c8431d",
     "https://deno.land/x/postgres@v0.16.1/client/error.ts": "0817583b666fd546664ed52c1d37beccc5a9eebcc6e3c2ead20ada99b681e5f7",
     "https://deno.land/x/postgres@v0.16.1/connection/auth.ts": "1070125e2ac4ca4ade36d69a4222d37001903092826d313217987583edd61ce9",

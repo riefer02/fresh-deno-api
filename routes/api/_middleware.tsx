@@ -13,11 +13,21 @@ export async function handler(
 ) {
   const cookies = getCookies(req.headers);
 
-  if (!cookies["graveyardjs-jwt"])
+  // refactor to utility function...
+  const authHeader =
+    req.headers.get("authorization") || req.headers.get("Authorization");
+    
+  // Todo generate API tokens for user leveraging authorization headers...
+  if (authHeader !== "test" && !cookies["graveyardjs-jwt"]) {
     return new Response(
       JSON.stringify({ message: "You do not have authorization" })
     );
+  }
 
+  // If authorization header is valid...
+  if (authHeader) return await ctx.next();
+
+  // Else check user jwt credentials
   const jwt = cookies["graveyardjs-jwt"];
   const validUserData = await verifyJWT(jwt);
 

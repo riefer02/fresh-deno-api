@@ -24,18 +24,15 @@ model artists {
 }
 
 model songs {
-  id         String    @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   created_at DateTime? @default(now()) @db.Timestamptz(6)
   title      String?   @db.VarChar
   owner_id   String?   @db.Uuid
   key        String?   @db.VarChar
   artist_id  String?   @db.Uuid
   album_id   String?   @db.Uuid
-  song_id    String    @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  song_id    String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   albums     albums?   @relation(fields: [album_id], references: [album_id], onDelete: NoAction, onUpdate: NoAction)
   artists    artists?  @relation(fields: [artist_id], references: [artist_id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([id, song_id])
 }
 
 model todos {

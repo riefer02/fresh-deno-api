@@ -27,4 +27,9 @@ export const navigationItems = [
     href: "/user/profile",
     linkType: "authenticated",
   },
+  {
+    name: "Chat",
+    href: "/app/chat",
+    linkType: "authenticated",
+  },
 ];

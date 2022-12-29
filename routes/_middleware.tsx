@@ -33,7 +33,6 @@ export async function handler(
       { status: 303, headers: { Location: "/user/login" } }
     );
     deleteCookie(res.headers, "graveyardjs-jwt");
-
     userData.value = {};
 
     return res;
