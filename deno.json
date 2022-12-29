@@ -3,6 +3,7 @@
     "start": "npx dotenv -- deno run -A --unstable --watch=static/,routes/ dev.ts",
     "production": "deno run -A main.ts",
     "screenshot": "deno run -A utils/screenshot.ts",
+    "update-deno-lock": "deno cache --lock=deno.lock --lock-write dev.ts",
     "db-pull": "npx dotenv -e .env.migration -- deno run -A --unstable npm:prisma db pull",
     "generate-client": "deno run -A --unstable npm:prisma generate --data-proxy",
     "migrate-deploy": "npx dotenv -e .env.migration -- deno run -A --unstable npm:prisma migrate deploy",
