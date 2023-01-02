@@ -52,6 +52,7 @@ model users {
   salt       String?   @db.VarChar
   avatar_url String?   @db.VarChar
   user_id    String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  jwt_token  String?   @db.VarChar
 }
 
 model albums {
