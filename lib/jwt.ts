@@ -2,7 +2,7 @@ import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { create, verify } from "https://deno.land/x/djwt@v2.7/mod.ts";
 
 interface UserLoginAttributes {
-  user_id: string;
+  sub: string;
   email: string;
 }
 
@@ -27,7 +27,7 @@ export const createSessionToken = async (
     return await create(
       { alg: "HS512", typ: "JWT" },
       {
-        sub: user.user_id,
+        sub: user.sub,
         email: user.email,
         exp: expiration,
         iss: "graveyardjs",
@@ -65,7 +65,7 @@ export const createAPIToken = async (
     return await create(
       { alg: "HS512", typ: "JWT" },
       {
-        sub: user.user_id,
+        sub: user.sub,
         email: user.email,
         exp: expiration,
         iat: Date.now(),

@@ -7,7 +7,6 @@ interface InputProps {
   type: string;
   placeholder: string;
   readOnly: boolean;
-  initialValue: string | boolean | number;
   disabled: boolean;
   className: string;
 }
@@ -19,11 +18,10 @@ const Input = forwardRef((props: InputProps, ref) => {
     type = "text",
     placeholder,
     readOnly = false,
-    initialValue,
     disabled = false,
     className = "",
   } = props;
-  const [{ value }, set] = useState({ value: initialValue || "" });
+  const [{ value }, set] = useState({ value: "" });
 
   useImperativeHandle(
     ref,

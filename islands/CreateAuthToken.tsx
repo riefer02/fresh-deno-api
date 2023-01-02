@@ -1,24 +1,18 @@
-import {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
-  useContext,
-} from "preact/hooks";
-import Input from "../components/form/Input.tsx";
-import { UserContext } from "../routes/_app.tsx";
+import { useState, useRef, useCallback, useEffect } from "preact/hooks";
 
-type CreateSongProps = {
+type CreateAuthTokenProps = {
   apiURL: string;
   tokenExists: boolean;
+  user: {} | undefined;
 };
 
 export default function CreateAuthToken({
   apiURL,
   tokenExists,
-}: CreateSongProps) {
-  const apiTokenRef = useRef<HTMLInputElement>();
-  const user = useContext(UserContext);
+  user,
+}: CreateAuthTokenProps) {
+  const [apiToken, setAPIToken] = useState("");
+  // const apiTokenRef = useRef<HTMLInputElement>();
 
   const [message, setMessage] = useState("");
 
@@ -26,10 +20,10 @@ export default function CreateAuthToken({
     e.preventDefault();
     setMessage("");
 
-    const { message, token } = await fetch(`${apiURL}api/v1/generate-token`, {
+    const { message, token } = await fetch(`${apiURL}api/auth/create-token`, {
       method: "POST",
       body: JSON.stringify({ user }),
-      credentials: "include", // include cookies in the request
+      credentials: "same-origin", // include cookies in the request
       headers: {
         "Content-Type": "application/json",
       },
@@ -37,8 +31,9 @@ export default function CreateAuthToken({
       .then((res) => res.json())
       .catch((err) => console.log(err.message));
 
-    if (token && apiTokenRef.current) {
-      apiTokenRef.current.value = token;
+    if (token) {
+      // apiTokenRef.current.value = token;
+      setAPIToken(token);
     }
 
     setMessage(message);
@@ -55,29 +50,23 @@ export default function CreateAuthToken({
   return (
     <div class="mb-10">
       <div className="h-4">
-        {message && <div className="text-red-500">{message}</div>}
+        {message && <div className="text-red-500 mb-2">{message}</div>}
       </div>
       <h3 class="font-bold mb-2 underline">API Token</h3>
       <div className="flex flex-col w-full">
-        {tokenExists ? (
-          <Input
-            name="api-token"
-            type="text"
-            label=""
-            ref={apiTokenRef}
-            placeholder={"API token is hidden"}
-            readOnly={true}
-          />
-        ) : (
-          <Input
-            name="api-token"
-            type="text"
-            label=""
-            ref={apiTokenRef}
-            placeholder={"Click to generate an API token"}
-            readOnly={true}
-          />
-        )}
+        <input
+          name="api-token"
+          type="text"
+          label=""
+          value={apiToken}
+          placeholder={
+            tokenExists
+              ? "API token is hidden"
+              : "Click to generate an API token"
+          }
+          readOnly={true}
+          class="rounded-lg mb-4 py-1 px-2"
+        />
         <button
           onClick={(e) => formHandler(e)}
           type="submit"

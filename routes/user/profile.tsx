@@ -77,6 +77,7 @@ export default function ProfilePage(props: PageProps) {
         <CreateAuthToken
           apiURL={HOSTNAME}
           tokenExists={props.data?.tokenExists}
+          user={props.data?.user}
         />
       </div>
     </Layout>
