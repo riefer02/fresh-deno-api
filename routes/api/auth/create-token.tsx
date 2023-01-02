@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { compareSync } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
-import { createJWT } from "../../../lib/jwt.ts";
+import { createSessionToken } from "../../../lib/jwt.ts";
 import { calcFullYearFromNow } from "../../../lib/date-time.ts";
 import prisma from "../../../lib/prisma-client.ts";
 
@@ -30,7 +30,7 @@ export const handler: Handlers = {
       });
     }
 
-    const jwt = await createJWT(user, calcFullYearFromNow());
+    const jwt = await createSessionToken(user, calcFullYearFromNow());
 
     return new Response(
       JSON.stringify({
