@@ -64,8 +64,8 @@ export default function CreateAuthToken({
               ? "API token is hidden"
               : "Click to generate an API token"
           }
-          readOnly={true}
-          class="rounded-lg mb-4 py-1 px-2"
+          readOnly
+          class="rounded-lg mb-4 py-1 px-2 pointer-events-none"
         />
         <button
           onClick={(e) => formHandler(e)}

@@ -55,16 +55,14 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
         <Input
           name="song-name"
           type="text"
-          label="Title"
           ref={songTitleInputRef}
-          placeholder={"Song title"}
+          placeholder={"Title"}
         />
         <Input
           name="song-artist"
-          label="Artist"
           ref={songArtistInputRef}
           type="text"
-          placeholder={"Song artist"}
+          placeholder={"Artist"}
         />
         <button
           onClick={(e) => formHandler(e)}
