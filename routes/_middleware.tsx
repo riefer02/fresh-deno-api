@@ -27,6 +27,8 @@ export async function handler(
   const jwt = cookies["graveyardjs-jwt"];
   const validUserData = await verifyJWT(jwt);
 
+  console.log({ ["valid-jwt-middleware-user-data"]: validUserData });
+
   if (!validUserData) {
     const res = new Response(
       JSON.stringify({ message: "Unauthenticated user, redirecting..." }),

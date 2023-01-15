@@ -15,6 +15,7 @@ import CreateAuthToken from "../../islands/CreateAuthToken.tsx";
 export const handler: Handlers = {
   async GET(_req, ctx) {
     const user = userData.value;
+    console.log({ ["profile-route-GET"]: user });
 
     if (isEmptyObject(user))
       return new Response(
@@ -30,6 +31,7 @@ export const handler: Handlers = {
 
 export default function ProfilePage(props: PageProps) {
   const avatarFrameStyles = "w-20 h-20 rounded-full overflow-hidden";
+  console.log({ ["profile-client"]: props.data?.user });
 
   return (
     <Layout pathname={props.url.pathname}>

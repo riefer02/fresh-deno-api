@@ -4,6 +4,7 @@ import { create, verify } from "https://deno.land/x/djwt@v2.7/mod.ts";
 interface UserLoginAttributes {
   sub: string;
   email: string;
+  user_id: string;
 }
 
 const rawKey = Deno.env.get("PRIVATE_KEY") || config().PRIVATE_KEY;
@@ -23,11 +24,11 @@ export const createSessionToken = async (
 ) => {
   try {
     const importedKey = await importKey(rawKey);
-
+    console.log({ ["create-session-token-function"]: user });
     return await create(
       { alg: "HS512", typ: "JWT" },
       {
-        sub: user.sub,
+        sub: user.sub || user.user_id,
         email: user.email,
         exp: expiration,
         iss: "graveyardjs",

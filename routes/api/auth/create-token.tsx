@@ -8,7 +8,7 @@ export const handler: Handlers = {
     try {
       const { user } = await req.json();
       const apiToken = await createAPIToken(user, calcFullYearFromNow());
-      console.log({ user });
+      console.log({ ["create-token"]: user });
 
       await prisma.users.update({
         where: {
