@@ -1,15 +1,21 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import Layout from "../../components/Layout.tsx";
+
 import { isEmptyObject } from "../../lib/is-empty-object.ts";
 import { userData } from "../../lib/user-signal.ts";
-import { getUserProfile } from "../../services/user/get-user-profile.ts";
-import CreateSongForm from "../../islands/CreateSongForm.tsx";
 import { HOSTNAME } from "../../lib/environment.ts";
+
+import { getUserProfile } from "../../services/user/get-user-profile.ts";
+
+import Layout from "../../components/Layout.tsx";
 import { HeadElement } from "../../components/HeadElement.tsx";
+
+import CreateSongForm from "../../islands/CreateSongForm.tsx";
+import CreateAuthToken from "../../islands/CreateAuthToken.tsx";
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
     const user = userData.value;
+    console.log({ ["profile-route-GET"]: user });
 
     if (isEmptyObject(user))
       return new Response(
@@ -17,14 +23,15 @@ export const handler: Handlers = {
         { status: 307, headers: { Location: "/user/login" } }
       );
 
-    const { userAvatarUrl } = await getUserProfile(user);
+    const { userAvatarUrl, tokenExists } = await getUserProfile(user);
 
-    return ctx.render({ user, userAvatarUrl });
+    return ctx.render({ user, userAvatarUrl, tokenExists });
   },
 };
 
 export default function ProfilePage(props: PageProps) {
   const avatarFrameStyles = "w-20 h-20 rounded-full overflow-hidden";
+  console.log({ ["profile-client"]: props.data?.user });
 
   return (
     <Layout pathname={props.url.pathname}>
@@ -69,6 +76,11 @@ export default function ProfilePage(props: PageProps) {
           </form>
         </div>
         <CreateSongForm apiURL={HOSTNAME} />
+        <CreateAuthToken
+          apiURL={HOSTNAME}
+          tokenExists={props.data?.tokenExists}
+          user={props.data?.user}
+        />
       </div>
     </Layout>
   );

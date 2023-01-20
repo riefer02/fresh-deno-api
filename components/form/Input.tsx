@@ -6,10 +6,21 @@ interface InputProps {
   label: string;
   type: string;
   placeholder: string;
+  readOnly: boolean;
+  disabled: boolean;
+  className: string;
 }
 
 const Input = forwardRef((props: InputProps, ref) => {
-  const { name, label, type, placeholder } = props;
+  const {
+    name,
+    label,
+    type = "text",
+    placeholder,
+    readOnly = false,
+    disabled = false,
+    className = "",
+  } = props;
   const [{ value }, set] = useState({ value: "" });
 
   useImperativeHandle(
@@ -28,18 +39,22 @@ const Input = forwardRef((props: InputProps, ref) => {
 
   return (
     <>
-      <label class="" for={name}>
-        {label}
-      </label>
+      {label && (
+        <label class="" for={name}>
+          {label}
+        </label>
+      )}
       <input
         type={type}
         id={name}
         name={name}
-        class="rounded-lg mb-4 py-1 px-2"
+        class={`rounded-lg mb-4 py-1 px-2 ${className}`}
         ref={ref}
         value={value}
         onInput={(event) => handleInputChange(event)}
         placeholder={placeholder}
+        readOnly={readOnly}
+        disabled={disabled}
       />
     </>
   );

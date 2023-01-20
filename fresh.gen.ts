@@ -30,7 +30,8 @@ import * as $23 from "./routes/user/join.tsx";
 import * as $24 from "./routes/user/login.tsx";
 import * as $25 from "./routes/user/profile.tsx";
 import * as $$0 from "./islands/CreateArtist.tsx";
-import * as $$1 from "./islands/CreateSongForm.tsx";
+import * as $$1 from "./islands/CreateAuthToken.tsx";
+import * as $$2 from "./islands/CreateSongForm.tsx";
 
 const manifest = {
   routes: {
@@ -63,7 +64,8 @@ const manifest = {
   },
   islands: {
     "./islands/CreateArtist.tsx": $$0,
-    "./islands/CreateSongForm.tsx": $$1,
+    "./islands/CreateAuthToken.tsx": $$1,
+    "./islands/CreateSongForm.tsx": $$2,
   },
   baseUrl: import.meta.url,
   config,
