@@ -48,23 +48,21 @@ export default function CreateSong({ apiURL }: CreateSongProps) {
   return (
     <div class="mb-10">
       <div className="h-4">
-        {message && <div className="text-red-500">{message}</div>}
+        {message && <div className="text-red-500 mb-2">{message}</div>}
       </div>
       <h3 class="font-bold mb-2 underline">Create Song</h3>
       <div class="flex flex-col">
         <Input
           name="song-name"
           type="text"
-          label="Title"
           ref={songTitleInputRef}
-          placeholder={"Song title"}
+          placeholder={"Title"}
         />
         <Input
           name="song-artist"
-          label="Artist"
           ref={songArtistInputRef}
           type="text"
-          placeholder={"Song artist"}
+          placeholder={"Artist"}
         />
         <button
           onClick={(e) => formHandler(e)}

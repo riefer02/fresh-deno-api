@@ -3,9 +3,10 @@ import { genSalt, hash } from "https://deno.land/x/bcrypt@v0.2.4/mod.ts";
 import Layout from "../../components/Layout.tsx";
 import { getTomorrow } from "../../lib/date-time.ts";
 import { errorHandler } from "../../lib/error-handlers.ts";
-import { createJWT } from "../../lib/jwt.ts";
+import { createSessionToken } from "../../lib/jwt.ts";
 import { LoginCredentials } from "../../lib/types.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
+import { eightHoursFromNow } from "../../lib/date-time.ts";
 import prisma from "../../lib/prisma-client.ts";
 
 export const handler: Handlers = {
@@ -36,7 +37,7 @@ export const handler: Handlers = {
       });
 
       if (user) {
-        const jwt = await createJWT(user);
+        const jwt = await createSessionToken(user, eightHoursFromNow());
 
         return new Response(JSON.stringify({ message: "Successful sign up" }), {
           status: 303,
