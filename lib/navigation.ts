@@ -32,4 +32,9 @@ export const navigationItems = [
     href: "/app/chat",
     linkType: "authenticated",
   },
+  {
+    name: "File Stream",
+    href: "/app/file-stream",
+    linkType: "authenticated",
+  },
 ];
