@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
+import { Howl } from "https://esm.sh/howler@2.2.3";
 
 type AudioPlayerProps = {
   apiURL: string;
@@ -6,6 +7,7 @@ type AudioPlayerProps = {
 
 function AudioPlayer({ apiURL }: AudioPlayerProps) {
   const ref = useRef(null);
+  const [audioURL, setAudioURL] = useState("");
 
   const fetchAudio = async () => {
     const headers = new Headers();
@@ -50,18 +52,34 @@ function AudioPlayer({ apiURL }: AudioPlayerProps) {
       .then((url) => {
         console.log(url);
         ref.current.src = url;
-        ref.current.play();
+        setAudioURL(url);
+        // console.log({ lame });
+        // ref.current.play();
       });
   };
 
   useEffect(() => {
-    if (ref.current && ref.current.src !== false) {
-      //   ref.current.add
+    if (ref.current && ref.current.src !== false && audioURL) {
+      ref.current.addEventListener("loadstart", () => {
+        console.log("loadstart");
+      });
     }
+
+    return () => ref.current.removeEventListener("loadstart", null);
   }, [ref.current]);
 
+  useEffect(() => {
+    if (!audioURL) return;
+    const sound = new Howl({
+      src: [audioURL],
+      html5: true,
+    });
+
+    // sound.play();
+  }, [audioURL]);
+
   return (
-    <div>
+    <div className="w-full flex flex-col items-center justify-center py-4 px-4 gap-10">
       <button
         className="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
         onClick={fetchAudio}
