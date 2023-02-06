@@ -10,6 +10,7 @@ export const handler: Handlers = {
 
       // create subprocess: Covert Audio to Ogg format
       console.log("Coverting audio to ogg");
+      console.log({ currentDirectory });
 
       const p = Deno.run({
         cmd: [
@@ -27,6 +28,7 @@ export const handler: Handlers = {
       // await its completion
       await p.status();
 
+      console.log("Opening new ogg file")
       const oggfile = await Deno.open(`${currentDirectory}/static/audio.ogg`, {
         read: true,
       });
