@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useState } from "preact/compat";
+import { inputStyles } from "../../lib/styles.ts";
 
 interface InputProps {
   name: string;
@@ -48,7 +49,7 @@ const Input = forwardRef((props: InputProps, ref) => {
         type={type}
         id={name}
         name={name}
-        class={`rounded-lg mb-4 py-1 px-2 ${className}`}
+        class={`${inputStyles} ${className}`}
         ref={ref}
         value={value}
         onInput={(event) => handleInputChange(event)}

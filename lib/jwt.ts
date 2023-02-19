@@ -24,7 +24,6 @@ export const createSessionToken = async (
 ) => {
   try {
     const importedKey = await importKey(rawKey);
-    console.log({ ["create-session-token-function"]: user });
     return await create(
       { alg: "HS512", typ: "JWT" },
       {

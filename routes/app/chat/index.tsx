@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Layout from "../../../components/Layout.tsx";
 import { HeadElement } from "../../../components/HeadElement.tsx";
 import { handler as chatBotHandler } from "../../api/chat/index.tsx";
+import { inputStyles } from "../../../lib/styles.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
@@ -36,7 +37,7 @@ export default function ChatPage(props: PageProps) {
               <input
                 type="question"
                 name="question"
-                class="rounded-lg py-1 px-2"
+                class={inputStyles}
                 placeholder="Ask a question..."
               />
               <button

@@ -15,6 +15,6 @@ Had a big struggle moving the project to Logic Pro X. I dealt with technical iss
 it's all apart of the journey.
 
 I wonder if I might push for the guitarist to do an acoustic track for their album. I think it would add a lot of depth to their
-sonic persona and showcawe his talent. Which frankly the whole group has in spades.
+sonic persona and showcase his talent. Which frankly the whole group has in spades.
 
 Going to step away for a bit, then come back to it and reflect.

@@ -16,8 +16,8 @@ export default function BlogSidebar(props: { path: string }) {
   );
 }
 
-const link = apply`text(gray-900 hover:gray-600)`;
-const linkActive = apply`text(green-600 hover:green-500)`;
+const link = apply`text(gray-900 hover:purple-700)`;
+const linkActive = apply`text(purple-500 hover:purple-700)`;
 
 export function SidebarCategory(props: {
   path: string;
