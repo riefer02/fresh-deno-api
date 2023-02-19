@@ -23,7 +23,7 @@ import * as $16 from "./routes/api/v1/songs/[id].tsx";
 import * as $17 from "./routes/api/v1/songs/index.tsx";
 import * as $18 from "./routes/api/v1/user/avatar/index.tsx";
 import * as $19 from "./routes/app/chat/index.tsx";
-import * as $20 from "./routes/app/file-stream/index.tsx";
+import * as $20 from "./routes/app/convert/ogg.tsx";
 import * as $21 from "./routes/blog/[...slug].tsx";
 import * as $22 from "./routes/gfm.css.tsx";
 import * as $23 from "./routes/index.tsx";
@@ -58,7 +58,7 @@ const manifest = {
     "./routes/api/v1/songs/index.tsx": $17,
     "./routes/api/v1/user/avatar/index.tsx": $18,
     "./routes/app/chat/index.tsx": $19,
-    "./routes/app/file-stream/index.tsx": $20,
+    "./routes/app/convert/ogg.tsx": $20,
     "./routes/blog/[...slug].tsx": $21,
     "./routes/gfm.css.tsx": $22,
     "./routes/index.tsx": $23,

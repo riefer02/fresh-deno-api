@@ -19,7 +19,8 @@
       ["answer-not-found", "Answer, Not Found"],
       ["presigned-url", "Presigned Url"],
       ["migration-adventure", "Migration Adventure"],
-      ["docker-up", "Docker Up"]
+      ["docker-up", "Docker Up"],
+      ["web-apps", "Web Apps"]
     ]
   },
   "personal-reflections": {

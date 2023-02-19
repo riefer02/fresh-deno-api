@@ -62,6 +62,8 @@ export const handler: Handlers = {
 };
 
 export default function JoinPage(props: PageProps) {
+  const inputStyles = `rounded-lg mb-4 py-1 px-2 bg-gray-100 border-purple-200 border`;
+
   return (
     <>
       <HeadElement
@@ -78,13 +80,13 @@ export default function JoinPage(props: PageProps) {
             <input
               type="email"
               name="email"
-              class="rounded-lg mb-4 py-1 px-2"
+              class={inputStyles}
               placeholder="Email"
             />
             <input
               type="password"
               name="password"
-              class="rounded-lg mb-4 py-1 px-2"
+              class={inputStyles}
               placeholder="Password"
             />
             <button

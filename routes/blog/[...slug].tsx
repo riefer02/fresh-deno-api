@@ -164,7 +164,7 @@ function Content(props: { page: Page }) {
         <sub>{formatBlogDate(props.page.data.date)}</sub>
       )}
       <div
-        class={`${body} markdown-body`}
+        class={`${body} markdown-body bg-transparent`}
         dangerouslySetInnerHTML={{ __html: html }}
       />
       <ForwardBackButtons slug={props.page.slug} />
@@ -172,7 +172,7 @@ function Content(props: { page: Page }) {
   );
 }
 
-const button = apply`p-2 bg-gray-100 w-full border(1 gray-200) grid`;
+const button = apply`bg-gray-100 w-full border(1 gray-200) grid rounded-lg mb-4 py-1 px-2 text-gray-600 bg-gray-100 border-purple-200 border`;
 
 function ForwardBackButtons(props: { slug: string }) {
   const currentIndex = SLUGS.findIndex((slug) => slug === props.slug);

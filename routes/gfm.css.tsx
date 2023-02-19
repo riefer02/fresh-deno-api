@@ -23,6 +23,10 @@ ol.nested li:before {
 	counter-increment: item;
 }
 
+.markdown-body {
+  background: transparent;
+}
+
 .markdown-body ul {
   list-style: disc;
 }

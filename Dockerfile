@@ -10,9 +10,13 @@ WORKDIR /app
 COPY . .
 
 # Install ffmpeg to container
-RUN apk upgrade -U \ 
-    && apk add ca-certificates ffmpeg libva-intel-driver \
+RUN apk update \
+    && apk upgrade -U \ 
+    && apk add ffmpeg \
     && rm -rf /var/cache/*
+
+# Set file permissions
+RUN chmod -R 777 .
 
 # The Deno cache command is run to cache the main.ts file, with the import map import_map.json.
 RUN deno cache main.ts --import-map=import_map.json

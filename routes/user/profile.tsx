@@ -12,6 +12,8 @@ import { HeadElement } from "../../components/HeadElement.tsx";
 import CreateSongForm from "../../islands/CreateSongForm.tsx";
 import CreateAuthToken from "../../islands/CreateAuthToken.tsx";
 
+import { inputStyles } from "../../lib/styles.ts";
+
 export const handler: Handlers = {
   async GET(_req, ctx) {
     const user = userData.value;
@@ -29,7 +31,8 @@ export const handler: Handlers = {
 };
 
 export default function ProfilePage(props: PageProps) {
-  const avatarFrameStyles = "w-20 h-20 rounded-full overflow-hidden";
+  const avatarFrameStyles = "w-40 h-40 rounded-full overflow-hidden";
+  const titleStyles = `text-4xl gray-900 tracking-tight font-extrabold my-6`;
 
   return (
     <Layout pathname={props.url.pathname}>
@@ -38,25 +41,30 @@ export default function ProfilePage(props: PageProps) {
         description={`User profile of ${userData.value.email}.`}
         url={new URL(props.url.href)}
       />
+
       <div class="p-4 mx-auto max-w-md w-full">
         <div class="mb-10">
           {props.data?.user.email && (
-            <p class="mb-6">
-              Profile Page of {props.data.user.email || "poop"}
-            </p>
+            <p class={titleStyles}>{props.data.user.email || "Username"}</p>
           )}
-          <div class={avatarFrameStyles}>
-            {props.data?.userAvatarUrl ? (
-              <img src={props.data.userAvatarUrl} alt="" class="object-cover" />
-            ) : (
-              <div class="h-full w-full bg-gray-300"></div>
-            )}
+          <div class="w-full flex items-center justify-center mb-4">
+            <div class={avatarFrameStyles}>
+              {props.data?.userAvatarUrl ? (
+                <img
+                  src={props.data.userAvatarUrl}
+                  alt=""
+                  class="object-cover"
+                />
+              ) : (
+                <div class="h-full w-full bg-gray-300"></div>
+              )}
+            </div>
           </div>
-          <label for="avatar">Choose avatar to upload</label>
           <form
             method="post"
             encType="multipart/form-data"
             action="/api/v1/user/avatar"
+            class="flex items-start justify-start gap-2"
           >
             <input
               type="file"
@@ -64,9 +72,10 @@ export default function ProfilePage(props: PageProps) {
               name="avatar"
               accept="image/png, image/jpeg"
               required
+              class={inputStyles}
             />
             <button
-              class="px-2 rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
+              class="px-2 py-1 ml-auto rounded-lg text-gray-600 bg-gray-100 border-purple-200 border"
               type="submit"
             >
               Submit
