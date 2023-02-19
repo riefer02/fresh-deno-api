@@ -1,3 +1,7 @@
+// A legacy iteration, I was trying to create a crypto key and make it secure. 
+// I think this approach is compromisable because the key just sits in the /app folder,
+// I chose to manually generate the key and store it in an env variable
+
 const keyExists = await Deno.readTextFile(".jwk");
 
 if (!keyExists) {

@@ -32,4 +32,9 @@ export const navigationItems = [
     href: "/app/chat",
     linkType: "authenticated",
   },
+  {
+    name: "Ogg",
+    href: "/app/convert/ogg",
+    linkType: "authenticated",
+  },
 ];
