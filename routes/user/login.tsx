@@ -8,6 +8,7 @@ import { LoginCredentials } from "../../lib/types.ts";
 import { HeadElement } from "../../components/HeadElement.tsx";
 import { eightHoursFromNow } from "../../lib/date-time.ts";
 import prisma from "../../lib/prisma-client.ts";
+import { inputStyles } from "../../lib/styles.ts";
 
 export const handler: Handlers = {
   GET(_req, ctx) {
@@ -55,6 +56,8 @@ export const handler: Handlers = {
 };
 
 export default function LoginPage(props: PageProps) {
+
+  
   return (
     <>
       <HeadElement
@@ -71,13 +74,13 @@ export default function LoginPage(props: PageProps) {
             <input
               type="email"
               name="email"
-              class="rounded-lg mb-4 py-1 px-2"
+              class={inputStyles}
               placeholder="Email"
             />
             <input
               type="password"
               name="password"
-              class="rounded-lg mb-4 py-1 px-2"
+              class={inputStyles}
               placeholder="Password"
             />
             <button

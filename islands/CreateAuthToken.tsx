@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "preact/hooks";
+import { inputStyles } from "../lib/styles.ts";
 
 type CreateAuthTokenProps = {
   apiURL: string;
@@ -65,7 +66,7 @@ export default function CreateAuthToken({
               : "Click to generate an API token"
           }
           readOnly
-          class="rounded-lg mb-4 py-1 px-2 pointer-events-none"
+          class={`${inputStyles} pointer-events-none`}
         />
         <button
           onClick={(e) => formHandler(e)}
