@@ -32,7 +32,7 @@ export const handler: Handlers = {
 
 export default function ProfilePage(props: PageProps) {
   const avatarFrameStyles = "w-40 h-40 rounded-full overflow-hidden";
-  const titleStyles = `text-4xl gray-900 tracking-tight font-extrabold my-6`;
+  const titleStyles = `text-2xl md:text-4xl text-center gray-900 tracking-tight font-extrabold my-6`;
 
   return (
     <Layout pathname={props.url.pathname}>

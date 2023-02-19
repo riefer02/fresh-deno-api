@@ -33,7 +33,7 @@ export const navigationItems = [
     linkType: "authenticated",
   },
   {
-    name: "Ogg Conversion",
+    name: "Ogg",
     href: "/app/convert/ogg",
     linkType: "authenticated",
   },

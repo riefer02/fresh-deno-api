@@ -53,8 +53,6 @@ function AudioPlayer({ apiURL }: AudioPlayerProps) {
         console.log(url);
         ref.current.src = url;
         setAudioURL(url);
-        // console.log({ lame });
-        // ref.current.play();
       });
   };
 

@@ -24,7 +24,19 @@ export default function ChatPage(props: PageProps) {
       <Layout pathname={props.url.pathname}>
         <div class="min-h-[70vh]">
           <div class="mx-auto max-w-screen-md py-10 p-8 text-center">
-            <h1 class="text-6xl font-bold mb-10 py-4 px-6">Ogg Conversion</h1>
+            <h1 class="text-6xl font-bold py-4 px-6 text-gray-900">Ogg Conversion</h1>
+            <div class="mb-10 py-4 px-6 text-gray-900">
+              <p class="mb-2">
+                This is a prototype for file format manipulation for optimial
+                storage and performance of audio files to end users.
+              </p>
+              <p>
+                Requires running a subprocess and accessing ffmpeg, but Deno
+                Deploy doesn't currently allow for usage of subprocesses on
+                their platform. Currently exploring containerized deployment
+                through other platforms.
+              </p>
+            </div>
             <AudioPlayer apiURL={HOSTNAME} />
             {props.data?.err?.message.length > 0 && (
               <div>{props.data.err.message}</div>

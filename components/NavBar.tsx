@@ -13,7 +13,7 @@ export default function NavigationBar(props: NavBarProps) {
 
   return (
     <nav class="bg-purple-200 py-2">
-      <ul class="grid grid-cols-2 sm:flex text-center lg:text-left justify-center gap-2 sm:gap-8 mx-4">
+      <ul class={`grid grid-flow-col auto-cols-max mx-auto sm:flex text-center lg:text-left justify-center gap-6 sm:gap-8 mx-4`}>
         {navigationItems.map((item) => {
           if (
             item.linkType === "always" ||
