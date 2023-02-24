@@ -37,9 +37,9 @@ const generatePrompt = (question: string) => {
   return `
   ${knowledgeBase}
   
-  Answer the next question as yourself.
-
-  Question: ${question}`;
+  Human: ${question}
+  
+  AI:`;
 };
 
 export const handler: Handlers = {
