@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.8.0",
+    "@prisma/client": "^4.8.1",
     "dotenv-cli": "^6.0.0"
   },
   "devDependencies": {
-    "prisma": "^4.8.0"
+    "prisma": "^4.8.1"
   }
 }
