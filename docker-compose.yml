@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GIT_REVISION: latest
+    ports:
+      - "6969:6969"
+    volumes:
+      - .:/app
+    environment:
+      - DENO_DEPLOYMENT_ID=${GIT_REVISION}
+    command: ["run", "-A", "main.ts"]
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+      POSTGRES_DB: example
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
