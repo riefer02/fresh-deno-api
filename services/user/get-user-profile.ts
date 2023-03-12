@@ -14,11 +14,14 @@ export const getUserProfile = async (user) => {
       },
     });
 
-
     // fetch last avatar expiration time
+    console.log(localStorage ? "localStorage true" : "localStorage is falsy");
+
     const avatarExpirationCheck = new Date(
       localStorage.getItem(`${user.email}-avatar-expiration`)
     );
+
+    console.log({ avatar: localStorage.getItem(`${user.email}-avatar`) });
 
     if (
       avatarExpirationCheck &&

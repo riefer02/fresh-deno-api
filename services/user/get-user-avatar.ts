@@ -15,6 +15,7 @@ export const getUserAvatarImg = async (
     )
       .then((res) => res.json())
       .catch((err) => console.log(err.message));
+    console.log({ presignedURL: res.signedURL });
 
     if (res.signedURL) {
       return `${supabaseUrl}/storage/v1${res.signedURL}`;
