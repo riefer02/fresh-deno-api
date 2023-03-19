@@ -171,7 +171,7 @@ function Content(props: { page: Page }) {
     <main class={main}>
       <h1 class={title}>{props.page.title}</h1>
       {props.page.data?.date && (
-        <sub>{formatBlogDate(props.page.data.date)}</sub>
+        <sub>{formatBlogDate(props.page?.data?.date)}</sub>
       )}
       <div
         class={`${body} markdown-body bg-transparent`}
