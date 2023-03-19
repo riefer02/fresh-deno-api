@@ -10,7 +10,9 @@ export const getUserAvatarImg = async (
       {
         method: "POST",
         headers: { ...supabaseAuthHeaders, "Content-Type": "application/json" },
-        body: JSON.stringify({ expiresIn: expiration }),
+        body: JSON.stringify({
+          expiresIn: expiration,
+        }),
       }
     )
       .then((res) => res.json())
