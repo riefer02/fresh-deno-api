@@ -1,4 +1,4 @@
-import { supabaseUrl, supabaseAuthHeaders } from "../../lib/supabase-api.ts";
+import { supabaseUrl, supabaseAuthHeaders } from "./supabase-api.ts";
 
 export const getUserAvatarImg = async (
   userAvatarKey: string,
@@ -15,9 +15,11 @@ export const getUserAvatarImg = async (
     )
       .then((res) => res.json())
       .catch((err) => console.log(err.message));
-    console.log({ presignedURL: res.signedURL });
+
+    // console.log({ presignedURL: res.signedURL });
 
     if (res.signedURL) {
+      // console.log(`${supabaseUrl}/storage/v1${res.signedURL}`);
       return `${supabaseUrl}/storage/v1${res.signedURL}`;
     }
 

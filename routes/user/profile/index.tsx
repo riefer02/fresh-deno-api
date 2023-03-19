@@ -1,29 +1,35 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 
-import { isEmptyObject } from "../../lib/is-empty-object.ts";
-import { userData } from "../../lib/user-signal.ts";
-import { HOSTNAME } from "../../lib/environment.ts";
+import { isEmptyObject } from "../../../lib/is-empty-object.ts";
+import { userData } from "../../../lib/user-signal.ts";
+import { HOSTNAME } from "../../../lib/environment.ts";
+import { getUserProfile } from "../../../lib/get-user-profile.ts";
+import { inputStyles } from "../../../lib/styles.ts";
 
-import { getUserProfile } from "../../services/user/get-user-profile.ts";
+import Layout from "../../../components/Layout.tsx";
+import { HeadElement } from "../../../components/HeadElement.tsx";
 
-import Layout from "../../components/Layout.tsx";
-import { HeadElement } from "../../components/HeadElement.tsx";
+import CreateSongForm from "../../../islands/CreateSongForm.tsx";
+import CreateAuthToken from "../../../islands/CreateAuthToken.tsx";
+import UserAvatar from "../../../islands/UserAvatar.tsx";
 
-import CreateSongForm from "../../islands/CreateSongForm.tsx";
-import CreateAuthToken from "../../islands/CreateAuthToken.tsx";
-
-import { inputStyles } from "../../lib/styles.ts";
+interface UserJwt {
+  sub: string;
+  email: string;
+  exp: number;
+  iss: string;
+}
 
 export const handler: Handlers = {
   async GET(_req, ctx) {
-    const user = userData.value;
+    const user: UserJwt = userData.value;
 
     if (isEmptyObject(user))
       return new Response(
         JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
         { status: 307, headers: { Location: "/user/login" } }
       );
-    // cache userAvatarUrl
+
     const { userAvatarUrl, tokenExists } = await getUserProfile(user);
 
     return ctx.render({ user, userAvatarUrl, tokenExists });
@@ -31,8 +37,7 @@ export const handler: Handlers = {
 };
 
 export default function ProfilePage(props: PageProps) {
-  const avatarFrameStyles = "w-40 h-40 rounded-full overflow-hidden";
-  const titleStyles = `text-2xl md:text-4xl text-center gray-900 tracking-tight font-extrabold my-6`;
+  const titleStyles = `text-2xl text-center gray-900 tracking-tight font-extrabold my-6`;
 
   return (
     <Layout pathname={props.url.pathname}>
@@ -48,17 +53,7 @@ export default function ProfilePage(props: PageProps) {
             <p class={titleStyles}>{props.data.user.email || "Username"}</p>
           )}
           <div class="w-full flex items-center justify-center mb-4">
-            <div class={avatarFrameStyles}>
-              {props.data?.userAvatarUrl ? (
-                <img
-                  src={props.data.userAvatarUrl}
-                  alt=""
-                  class="object-cover"
-                />
-              ) : (
-                <div class="h-full w-full bg-gray-300"></div>
-              )}
-            </div>
+            <UserAvatar src={props?.data?.userAvatarUrl} />
           </div>
           <form
             method="post"

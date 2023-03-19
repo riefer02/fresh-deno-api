@@ -30,11 +30,12 @@ import * as $23 from "./routes/index.tsx";
 import * as $24 from "./routes/sitemap.xml.ts";
 import * as $25 from "./routes/user/join.tsx";
 import * as $26 from "./routes/user/login.tsx";
-import * as $27 from "./routes/user/profile.tsx";
+import * as $27 from "./routes/user/profile/index.tsx";
 import * as $$0 from "./islands/AudioPlayer.tsx";
 import * as $$1 from "./islands/CreateArtist.tsx";
 import * as $$2 from "./islands/CreateAuthToken.tsx";
 import * as $$3 from "./islands/CreateSongForm.tsx";
+import * as $$4 from "./islands/UserAvatar.tsx";
 
 const manifest = {
   routes: {
@@ -65,13 +66,14 @@ const manifest = {
     "./routes/sitemap.xml.ts": $24,
     "./routes/user/join.tsx": $25,
     "./routes/user/login.tsx": $26,
-    "./routes/user/profile.tsx": $27,
+    "./routes/user/profile/index.tsx": $27,
   },
   islands: {
     "./islands/AudioPlayer.tsx": $$0,
     "./islands/CreateArtist.tsx": $$1,
     "./islands/CreateAuthToken.tsx": $$2,
     "./islands/CreateSongForm.tsx": $$3,
+    "./islands/UserAvatar.tsx": $$4,
   },
   baseUrl: import.meta.url,
   config,
