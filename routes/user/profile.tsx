@@ -23,7 +23,7 @@ export const handler: Handlers = {
         JSON.stringify({ message: "Unauthenticated user, redirecting..." }),
         { status: 307, headers: { Location: "/user/login" } }
       );
-
+    // cache userAvatarUrl
     const { userAvatarUrl, tokenExists } = await getUserProfile(user);
 
     return ctx.render({ user, userAvatarUrl, tokenExists });
@@ -37,7 +37,7 @@ export default function ProfilePage(props: PageProps) {
   return (
     <Layout pathname={props.url.pathname}>
       <HeadElement
-        title={`${userData.value.email} User Profile | GraveyardJS`}
+        title={`User Profile ${userData.value.email}  | GraveyardJS`}
         description={`User profile of ${userData.value.email}.`}
         url={new URL(props.url.href)}
       />

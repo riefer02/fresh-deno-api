@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { Howl } from "https://esm.sh/howler@2.2.3";
+// import { Howl } from "https://esm.sh/howler@2.2.3";
 
 type AudioPlayerProps = {
   apiURL: string;
@@ -7,74 +7,57 @@ type AudioPlayerProps = {
 
 function AudioPlayer({ apiURL }: AudioPlayerProps) {
   const ref = useRef(null);
-  const [audioURL, setAudioURL] = useState("");
+  // const [audioURL, setAudioURL] = useState("");
 
   const fetchAudio = async () => {
     const headers = new Headers();
-    headers.append("Content-Type", "audio/mpeg");
+    headers.append("Content-Type", "audio/ogg");
 
-    const res = await fetch(`${apiURL}api/audio`, { headers })
-      .then((res) => {
-        console.log({ res });
-        return res.body;
-      })
-      .then((rb) => {
-        const reader = rb.getReader();
-        console.log({ rb });
+    const res = await fetch(`${apiURL}api/audio`, { headers });
+    console.log({ res });
 
-        return new ReadableStream({
-          start(controller) {
-            function push() {
-              reader.read().then(({ done, value }) => {
-                console.log({ value });
-                if (done) {
-                  console.log("done", done);
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                console.log(done, value);
-                push();
-              });
-            }
-            push();
-          },
-        });
-      })
-      .then((stream) => {
-        console.log({ stream });
-        return new Response(stream, {
-          headers: { "Content-Type": "audio/mpeg" },
-        });
-      })
-      .then((res) => res.blob())
-      .then((blob) => URL.createObjectURL(blob))
-      .then((url) => {
-        console.log(url);
-        ref.current.src = url;
-        setAudioURL(url);
-      });
+    const buffer = await res.arrayBuffer();
+    const blob = new Blob([buffer], { type: "audio/ogg" });
+    const url = URL.createObjectURL(blob);
+    console.log(url);
+  
+    ref.current.src = url;
+    // setAudioURL(url);
   };
 
+  // useEffect(() => {
+  //   if (!audioURL) return;
+  //   const sound = new Howl({
+  //     src: [audioURL],
+  //     format: "ogg",
+  //     html5: true,
+  //   });
+  
+  //   sound.once('load', () => {
+  //     console.log('howl')
+  //     sound.play();
+  //   });
+  
+  //   return () => {
+  //     sound.unload();
+  //   };
+  // }, [audioURL]);
+  
   useEffect(() => {
-    if (ref.current && ref.current.src !== false && audioURL) {
-      ref.current.addEventListener("loadstart", () => {
-        console.log("loadstart");
+    if (ref.current) {
+      ref.current.addEventListener("canplaythrough", () => {
+        ref.current.play();
       });
     }
 
-    return () => ref.current.removeEventListener("loadstart", null);
-  }, [ref.current]);
-
-  useEffect(() => {
-    if (!audioURL) return;
-    const sound = new Howl({
-      src: [audioURL],
-      html5: true,
-    });
-
-    // sound.play();
-  }, [audioURL]);
+    return () => {
+      if (ref.current) {
+        ref.current.removeEventListener("canplaythrough", () => {
+          ref.current.play();
+        });
+      }
+    };
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center justify-center py-4 px-4 gap-10">
