@@ -1,64 +1,65 @@
 import { Handlers } from "$fresh/server.ts";
+import { iterateReader } from "https://deno.land/std@0.187.0/streams/iterate_reader.ts";
+import { readableStreamFromIterable } from "https://deno.land/std@0.172.0/streams/readable_stream_from_iterable.ts";
 
 export const handler: Handlers = {
   async GET(_req, _ctx) {
     try {
-      // Return Readable Stream to Frontend
-      console.log("Getting audio file");
       const currentDirectory = Deno.cwd();
-      // const file = await Deno.readFile(`${currentDirectory}/static/audio.mp3`);
-
-      // create subprocess: Covert Audio to Ogg format
-      console.log("Coverting audio to ogg");
-      console.log({ currentDirectory });
-
-      const p = Deno.run({
-        cmd: [
-          "ffmpeg",
+      const command = new Deno.Command("ffmpeg", {
+        args: [
           "-i",
-          `${currentDirectory}/static/audio.mp3`,
+          `${currentDirectory}/static/audio/audio.mp3`,
           "-c:a",
           "libvorbis",
           "-q:a",
           "5",
-          `${currentDirectory}/static/audio.ogg`,
+          `${currentDirectory}/static/audio/audio.ogg`,
         ],
       });
+      const { code, stdout, stderr } = await command.output();
+      console.log({ code, stdout, stderr });
 
-      // await its completion
-      await p.status();
+      const oggFile = await Deno.open(
+        `${currentDirectory}/static/audio/audio.ogg`,
+        {
+          read: true,
+        }
+      );
 
-      console.log("Opening new ogg file")
-      const oggfile = await Deno.open(`${currentDirectory}/static/audio.ogg`, {
-        read: true,
-      });
+      const fileInfo = await Deno.stat(
+        `${currentDirectory}/static/audio/audio.ogg`
+      );
+      console.log("File type:", fileInfo.isFile);
 
       console.log("Creating readable stream");
-      const readableStream = await oggfile.readable;
-
-      console.log("Deleting file from server");
-      await Deno.remove(`${currentDirectory}/static/audio.ogg`);
+      const reader = iterateReader(oggFile);
+      const stream = readableStreamFromIterable(reader);
 
       console.log("Returning readable file stream to client");
-      return new Response(readableStream, {
+      const headers = new Headers();
+      headers.set("Content-Type", "audio/ogg");
+      headers.set("Cache-Control", "no-cache");
+      headers.set("Connection", "keep-alive");
+      headers.set("Content-Disposition", "inline");
+
+      const response = new Response(stream, {
         status: 200,
         statusText: "OK",
-        headers: {
-          "Content-Type": "audio/mpeg",
-        },
+        headers,
       });
 
-      // console.log({ file });
+      // console.log("Waiting for the reader to finish...");
+      // for await (const _ of reader) {
+      // }
 
-      // return new Response("Hello World", {
-      //   status: 200,
-      //   statusText: "OK",
-      //   headers: {
-      //     "Content-Type": "audio/mpeg",
-      //   },
-      // });
+      console.log("Deleting file from server");
+      await Deno.remove(`${currentDirectory}/static/audio/audio.ogg`);
+
+      return response;
     } catch (err) {
-      return new Response(`${err.message}`, { status: 404 });
+      console.error(err);
+      return new Response(`${err.message}`, { status: 500 });
     }
   },
 };

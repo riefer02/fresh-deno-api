@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "npx dotenv -- deno run -A --unstable --node-modules-dir --watch=static/,routes/ dev.ts",
+    "start": "npx dotenv -- deno run -A --unstable --node-modules-dir --watch=routes/ dev.ts",
     "production": "deno run -A main.ts",
     "screenshot": "deno run -A utils/screenshot.ts",
     "deno-lock": "deno cache --lock=deno.lock --lock-write dev.ts",
