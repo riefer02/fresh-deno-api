@@ -64,7 +64,7 @@ export default function BlogPage(props: PageProps<Data>) {
         url={new URL(props.url.href)}
       />
       <Head>
-        <link rel="stylesheet" href={`/gfm.css?build=${__FRSH_BUILD_ID}`} />
+        <link rel="stylesheet" href={`/gfm.css`} />
       </Head>
 
       <Layout pathname={props.url.pathname}>
