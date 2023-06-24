@@ -10,7 +10,10 @@ export const handler: Handlers = {
         status: 303,
         statusText: "OK",
         headers: {
-          ["set-cookie"]: `graveyardjs-jwt=""; Expires=${Date.now()}; Path=/; HttpOnly; SameSite=Lax`,
+          ["set-cookie"]: `graveyardjs-jwt=""; Expires=${new Date(
+            0
+          )}; Path=/; HttpOnly; SameSite=Lax`,
+
           Location: "/",
         },
       });

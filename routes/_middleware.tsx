@@ -25,6 +25,12 @@ export async function handler(
   }
 
   const jwt = cookies["graveyardjs-jwt"];
+
+  if (jwt === "") {
+    userData.value = {};
+    return ctx.next();
+  }
+
   const validUserData = await verifyJWT(jwt);
 
   if (!validUserData) {
